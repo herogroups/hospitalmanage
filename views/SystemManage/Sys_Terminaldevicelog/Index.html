@@ -1,0 +1,375 @@
+﻿ 
+ <div class="wrapper wrapper-content animated ">
+     <div class="ibox">
+         <div class="ibox-title">
+             <form id="dform" class="form-horizontal">
+                 <div class="row">
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="TERMINALCODE">设备编号 ：</label>
+                             <div class="col-sm-8">
+                                 <input id="TERMINALCODE" name="TERMINALCODE" placeholder="设备编号 " class="form-control">
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="ESAMSTATE">密码键盘状态 ：</label>
+                             <div class="col-sm-8">
+                                 <input id="ESAMSTATE" name="ESAMSTATE" placeholder="密码键盘状态 " class="form-control">
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="ESAMDESC">密码键盘错误描述 ：</label>
+                             <div class="col-sm-8">
+                                 <input id="ESAMDESC" name="ESAMDESC" placeholder="密码键盘错误描述 " class="form-control">
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="CARDREADERSTATE">读卡器状态 ：</label>
+                             <div class="col-sm-8">
+                                 <input id="CARDREADERSTATE" name="CARDREADERSTATE" placeholder="读卡器状态 "
+                                     class="form-control">
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="CARDREADERDESC">读卡器错误描述 ：</label>
+                             <div class="col-sm-8">
+                                 <input id="CARDREADERDESC" name="CARDREADERDESC" placeholder="读卡器错误描述 "
+                                     class="form-control">
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="RECEIPTPRINTERSTATE">凭条打印机状态 ：</label>
+                             <div class="col-sm-8">
+                                 <input id="RECEIPTPRINTERSTATE" name="RECEIPTPRINTERSTATE" placeholder="凭条打印机状态 "
+                                     class="form-control">
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="RECEIPTPRINTERDESC">凭条设备故障描述 ：</label>
+                             <div class="col-sm-8">
+                                 <input id="RECEIPTPRINTERDESC" name="RECEIPTPRINTERDESC" placeholder="凭条设备故障描述 "
+                                     class="form-control">
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="INVOICEPRINTERSTATE">票据打印机状态 ：</label>
+                             <div class="col-sm-8">
+                                 <input id="INVOICEPRINTERSTATE" name="INVOICEPRINTERSTATE" placeholder="票据打印机状态 "
+                                     class="form-control">
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="INVOICEPRINTERDESC">发票打印机故障描述 ：</label>
+                             <div class="col-sm-8">
+                                 <input id="INVOICEPRINTERDESC" name="INVOICEPRINTERDESC" placeholder="发票打印机故障描述 "
+                                     class="form-control">
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="REVICETIME">接收到客户端消息 ：</label>
+                             <div class="col-sm-8">
+                                 <input id="REVICETIME" name="REVICETIME" placeholder="接收到客户端消息 " class="form-control">
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="MAILISSEND">故障邮件是否发送 ：</label>
+                             <div class="col-sm-8">
+                                 <input id="MAILISSEND" name="MAILISSEND" placeholder="故障邮件是否发送 " class="form-control">
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="MSGISSEND">是否发送短信 ：</label>
+                             <div class="col-sm-8">
+                                 <input id="MSGISSEND" name="MSGISSEND" placeholder="是否发送短信 " class="form-control">
+
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </form>
+             <div class="ibox-content">
+                 <div class="row">
+                     <div class="col-sm-5">
+                         <button type="button" class="btn btn-sm btn-primary" id="btn_search"><i
+                                 class="fa fa-search"></i> 搜索</button>
+                         <button type="button" class="btn btn-sm btn-info" id="btn_Add"><i
+                                 class="fa fa-check"></i>增加</button>
+                         <button class="btn btn-sm btn-warning  " type="button" onclick="Remove()"><i
+                                 class="fa fa-warning"></i><span class="bold">删除</span></button>
+
+
+                     </div>
+                     <table id="tb_grid"></table>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
+ <script>
+     $(function () {
+
+         $("#btn_Importxml").click(function () {
+             Import();
+         });
+         $("#btn_Add").click(function () {
+             AddIndex();
+         });
+         $("#btn_search").click(function () {
+             $("#tb_grid").bootstrapTable('refresh');
+         });
+         initTable();
+
+     });
+
+
+     function initTable() {
+
+         var options = {
+             gridName: 'tb_grid', //网格名称
+             url: '/SystemManage/sys_terminaldevicelog/GetAllList', //表格提交地址
+             sidePagination: 'client', //客户端client分页还是服务端server分页
+             param: queryParams, //查询参数
+             uniqueId: 'BookId', //每一行的唯一标识，一般为主键列
+             columns: [{
+                     checkbox: true
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'TERMINALCODE',
+                     title: '设备编号 ',
+                     formatter: function (value, row) {
+                         return "<a onclick='modify(" + row.LOGID + ")'>" + row.TERMINALCODE + "</a>"
+                     }
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'ESAMSTATE',
+                     title: '密码键盘状态 '
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'ESAMDESC',
+                     title: '密码键盘错误描述 '
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'CARDREADERSTATE',
+                     title: '读卡器状态 '
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'CARDREADERDESC',
+                     title: '读卡器错误描述 '
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'RECEIPTPRINTERSTATE',
+                     title: '凭条打印机状态 '
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'RECEIPTPRINTERDESC',
+                     title: '凭条设备故障描述 '
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'INVOICEPRINTERSTATE',
+                     title: '票据打印机状态 '
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'INVOICEPRINTERDESC',
+                     title: '发票打印机故障描述 '
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'REVICETIME',
+                     title: '接收到客户端消息 '
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'MAILISSEND',
+                     title: '故障邮件是否发送 '
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'MSGISSEND',
+                     title: '是否发送短信 '
+                 },
+
+             ], //显示网格列表信息
+             LoadSuccess: function (data) {
+
+             }, //加载成功回调函数
+
+             height: $(window).height() - 60, //table表格高度
+         };
+         bstrap.initGrid(options)
+     }
+
+     function queryParams(params) {
+         var param = $.param({
+             // 当前页数
+             "offset": this.offset,
+             "pageindex": this.pageNumber,
+             // 每页显示多少条
+             "pageSize": this.pageSize
+         }) + '&' + $('#dform').serialize();
+         return param;
+
+     }
+
+     function tableRefresh() {
+
+         $("#tb_grid").bootstrapTable('refresh', $("#dform").serialize());
+     }
+
+     function show(Id) {
+
+         var defaults = {
+             title: '',
+             width: "1024px",
+             height: "500px",
+             url: " /SystemManage/sys_terminaldevicelog/Index?Id=" + Id,
+             shade: 0.3,
+             LoadSuccess: function (layero, index) {
+                 var body = layer.getChildFrame('body', index);
+                 var iframeWin = window[layero.find('iframe')[0][
+                 'name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+
+             }
+
+         };
+         var index = $.modalOpen(defaults)
+         //  layer.full(index);
+     }
+
+     function AddIndex() {
+         var defaults = {
+             title: ' 终端设备硬件状态  增加 ',
+             width: "1024px",
+             height: "500px",
+             url: " /SystemManage/sys_terminaldevicelog/AddIndex",
+             shade: 0.3,
+
+             btn: ['确认', '关闭'],
+
+             LoadSuccess: function (layero, index) {
+                 var body = layer.getChildFrame('body', index);
+                 var iframeWin = window[layero.find('iframe')[0][
+                 'name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                 iframeWin.$("#dform").attr("action", "/SystemManage/sys_terminaldevicelog/Add");
+             },
+             callBack: function (layero) {
+                 var iframeWin = window[layero.find('iframe')[0]['name']];
+                 iframeWin.Submit();
+
+             }
+         };
+         var index = $.modalOpen(defaults)
+         //  layer.full(index);
+     }
+
+     function modify(Id) {
+         var defaults = {
+             title: '修改',
+             width: "1024px",
+             height: "500px",
+             url: " /SystemManage/sys_terminaldevicelog/UpdateIndex?Id=" + Id,
+
+             shade: 0.3,
+             btn: ['确认', '关闭'],
+
+             LoadSuccess: function (layero, index) {
+                 var body = layer.getChildFrame('body', index);
+                 var iframeWin = window[layero.find('iframe')[0][
+                 'name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                 iframeWin.$("#dform").attr("action", "/SystemManage/sys_terminaldevicelog/Update");
+             },
+             callBack: function (layero) {
+                 var iframeWin = window[layero.find('iframe')[0]['name']];
+                 iframeWin.Submit();
+
+             }
+         };
+         var index = $.modalOpen(defaults)
+         // layer.full(index);
+     }
+
+     function Remove() {
+
+         var row = $("#tb_grid").bootstrapTable('getSelections');
+         if (row == null || row.length == 0) {
+
+             toastr.warning("请选择要操作的行");
+
+             return;
+         }
+         var arrays = [];
+         for (var i = 0; i < row.length; i++) {
+             arrays.push(row[i].LOGID);
+         }
+         var ids = arrays.join(',');
+         var formData = new FormData();
+         formData.append("ids", ids);
+         var option = {
+             postUrl: '/SystemManage/sys_terminaldevicelog/Remove',
+             message: '确定要删除这' + row.length + '条记录吗？',
+             param: formData,
+             successCallBack: function (data) { //成功
+
+                 tableRefresh();
+             },
+             errorCallBack: null
+         };
+         bstrap.confirm(option); //弹出提示确认框
+
+
+
+     }
+ </script>

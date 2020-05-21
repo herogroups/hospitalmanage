@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/chartTable.css" rel="stylesheet" />
+    <link href="/css/style.min862f.css" rel="stylesheet" />
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+</head>
+
+<body>
+    <div class="wrapper wrapper-content ">
+        <div class="row">
+
+            <div class="col-sm-3">
+                <div class="ibox">
+
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="ibox">
+                    <p class="mainTitle">XXX医院自助系统大屏展示</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="ibox">
+                    <div class="fancybox topbox ">
+                        <div id="clock">
+                            <p class="date">{{ date }}</p>
+                            <p class="time">{{ time }}</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-sm-3">
+
+
+                <div class="ibox">
+                    <div id="hosChat" class="fancybox Chatbox">
+
+                    </div>
+                </div>
+
+
+                <div class="ibox">
+                    <div id="linearChart" class="fancybox Chatbox">
+
+                    </div>
+                </div>
+
+
+
+                <div class="ibox">
+                    <div id="sexChart" class="fancybox Chatbox">
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-6 ">
+
+                <div class="row">
+                    <div class="centerbox">
+                        <div class="col-sm-6">
+                            <div class="textCenter">
+                                <h1 id="ghCount" class="no-margins  fontcount">0</h1>
+                                <div>当日挂号量</div>
+                            </div>
+
+                            <!-- <div class="ibox btn-primary  boxCenter ">
+                                <h1 id="ghCount" class="no-margins text-primary fontcount">0</h1> <small>当日挂号量</small>
+
+                            </div> -->
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="textCenter">
+                                <h1 id="ghAmount" class="no-margins   fontcount">0</h1>
+                                <div>当日挂号金额</div>
+                            </div>
+                            <!-- <div class="ibox btn-success boxCenter">
+                                
+                            </div> -->
+                        </div>
+                        <div class="col-sm-3">
+                            <!-- <div class="ibox btn-warning boxCenter">
+                                <h1 id="sumCount" class="no-margins text-primary">0</h1> <small>当日总交易量</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="ibox btn-danger boxCenter">
+                                <h1 id="sumAmount" class="no-margins text-primary">0</h1> <small>当日总交易金额</small>
+
+                            </div> -->
+                            <!-- </div>
+                   
+                        <div class="map">
+                            <div class="chart"></div>
+                            <div class="map1"></div>
+                            <div class="map2"></div>
+                            <div class="map3"></div>
+                            <div id="box"></div>
+                        </div> 
+                    </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="fancybox Chatbox">
+                        <div class="tablebox">
+
+                            <div class="tbl-header">
+                                <table border="0" cellspacing="0" cellpadding="0">
+                                    <thead>
+                                        <tr>
+                                            <th>排名</th>
+                                            <th>科室</th>
+                                            <th>收入(万元)</th>
+                                            <th>同比(%)</th>
+                                            <th>环比(%)</th>
+                                            <th>计划(万元)</th>
+                                            <th>完成率(%)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="opacity:0;"></tbody>
+                                </table>
+                            </div>
+
+                            <div class="tbl-body">
+                                <table border="0" cellspacing="0" cellpadding="0">
+                                    <thead>
+                                        <tr>
+                                            <th>排名</th>
+                                            <th>科室</th>
+                                            <th>收入(万元)</th>
+                                            <th>同比(%)</th>
+                                            <th>环比(%)</th>
+                                            <th>计划(万元)</th>
+                                            <th>完成率(%)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <div class="ibox">
+                        <div id="payModle" class="  Chatbox">
+
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ibox">
+                        <div id="departOrder" class="  Chatbox">
+
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ibox">
+                        <div id="aWeekBuss" class="fancybox Chatbox">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<style>
+    /* p {
+        margin: 0;
+        padding: 0;
+    } */
+    /* @font-face {
+  font-family: electronicFont;
+  src: url(../font/DS-DIGIT.TTF);
+} */
+</style>
+
+<script type="text/javascript" src="/js/chartJs/echarts.min.js"></script>
+<script type="text/javascript" src="/js/countUp/countUp.js"></script>
+<script type="text/javascript" src="/js/b_echart.js"></script>
+<script type="text/javascript" src="/js/vue.min.js"></script>
+<script type="text/javascript" src="/js/china.js"></script>
+<script type="text/javascript" src="/js/chartTable.js"></script>
+<script>
+    var clock = new Vue({
+        el: '#clock',
+        data: {
+            time: '',
+            date: ''
+        }
+    });
+    var countVal = {
+        ghCountVal: 0,
+        ghAmountVal: 0,
+        sumCountVal: 0,
+        sumAmountVal: 0
+    };
+    var week = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+    var timerID = setInterval(updateTime, 1000);
+    updateTime();
+
+    function updateTime() {
+        var cd = new Date();
+        clock.time = zeroPadding(cd.getHours(), 2) + ':' + zeroPadding(cd.getMinutes(), 2) + ':' + zeroPadding(cd
+            .getSeconds(), 2);
+        clock.date = zeroPadding(cd.getFullYear(), 4) + '-' + zeroPadding(cd.getMonth() + 1, 2) + '-' + zeroPadding(cd
+            .getDate(), 2) + ' ' + week[cd.getDay()];
+    };
+
+    function zeroPadding(num, digit) {
+        var zero = '';
+        for (var i = 0; i < digit; i++) {
+            zero += '0';
+        }
+        return (zero + num).slice(-digit);
+    }
+
+    var optionsCount = {
+        useEasing: true, // 使用缓和
+        useGrouping: true, // 使用分组(是否显示千位分隔符,一般为 true)
+        separator: ',', // 分隔器(千位分隔符,默认为',')
+        decimal: '.', // 十进制(小数点符号,默认为 '.')
+        prefix: '', // 字首(数字的前缀,根据需要可设为 $,¥,￥ 等)
+        suffix: '' // 后缀(数字的后缀 ,根据需要可设为 元,个,美元 等) 
+    };
+    var payModleChart, linearChart, halfYearCount, departOrderChart, aWeekBussChart, chinaMapChart = {};
+    $(function () {
+        halfYearCount = echarts.init(document.getElementById("hosChat"));
+
+        linearChart = echarts.init(document.getElementById("linearChart"));
+
+        sexChart = echarts.init(document.getElementById("sexChart"));
+
+        payModleChart = echarts.init(document.getElementById("payModle"));
+
+        departOrderChart = echarts.init(document.getElementById("departOrder"));
+        aWeekBussChart = echarts.init(document.getElementById("aWeekBuss"));
+        //  chinaMapChart = echarts.init(document.querySelector(".map .chart"));
+
+
+    });
+
+
+    var CreateWebSocket = (function () {
+        return function (urlValue) {
+            if (window.WebSocket) return new WebSocket(urlValue);
+            if (window.MozWebSocket) return new MozWebSocket(urlValue);
+            return false;
+        }
+    })();
+    /* 实例化 WebSocket 连接对象, 地址为 ws 协议 */
+    var webSocket = CreateWebSocket("ws://localhost:4001");
+    /* 接收到服务端的消息时 */
+    webSocket.onmessage = function (msg) {
+        let jData = JSON.parse(msg.data);
+        console.log("服务端说:" + JSON.stringify(jData));
+
+        let ringop = ringPayModel(jData.payMode);
+
+        let optionlinear = todayTransCount(jData.todayCount);
+
+        let optionHalfYear = halfYearCountOption(jData.halfYearCount)
+
+        payModleChart.setOption(ringop);
+        linearChart.setOption(optionlinear);
+        halfYearCount.setOption(optionHalfYear);
+        sexChart.setOption(optionSex(jData.sexCala));
+        departOrderChart.setOption(departOrder(jData.departOrderCount));
+        aWeekBussChart.setOption(aWeekBuss(jData.aWeekBuss));
+        // chinaMapChart.setOption(chinaMap());
+        new CountUp("ghCount", countVal.ghCountVal, jData.ghCount.ghcounts, 0, 3, optionsCount).start();
+        new CountUp("ghAmount", countVal.ghAmountVal, jData.ghCount.amount, 2, 3, optionsCount).start();
+        // new CountUp("sumCount", countVal.sumCountVal, jData.sumCount.counts, 0, 3, optionsCount).start();
+        // new CountUp("sumAmount", countVal.sumAmountVal, jData.sumCount.amount, 2, 3, optionsCount).start();
+
+        countVal.ghCountVal = jData.ghCount.ghcounts;
+        countVal.ghAmountVal = jData.ghCount.amount;
+        countVal.sumCountVal = jData.sumCount.counts;
+        countVal.sumAmountVal = jData.sumCount.amount;
+
+
+    };
+    /* 关闭时 */
+    webSocket.onclose = function () {
+        console.log("关闭连接");
+    };
+    /* 发送消息 */
+    // document.getElementById("send").onclick = function () {
+    //     var str = document.getElementById("content").value;
+    //     webSocket.send(str);
+    // }
+    /* 关闭消息 */
+    // document.getElementById("close").addEventListener("click", function () {
+    //     webSocket.close();
+    // });
+</script>

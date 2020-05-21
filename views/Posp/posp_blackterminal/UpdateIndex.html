@@ -1,0 +1,162 @@
+﻿ <form id="dform" class="form-horizontal">
+     <div class="ibox">
+         <div class="ibox-title">
+             <h5> 终端黑名单 修改</h5>
+         </div>
+         <div class="ibox-content">
+             <div class="row">
+                 <input id='blackterminalId' name='blackterminalId' placeholder='' type='hidden'
+                     value='<%=Model.blackterminalId%>'>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="terminalId"> <i class=" text-danger">* </i>
+                             :</label>
+                         <div class="col-sm-8">
+                             <select id='terminalId' name='terminalId' required class='form-control'></select>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="startTime"> <i class=" text-danger">* </i>
+                             开始时间:</label>
+                         <div class="col-sm-8">
+                             <input id='startTime' name='startTime' placeholder='请输入开始时间' value='<%=Model.startTime%>'
+                                 required class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="endTime">结束时间 :</label>
+                         <div class="col-sm-8">
+                             <input id='endTime' name='endTime' placeholder='请输入结束时间' value='<%=Model.endTime%>'
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="reason">加入黑名单原因 :</label>
+                         <div class="col-sm-8">
+                             <input id='reason' name='reason' placeholder='请输入加入黑名单原因' value='<%=Model.reason%>'
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="memo">备注 :</label>
+                         <div class="col-sm-8">
+                             <input id='memo' name='memo' placeholder='请输入备注' value='<%=Model.memo%>'
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="stauts"> <i class=" text-danger">* </i> 黑名单状态 0
+                             黑名单状态正常 1 解除黑名单状态:</label>
+                         <div class="col-sm-8">
+                             <select id='stauts' name='stauts' required class='form-control'></select>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+         </div>
+     </div>
+ </form>
+
+
+
+
+ <script>
+     $(function () {
+
+         $('#terminalId').selectBind('/Posp/sys_terminal/getComb');
+         $('#terminalId').val('<%=Model.terminalId%>');
+         $('#stauts').selectBind('/Posp//getComb');
+         $('#stauts').val('<%=Model.stauts%>');
+     });
+
+     function initValidator() {
+         $('#dform').bootstrapValidator({
+             message: 'This value is not valid',
+             feedbackIcons: {
+                 valid: 'glyphicon glyphicon-ok',
+                 invalid: 'glyphicon glyphicon-remove',
+                 validating: 'glyphicon glyphicon-refresh'
+             },
+             fields: {
+                 //
+                 terminalId: {
+                     message: ' 验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: ' 不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: '  长度在1到60之间'
+                         }
+                     }
+                 },
+                 //开始时间
+                 startTime: {
+                     message: '开始时间 验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '开始时间 不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 开始时间 长度在1到60之间'
+                         }
+                     }
+                 },
+                 //黑名单状态  0 黑名单状态正常 1 解除黑名单状态
+                 stauts: {
+                     message: '黑名单状态  0 黑名单状态正常 1 解除黑名单状态 验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '黑名单状态  0 黑名单状态正常 1 解除黑名单状态 不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 黑名单状态  0 黑名单状态正常 1 解除黑名单状态 长度在1到60之间'
+                         }
+                     }
+                 },
+             }
+
+         });
+     }
+
+
+     function submit() {
+         initValidator();
+         $('#dform').data('bootstrapValidator').validate();
+         if (!$('#dform').data('bootstrapValidator').isValid()) {
+             return false;
+         }
+         var action = $("#dform").attr("action");
+         var params = new FormData($("#dform")[0]);
+         var option = {
+             postUrl: action,
+             message: '确定要保存数据吗？',
+             param: params,
+             successCallBack: function (data) { //添加成功
+                 var index = parent.layer.getFrameIndex(window.name);
+                 parent.tableRefresh();
+                 parent.layer.close(index);
+
+             },
+             errorCallBack: null
+         };
+         bstrap.confirm(option); //弹出提示确认框
+     }
+ </script>

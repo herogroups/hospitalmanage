@@ -1,0 +1,218 @@
+<link href="/css/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <div class="pull-right">
+                            <form id="dform" class="form-horizontal">
+                                <span style="width: 100px;">设备编号：<input type="text" id="TerminalCode"
+                                        name="TerminalCode" /><input type="button" value="查询" onclick="search()" />
+                                </span>
+                                <label>刷新时间: </label>
+                                <label id="lblReflsh"></label>
+                                &nbsp;
+                                <div class="checkbox checkbox-inline">
+                                    <input type="checkbox" id="chkReflesh" value="true">
+                                    <label for="chkReflesh">自动刷新 </label>
+                                </div>
+                            </form>
+                        </div>
+                        <h5>终端监控    <span class="label label-warning pull-right">故障</span>  <span class="label label-info pull-right">正常</span> </h5>
+                    </div>
+                    <div class="content" style="background-color: darkgrey">
+                        <div class="row">
+                            <div class="col-sm-9" style="padding: 20px">
+                                <div class="row" id="content">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="ibox pull-right m-b-none" style="width: 100%">
+                                    <div class="ibox-title">
+                                        <h5>所选的设备故障部件</h5>
+                                    </div>
+                                    <div class="ibox-content" style="height: 150px">
+
+
+
+                                        <p>
+                                            <label class="text-muted">密码键盘:</label>
+                                            <span class="text-muted" id="EsamDesc"></span>
+                                        </p>
+                                        <p>
+                                            <label class="text-muted">电动读卡器:</label>
+                                            <span class="text-muted" id="CardReaderDesc"></span>
+                                        </p>
+                                        <p>
+                                            <label class="text-muted">打印机:</label>
+                                            <span class="text-muted" id="PrintDesc"></span>
+                                        </p>
+                                        <p>
+                                            <label class="text-muted">身份阅读器:</label>
+                                            <span class="text-muted" id="IdReaderDesc"></span>
+                                        </p>
+                                    </div>
+
+                                    <div class="ibox-title">
+                                        <h5>所选设备基本信息</h5>
+                                    </div>
+
+                                    <div class="ibox-content" style="height: 250px">
+
+                                        <p>
+                                            <label class="text-muted">设备编号:</label>
+                                            <span class="text-muted" id="terCode"></span>
+                                        </p>
+                                        <p>
+                                            <label class="text-muted">终端中文名称:</label>
+                                            <span class="text-muted" id="TerminalName"></span>
+                                        </p>
+                                        <p>
+                                            <label class="text-muted">设备类型:</label>
+                                            <span class="text-muted" id="TerminalModeName"></span>
+                                        </p>
+                                      
+                                        <p>
+                                            <label class="text-muted">IP地址:</label>
+                                            <span class="text-muted" id="IP"></span>
+                                        </p>
+                                        <p>
+                                            <label class="text-muted">安装地点:</label>
+                                            <span class="text-muted" id="Address"></span>
+                                        </p>
+
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+    var sumTime = 60;
+    var timeCount = 0;
+    var timeHandle = 0;
+    var terCode = "";
+    $(function () {
+        $("#chkReflesh").change(function () {
+
+            if ($("#chkReflesh").is(':checked')) {
+                timeHandle = setInterval("countDown()", 1000);
+
+            } else {
+                clearInterval(timeHandle);
+                timeCount = 0;
+
+            }
+        });
+        contentLoad();
+    });
+    function contentLoad() {
+
+        var index;
+        $.ajax({
+            url: '/SystemManage/sys_terminal/GetTerminalDeviceLog', data: decodeURIComponent($("#dform").serialize()),
+            type: 'POST',
+            dataType: "text",
+            cache: false,
+            timeout: 10000,
+            beforeSend: function (request) {
+                index = layer.load();
+            },
+            complete: function () {
+                layer.close(index);
+            },
+            error: function () { },
+            success: function (idata) {
+                console.log('idata',idata);
+
+                $("#content").html(idata);
+
+            }
+        });
+
+    }
+    function search() {
+
+
+        contentLoad();
+
+    }
+    function countDown() {
+        if (sumTime == timeCount && timeCount != 0) {
+            contentLoad();
+            timeCount = 0;
+        }
+
+        $('#lblReflsh').html(sumTime - timeCount);
+        timeCount++;
+    }
+    function selectTerminalCode(terCode) {
+        console.log('selectTerminalCode',terCode);
+        var index;
+        $.ajax({
+            url: '/SystemManage/sys_terminal/GetTerminalDeviceState', data: { 'TerminalCode': terCode },
+            type: 'POST',
+            dataType: "json",
+            cache: false,
+            timeout: 10000,
+            beforeSend: function (request) {
+                index = layer.load();
+            },
+            complete: function () {
+                layer.close(index);
+            },
+            error: function () { },
+            success: function (idata) {
+                console.log('return log',idata);
+                $("#TerminalName").html(idata.TERMINALNAME);
+                $("#terCode").html(idata.TERMINALCODE);
+                $("#TerminalModeName").html(idata.TERMINALMODENAME);
+      
+
+                $("#Address").html(idata.ADDRESS);
+                $("#IP").html(idata.IPAddr);
+                
+                //设备
+                $("#EsamDesc").html(idata.EsamDesc);
+                $("#CardReaderDesc").html(idata.CardReaderDesc);
+                $("#PrintDesc").html(idata.PrinterDesc);
+                $("#IdReaderDesc").html(idata.IdReaderDesc);
+
+
+
+            }
+        });
+
+
+
+    }
+    function dataClear() {
+
+        $("#terminalCode").html("");
+        $("#TerminalModeName").html("");
+        $("#TerminalModeCode").html("");
+        $("#IP").html("");
+        $("#Address").html("");
+        $("#Contact").html("");
+        $("#ErrDesc").html("");
+    }
+</script>

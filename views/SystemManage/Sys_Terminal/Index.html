@@ -1,0 +1,491 @@
+﻿ <div class="wrapper wrapper-content animated ">
+     <div class="ibox">
+         <div class="ibox-title">
+             <form id="dform" class="form-horizontal">
+                 <div class="row">
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="SHOPID">部门名称：</label>
+                             <div class="col-sm-8">
+                                 <select id='SHOPID' name='SHOPID' class='form-control'></select>
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="APPSOFTID">所属应用：</label>
+                             <div class="col-sm-8">
+                                 <select id='APPSOFTID' name='APPSOFTID' class='form-control'></select>
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="TERMINALMODEID">终端型号：</label>
+                             <div class="col-sm-8">
+                                 <select id='TERMINALMODEID' name='TERMINALMODEID' class='form-control'></select>
+
+                             </div>
+                         </div>
+                     </div>
+
+
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="TERMINALCODE">设备编号 ：</label>
+                             <div class="col-sm-8">
+                                 <input id="TERMINALCODE" name="TERMINALCODE" placeholder="设备编号 " class="form-control">
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="TERMINALNAME">设备名称 ：</label>
+                             <div class="col-sm-8">
+                                 <input id="TERMINALNAME" name="TERMINALNAME" placeholder="设备名称 " class="form-control">
+                             </div>
+                         </div>
+                     </div>
+
+                 </div>
+             </form>
+             <div class="ibox-content">
+                 <div class="row">
+                     <div class="col-sm-5">
+                         <button type="button" class="btn btn-sm btn-primary" id="btn_search"><i
+                                 class="fa fa-search"></i>搜索</button>
+                         <button type="button" class="btn btn-sm btn-info" id="btn_Add"><i
+                                 class="fa fa-check"></i>增加</button>
+                         <button class="btn btn-sm btn-warning  " type="button" onclick="Remove()"><i
+                                 class="fa fa-warning"></i><span class="bold">删除</span></button>
+                         <button class="btn btn-sm btn-success  " type="button" onclick="showCmdPanal(0,'')"><i
+                                 class="fa fa-success"></i><span class="bold">批量发送</span></button>
+
+
+                     </div>
+                     <table id="tb_grid"></table>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
+ <script>
+     $(function () {
+         initSocket("");
+         $("#btn_Importxml").click(function () {
+             Import();
+         });
+         $("#btn_Add").click(function () {
+             AddIndex();
+         });
+         $("#btn_search").click(function () {
+       
+             $("#tb_grid").bootstrapTable('refresh');
+         });
+         $('#SHOPID').selectBind('/SystemManage/sys_shop/GetComb', {
+             mark: 1
+         });
+         $('#APPSOFTID').selectBind('/SystemManage/sys_soft/GetComb', {
+             mark: 1
+         });
+         $('#TERMINALMODEID').selectBind('/SystemManage/sys_terminalmode/GetComb', {
+             mark: 1
+         });
+
+         $('#DOCMD').selectBind('/SystemManage/sys_cmd/GetComb', {
+             mark: 1
+         });
+         initTable();
+
+     });
+
+
+     function initTable() {
+
+         var options = {
+             gridName: 'tb_grid', //网格名称
+             url: '/SystemManage/sys_terminal/GetAllList', //表格提交地址
+             sidePagination: 'client', //客户端client分页还是服务端server分页
+             param: queryParams, //查询参数
+             uniqueId: 'BookId', //每一行的唯一标识，一般为主键列
+             columns: [{
+                     checkbox: true
+                 },
+
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'TERMINALCODE',
+                     title: '设备编号 ',
+                     formatter: function (value, row) {
+                         return "<a onclick='modify(" + row.TERMINALID + ")'>" + row.TERMINALCODE + "</a>"
+                     }
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'TERMINALNAME',
+                     title: '设备名称 '
+                 },
+                
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'APPSOFTNAME',
+                     title: '所属应用'
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'BANKTERCODE',
+                     title: '银行终端号'
+                 },
+                 {
+                     "halign": "center",
+                     "align": "center",
+                     field: "LASTUPDATETIME",
+                     title: "连接状态",
+                     formatter: function (value, row) {
+                         var now = new Date();
+                         //var date = new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10));
+                         var date = new Date(value);
+                         var xs = dateDiff(date, now, 'H');
+                         var ts = dateDiff(date, now, 'd');
+                         var jg = dateDiff(date, now, 'm');
+
+                         if (jg < 10) {
+                             return '<p class="text-success">在线</p>'
+                         }
+                         if (jg > 10 && jg <= 60) {
+                             return '<p class="text-danger">离线  ' + jg + '分钟</p>'
+                         }
+
+                         if (xs <= 24 && xs >= 1) {
+                             return '<p class="text-danger">离线 ' + xs + '小时</p>'
+                         }
+
+                         if (ts >= 1) {
+                             return '<p class="text-danger">离线' + ts + '天</p>'
+                         }
+                         console.log(jg);
+
+                     }
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'CmdName',
+                     title: '发送命令 ',
+                     formatter: function (value, row) {
+                         let labstyle = ""
+                         switch (row.DOCMD) {
+                             case 0: {
+                                 labstyle = "label-default";
+                                 break;
+                             }
+                             case 3: {
+                                 labstyle = "label-primary";
+                                 break;
+                             }
+                             case 5: {
+                                 labstyle = "label-info";
+                                 break;
+                             }
+                             case 7: {
+                                 labstyle = "label-success";
+                                 break;
+                             }
+                             default: {
+                                 labstyle = "label-warning";
+                                 break;
+                             }
+                         }
+                         return " <span class='label " + labstyle + "'  >" + value + "</span> "
+
+                     }
+                 },
+
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'ADDRESS',
+                     title: '安装地址 '
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'APPVERSION',
+                     title: '应用版本'
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'ADVERSION',
+                     title: '轮播图版本'
+                 },
+
+                 {
+                     "halign": "center",
+                     "align": "center",
+                     field: "TerminCode",
+                     title: "发送指令",
+                     formatter: function (value, row, index) {
+
+                         return "  <a onclick=showCmdPanal('" + row.TERMINALID + "','" + row.TERMINALCODE +
+                             "')  style='text-decoration: underline;'>发送指令</a>";
+
+                     }
+                 },
+
+
+             ], //显示网格列表信息
+             LoadSuccess: function (data) {
+
+             }, //加载成功回调函数
+
+             height: $(window).height() - 60, //table表格高度
+         };
+         bstrap.initGrid(options)
+     }
+
+     function queryParams(params) {
+         var param = $.param({
+             // 当前页数
+             "offset": this.offset,
+             "pageindex": this.pageNumber,
+             // 每页显示多少条
+             "pageSize": this.pageSize
+         }) + '&' + $('#dform').serialize();
+         return param;
+
+     }
+
+    
+     var CreateWebSocket = (function () {
+         return function (urlValue) {
+             if (window.WebSocket) return new WebSocket(urlValue);
+             if (window.MozWebSocket) return new MozWebSocket(urlValue);
+             return false;
+         }
+     })();
+
+     function initSocket() {
+         /* 实例化 WebSocket 连接对象, 地址为 ws 协议 */
+        let url = "ws://<%=host%>:12033"
+         var webSocket = CreateWebSocket(url);
+         /* 接收到服务端的消息时 */
+         webSocket.onmessage = function (msg) {
+             console.log('msg.data ==', msg.data);
+             msg = JSON.parse(msg.data) 
+           //  bstrap.prompt("【" + msg.terminalCode + "】终端日志已上传", function () {
+            //      window.location.href = msg.url;
+            //  });
+             tableRefresh();
+         };
+         /* 关闭时 */
+         webSocket.onclose = function () {
+            bstrap.prompt("关闭连接", null);
+         };
+
+     }
+
+     function tableRefresh() {
+
+         $("#tb_grid").bootstrapTable('refresh', $("#dform").serialize());
+     }
+
+     function show(Id) {
+
+         var defaults = {
+             title: '',
+             width: "1024px",
+             height: "500px",
+             url: " /SystemManage/sys_terminal/Index?Id=" + Id,
+             shade: 0.3,
+             LoadSuccess: function (layero, index) {
+                 var body = layer.getChildFrame('body', index);
+                 var iframeWin = window[layero.find('iframe')[0][
+                     'name'
+                 ]]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+
+             }
+
+         };
+         var index = $.modalOpen(defaults)
+         //  layer.full(index);
+     }
+
+     function dateDiff(dtStart, dtEnd, intervalType) {
+         switch (intervalType) {
+             case 's':
+                 return parseInt((dtEnd - dtStart) / 1000);
+             case 'm':
+                 return parseInt((dtEnd - dtStart) / 60000);
+             case 'H':
+                 return parseInt((dtEnd - dtStart) / 3600000);
+             case 'd':
+                 return parseInt((dtEnd - dtStart) / 86400000);
+             case 'w':
+                 return parseInt((dtEnd - dtStart) / (86400000 * 7));
+             case 'M':
+                 return (dtEnd.getFullYear() - dtStart.getFullYear()) * 12 + (dtEnd.getMonth() - dtStart.getMonth());
+             case 'y':
+                 return dtEnd.getFullYear() - dtStart.getFullYear();
+         }
+     }
+
+     function AddIndex() {
+         var defaults = {
+             title: ' 终端设备表  增加 ',
+             width: "1024px",
+             height: "500px",
+             url: " /SystemManage/sys_terminal/AddIndex",
+             shade: 0.3,
+
+             btn: ['确认', '关闭'],
+
+             LoadSuccess: function (layero, index) {
+                 var body = layer.getChildFrame('body', index);
+                 var iframeWin = window[layero.find('iframe')[0][
+                     'name'
+                 ]]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                 iframeWin.$("#dform").attr("action", "/SystemManage/sys_terminal/Add");
+             },
+             callBack: function (layero) {
+                 var iframeWin = window[layero.find('iframe')[0]['name']];
+                 iframeWin.Submit();
+
+             }
+         };
+         var index = $.modalOpen(defaults)
+         //  layer.full(index);
+     }
+
+     function modify(Id) {
+         var defaults = {
+             title: '修改',
+             width: "1024px",
+             height: "500px",
+             url: " /SystemManage/sys_terminal/UpdateIndex?Id=" + Id,
+
+             shade: 0.3,
+             btn: ['确认', '关闭'],
+
+             LoadSuccess: function (layero, index) {
+                 var body = layer.getChildFrame('body', index);
+                 var iframeWin = window[layero.find('iframe')[0][
+                     'name'
+                 ]]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                 iframeWin.$("#dform").attr("action", "/SystemManage/sys_terminal/Update");
+             },
+             callBack: function (layero) {
+                 var iframeWin = window[layero.find('iframe')[0]['name']];
+                 iframeWin.Submit();
+
+             }
+         };
+         var index = $.modalOpen(defaults)
+         // layer.full(index);
+     }
+
+     function batch() {
+
+     }
+
+     function Remove() {
+
+         var row = $("#tb_grid").bootstrapTable('getSelections');
+         if (row == null || row.length == 0) {
+
+             toastr.warning("请选择要操作的行");
+
+             return;
+         }
+         var arrays = [];
+         for (var i = 0; i < row.length; i++) {
+             arrays.push(row[i].TERMINALID);
+         }
+         var ids = arrays.join(',');
+         var formData = new FormData();
+         formData.append("ids", ids);
+         var option = {
+             postUrl: '/SystemManage/sys_terminal/Remove',
+             message: '确定要删除这' + row.length + '条记录吗？',
+             param: formData,
+             successCallBack: function (data) { //成功
+
+                 tableRefresh();
+             },
+             errorCallBack: null
+         };
+         bstrap.confirm(option); //弹出提示确认框
+
+
+
+     }
+
+     function showCmdPanal(TERMINALID, terCode) {
+         console.log(TERMINALID)
+         let sTitle = (TERMINALID != 0) ? '【' + terCode + '】发送1指令' : '发送指令';
+
+         var defaults = {
+             title: sTitle,
+             width: "800px",
+             height: "500px",
+             url: ' /SystemManage/sys_terminal/TerminalSendCmdForm',
+             shade: 0.3,
+             btn: ['确认', '关闭'],
+
+             LoadSuccess: function (layero, index) {
+                 var body = layer.getChildFrame('body', index);
+                 var iframeWin = window[layero.find('iframe')[0][
+                     'name'
+                 ]]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                 iframeWin.$("#dform").attr("action", "/SystemManage/sys_terminal/ModifyTerminalSendCmd");
+
+                 iframeWin.$("#TERMINALID").val(TERMINALID);
+             },
+             callBack: function (layero) {
+                 var iframeWin = window[layero.find('iframe')[0]['name']];
+                 iframeWin.Submit();
+
+             }
+         };
+         var index = $.modalOpen(defaults);
+
+     }
+
+     function ModifyTerminalBatchSendCmd() {
+         if ($("#OrgId").val() == "0") {
+             toastr.warning("请选择左侧的机构,再发送命令.");
+             return;
+         }
+         var defaults = {
+             title: ' 【' + $("#OrgName").val() + '】批量发送指令',
+             width: "800px",
+             height: "500px",
+             url: ' /SystemManage/sys_terminal/TerminalSendCmdForm',
+             shade: 0.3,
+             btn: ['确认', '关闭'],
+
+             LoadSuccess: function (layero, index) {
+                 var body = layer.getChildFrame('body', index);
+                 var iframeWin = window[layero.find('iframe')[0][
+                     'name'
+                 ]]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                 iframeWin.$("#dform").attr("action", "/TerminalManage/Terminal/ModifyTerminalBatchSendCmd");
+                 iframeWin.$("#OrgId").val($("#OrgId").val());
+                 // iframeWin.$("#TERMINALID").val(TERMINALID);
+             },
+             callBack: function (layero) {
+                 var iframeWin = window[layero.find('iframe')[0]['name']];
+                 iframeWin.Submit();
+
+             }
+         };
+         var index = $.modalOpen(defaults);
+
+     }
+ </script>

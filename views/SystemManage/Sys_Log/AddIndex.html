@@ -1,0 +1,166 @@
+﻿ <form id="dform" class="form-horizontal">
+     <div class="ibox">
+         <div class="ibox-title">
+             <h5> 系统日志 新增</h5>
+
+         </div>
+         <div class="ibox-content">
+             <div class="row">
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="Account">账号 :</label>
+                         <div class="col-sm-8">
+
+                             <input id='Account' name='Account' placeholder='账号' class='form-control'> </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="NickName">中文名称 :</label>
+                         <div class="col-sm-8">
+
+                             <input id='NickName' name='NickName' placeholder='中文名称' class='form-control'> </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="Type">类型 :</label>
+                         <div class="col-sm-8">
+
+                             <input id='Type' name='Type' placeholder='类型' class='form-control'> </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="IPAddress">远程IP :</label>
+                         <div class="col-sm-8">
+
+                             <input id='IPAddress' name='IPAddress' placeholder='远程IP' class='form-control'> </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="IPAddressName">域名 :</label>
+                         <div class="col-sm-8">
+
+                             <input id='IPAddressName' name='IPAddressName' placeholder='域名' class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="ModuleId">模块 :</label>
+                         <div class="col-sm-8">
+
+                             <input id='ModuleId' name='ModuleId' placeholder='模块' class='form-control'> </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="ModuleName">模块名称 :</label>
+                         <div class="col-sm-8">
+
+                             <input id='ModuleName' name='ModuleName' placeholder='模块名称' class='form-control'> </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="Result">操作是否成功 :</label>
+                         <div class="col-sm-8">
+
+                             <input id='Result' name='Result' placeholder='操作是否成功' class='form-control'> </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="MEMO">描述 :</label>
+                         <div class="col-sm-8">
+
+                             <input id='MEMO' name='MEMO' placeholder='描述' class='form-control'> </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="CreatorTime"> <i class=" text-danger">* </i>
+                             创建时间:</label>
+                         <div class="col-sm-8">
+
+                             <input id='CreatorTime' name='CreatorTime' placeholder='创建时间' required
+                                 class='form-control'> </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="CreatorUserName">创建人 :</label>
+                         <div class="col-sm-8">
+
+                             <input id='CreatorUserName' name='CreatorUserName' placeholder='创建人' class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+         </div>
+     </div>
+ </form>
+
+
+
+
+ <script>
+     $(function () {
+
+     });
+
+     function initValidator() {
+         $('#dform').bootstrapValidator({
+             message: 'This value is not valid',
+             feedbackIcons: {
+                 valid: 'glyphicon glyphicon-ok',
+                 invalid: 'glyphicon glyphicon-remove',
+                 validating: 'glyphicon glyphicon-refresh'
+             },
+             fields: {
+                 //创建时间
+                 CreatorTime: {
+                     message: '创建时间 验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '创建时间 不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 创建时间 长度在1到60之间'
+                         }
+                     }
+                 },
+             }
+
+         });
+     }
+
+
+     function Submit() {
+         initValidator();
+         $('#dform').data('bootstrapValidator').validate();
+         if (!$('#dform').data('bootstrapValidator').isValid()) {
+             return false;
+         }
+         var action = $("#dform").attr("action");
+         var params = new FormData($("#dform")[0]);
+         var option = {
+             postUrl: action,
+             message: '确定要保存数据吗？',
+             param: params,
+             successCallBack: function (data) { //添加成功
+                 var index = parent.layer.getFrameIndex(window.name);
+                 parent.tableRefresh();
+                 parent.layer.close(index);
+
+             },
+             errorCallBack: null
+         };
+         bstrap.confirm(option); //弹出提示确认框
+     }
+ </script>

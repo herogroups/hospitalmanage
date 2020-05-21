@@ -1,0 +1,112 @@
+﻿<form id="dform" class="form-horizontal">
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5> 对账文件推送方式表 修改</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <input id='PushTypeId' name='PushTypeId' placeholder='文件推送方式ID' type='hidden'
+                    value='<%=Model.PushTypeId%>'>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="PushTypeCode"> <i class=" text-danger">* </i>
+                            文件推送方式代码:</label>
+                        <div class="col-sm-8">
+                            <input id='PushTypeCode' name='PushTypeCode'   placeholder='请输入文件推送方式代码'
+                                value='<%=Model.PushTypeCode%>' required class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="PushTypeName">文件推送方式名称 :</label>
+                        <div class="col-sm-8">
+                            <input id='PushTypeName' name='PushTypeName' placeholder='请输入文件推送方式名称'
+                                value='<%=Model.PushTypeName%>' class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="Memo">备注 :</label>
+                        <div class="col-sm-10">
+                            <textarea id='Memo' name='Memo' placeholder='请输入备注' value='<%=Model.Memo%>'
+                                class='form-control'></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+
+
+<script>
+    $(function () {
+
+    });
+
+    function initValidator() {
+        $('#dform').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                //文件推送方式代码
+                PushTypeCode: {
+                    message: '文件推送方式代码 验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '文件推送方式代码 不能为空'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 60,
+                            message: ' 文件推送方式代码 长度在1到60之间'
+                        }
+                    }
+                },
+               
+            }
+
+        });
+    }
+
+
+    function submit() {
+        initValidator();
+        $('#dform').data('bootstrapValidator').validate();
+        if (!$('#dform').data('bootstrapValidator').isValid()) {
+            return false;
+        }
+        var action = $("#dform").attr("action");
+        var params = new FormData($("#dform")[0]);
+        var option = {
+            postUrl: action,
+            message: '确定要保存数据吗？',
+            param: params,
+            successCallBack: function (data) { //添加成功
+                var index = parent.layer.getFrameIndex(window.name);
+                if (typeof (parent.tableRefresh) == "function") {
+                    parent.tableRefresh();
+                }
+                if (typeof (window.refreshFn) == "function") {
+                    refreshFn();
+                }
+                parent.layer.close(index);
+
+            },
+            errorCallBack: null
+        };
+        bstrap.confirm(option); //弹出提示确认框
+    }
+
+</script>

@@ -1,0 +1,205 @@
+﻿<%
+let busName="";
+if (Model.busCode == '01') {
+    busName= '实时挂号'
+}
+if (Model.busCode == '02') {
+    busName= '门诊缴费'
+}
+if (Model.busCode == '03') {
+    busName= '住院预交金'
+}
+%>
+<form id="dform" class="form-horizontal">
+    <div class="ibox">
+
+        <div class="ibox-content">
+            <div class="row">
+                <input id='payId' name='payId' placeholder='' type='hidden' value='<%=Model.payId%>'>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="patientId"> 
+                            门诊号:</label>
+                        <div class="col-sm-8 content">
+                            <%=Model.patientId%>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="orderCode">订单号 :</label>
+                        <div class="col-sm-8 content">
+                            <%=Model.orderCode%>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="amount">  支付金额:</label>
+                        <div class="col-sm-8 content">
+                            <%=Model.amount%>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="busCode">业务类型 :</label>
+                        <div class="col-sm-8 content">
+                            <%=busName%>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="receiptNo">票据号 :</label>
+                        <div class="col-sm-8 content">
+                            <%=Model.receiptNo%>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="payMode">支付方式 :</label>
+                        <div class="col-sm-8 content">
+                            <%=(Model.payMode==0)?'微信':'支付宝'%>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="transState">  交易状态
+                        </label>
+                        <div class="col-sm-8 content">
+                            <%= Model.transState%>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="createDate">  
+                            支付时间:</label>
+                        <div class="col-sm-8 content">
+                            <%=Model.createDate%>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="createDate"> 
+                            原订单金额:</label>
+                        <div class="col-sm-8 content" style="color:brown;font-size:16px">
+                            <%=Model.amount.toFixed(2)%>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="refundFee">退款金额 :</label> 
+                        <div class="col-sm-8 content">
+                            <input id='refundFee' name='refundFee' required placeholder='退款金额' class='form-control'> </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="refund_desc">退款原因 :</label>
+                        <div class="col-sm-10">
+                            <textarea id='refund_desc' name='refund_desc' placeholder='退款原因'
+                                class='form-control'></textarea>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+        </div>
+    </div>
+</form>
+<style>
+.content{
+    display: flex;
+    align-content:flex-end;
+     
+}
+</style>
+
+
+
+<script>
+    $(function () {
+        if ("<%=Model.return_code%>" != "00") {
+            parent.layer.alert("<%=Model.return_msg%>")
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+        }
+    });
+
+    function initValidator() {
+        $('#dform').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+              
+                //支付金额
+                amount: {
+                    message: '支付金额 验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '支付金额 不能为空'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 60,
+                            message: ' 支付金额 长度在1到60之间'
+                        }
+                    }
+                },
+              
+            }
+
+        });
+    }
+
+
+    function submit() {
+        initValidator();
+        $('#dform').data('bootstrapValidator').validate();
+        if (!$('#dform').data('bootstrapValidator').isValid()) {
+            return false;
+        }
+        if (Number.parseFloat( $("#refundFee").val())>Number.parseFloat("<%=Model.amount%>")){
+            toastr.warning('退款金额不能大于原订单金额');
+            return;
+        }
+        var action = $("#dform").attr("action");
+        var params = new FormData($("#dform")[0]);
+        params.append("hosCardNo", '<%=Model.hosCardNo%>')
+        params.append("orderCode", '<%=Model.orderCode%>');
+
+
+        var option = {
+            postUrl: action,
+            message: '确定要保存数据吗？',
+            param: params,
+            successCallBack: function (data) { //添加成功
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.tableRefresh();
+                parent.layer.close(index);
+
+            },
+            errorCallBack: null
+        };
+        bstrap.confirm(option); //弹出提示确认框
+    }
+
+</script>

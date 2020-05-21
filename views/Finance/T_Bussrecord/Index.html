@@ -1,0 +1,261 @@
+﻿ 
+ <div class="wrapper wrapper-content animated ">
+     <div class="ibox">
+         <div class="ibox-title">
+             <form id="dform" class="form-horizontal">
+                 <div class="row">
+
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="pospOrderNo">前置订单号：</label>
+                             <div class="col-sm-8">
+                                 <input id='pospOrderNo' name='pospOrderNo' class='form-control'></input>
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="terminalNo">银行终端号：</label>
+                             <div class="col-sm-8">
+                                 <input id="terminalNo" name="terminalNo" placeholder="银行终端号" class="form-control">
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="bussName">业务类型：</label>
+                             <div class="col-sm-8">
+                                 <input id="bussName" name="bussName" placeholder="业务类型" class="form-control">
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="userId">操作员号：</label>
+                             <div class="col-sm-8">
+                                 <input id='userId' name='userId' class='form-control'></input>
+
+                             </div>
+                         </div>
+                     </div>
+
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="hosCardNo">用户卡号：</label>
+                             <div class="col-sm-8">
+                                 <input id="hosCardNo" name="hosCardNo" placeholder="用户卡号" class="form-control">
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="patientName">用户姓名</label>
+                             <div class="col-sm-8">
+                                 <input id="patientName" name="patientName" placeholder="用户姓名" class="form-control">
+
+                             </div>
+                         </div>
+                     </div>
+
+
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="StartDate">起始时间</label>
+                             <div class="col-sm-8">
+                                 <input id="StartDate" name="StartDate" autocomplete="off" class="laydate-icon form-control ">
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4 ">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="EndDate">结束时间</label>
+                             <div class="col-sm-8">
+                                 <input id="EndDate" name="EndDate" autocomplete="off" class="laydate-icon form-control">
+                             </div>
+                         </div>
+                     </div>
+
+
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="result">业务结果：</label>
+                             <div class="col-sm-8">
+                                 <select id="result" name="result" placeholder="业务结果" class="form-control">
+                                     <option value="0">成功</option>
+                                     <option value="1">未完成或失败</option>
+                                 </select>
+
+                             </div>
+                         </div>
+                     </div>
+
+                 </div>
+             </form>
+             <div class="ibox-content">
+                 <div class="row">
+                     <div class="col-sm-5">
+                         <button type="button" class="btn btn-sm btn-primary" id="btn_search"><i
+                                 class="fa fa-search"></i> 搜索</button>
+
+                     </div>
+                     <table id="tb_grid"></table>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
+ <script>
+     $(function () {
+
+        bstrap.initDate('#StartDate','#EndDate')
+       
+         $("#btn_search").click(function () {
+             $("#tb_grid").bootstrapTable('refresh');
+       
+            $("#tb_grid").bootstrapTable('selectPage', 1);
+         });
+
+         initTable();
+
+     });
+
+
+     function initTable() {
+
+         var options = {
+             gridName: 'tb_grid', //网格名称
+             url: '/Finance/t_bussrecord/getAllList', //表格提交地址
+             sidePagination: 'server', //客户端client分页还是服务端server分页
+             param: queryParams, //查询参数
+             uniqueId: 'BookId', //每一行的唯一标识，一般为主键列
+             columns: [{
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'bussName',
+                     title: '业务名称'
+
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'pospOrderNo',
+                     title: '前置订单号'
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'startTime',
+                     title: '交易时间',
+                     formatter: function (value, row) {
+                        return bstrap.dateFtt('yyyy-MM-dd hh:mm:ss', new Date(value))
+                    }
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'terminalNo',
+                     title: '银行终端号'
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'patientName',
+                     title: '用户姓名'
+                 },
+                 { 
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'hideHosCardNo',
+                     title: '用户卡号',
+                     formatter: function (value, row) {
+                        if (value == null) return "";
+                        return '<a title="' + row.hosCardNo + '">' + value + '</a>'
+                   }
+                   
+                 },
+                //  {
+                //      'halign': 'center',
+                //      'align': 'center',
+                //      field: 'result',
+                //      title: '业务结果',
+                //      formatter: function (value, row) {
+                //          return value == 1 ? "未完成或者失败" : "成功结束流程";
+                //      }
+                //  },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'description',
+                     title: '交易结果'
+                 },
+                 {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'bussId',
+                     title: '明细信息',
+                     formatter: function (value, row) {
+                         return "<a onclick='modify(" + row.bussId + ")'>明细 </a>"
+                     }
+                 }
+
+             ], //显示网格列表信息
+             LoadSuccess: function (data) {
+
+             }, //加载成功回调函数
+
+             height: $(window).height() - 60, //table表格高度
+         };
+         bstrap.initGrid(options)
+     }
+
+     function queryParams(params) {
+         var param = $.param({
+             // 当前页数
+             "offset": this.offset,
+             "pageindex": this.pageNumber,
+             // 每页显示多少条
+             "pageSize": this.pageSize
+         }) + '&' + $('#dform').serialize();
+         return param;
+
+     }
+
+     function tableRefresh() {
+
+         $("#tb_grid").bootstrapTable('refresh', $("#dform").serialize());
+     }
+
+  
+     function modify(Id) {
+         var defaults = {
+             title: '业务明细',
+             width: "1024px",
+             height: "500px",
+             url: " /Finance/t_bussrecord/showSingle?Id=" + Id,
+
+             shade: 0.3,
+             btn: ['关闭'],
+
+             LoadSuccess: function (layero, index) {
+                 var body = layer.getChildFrame('body', index);
+                 var iframeWin = window[layero.find('iframe')[0][
+                     'name'
+                 ]]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                
+             },
+             callBack: function (layero) {
+                var iframeWin = window[layero.find('iframe')[0]['name']];
+                iframeWin.submit();
+
+            }
+         };
+         var index = $.modalOpen(defaults)
+         // layer.full(index);
+     }
+
+ 
+ </script>

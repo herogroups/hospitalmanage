@@ -1,0 +1,202 @@
+﻿ <script src="/js/layer/laydate/laydate.js"></script>
+ <link href="/js/layer/laydate/skins/default/laydate.css" rel="stylesheet" />
+ <link href="/css/summernote/summernote.css" rel="stylesheet">
+ <link href="/css/summernote/summernote-bs3.css" rel="stylesheet">
+ <form id="dform" class="form-horizontal">
+     <div class="ibox">
+         <div class="ibox-title">
+             <h5>系统消息 修改</h5>
+         </div>
+         <div class="ibox-content">
+             <div class="row">
+                 <input id='MSGID' name='MSGID' placeholder='消息ID' type='hidden' value='<%=Model.MSGID%>'
+                     class='form-control'>
+                 <div class="col-md-12">
+                     <div class="form-group">
+                         <label class="col-sm-2 control-label" for="TITLE"><i class=" text-danger">* </i>标题:</label>
+                         <div class="col-sm-10">
+                             <input id='TITLE' name='TITLE' placeholder='请输入标题' value='<%=Model.TITLE%>' required
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+
+                 <div class="col-md-12">
+                     <div class="form-group">
+                         <label class="col-sm-2 control-label" for="MSGTYPE"><i class=" text-danger">* </i>类型:</label>
+                         <div class="col-sm-10">
+                             <select id='MSGTYPE' name='MSGTYPE' placeholder='请输入类型' value='<%=Model.MSGTYPE%>' required
+                                 class='form-control'></select>
+                         </div>
+                     </div>
+                 </div>
+
+                 <div class="col-md-12">
+                     <div class="form-group">
+                         <label class="col-sm-2 control-label" for="SENDTIME"><i class=" text-danger">*
+                             </i>推送时间:</label>
+                         <div class="col-sm-10">
+                             <input id='SENDTIME' name='SENDTIME' placeholder='请输入推送时间'
+                                 value='<%=Model.SENDTIME.ToString("yyyy-MM-dd")%>' required class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-12">
+                     <div class="form-group">
+                         <label class="col-sm-2 control-label" for="CONTENT"><i class=" text-danger">* </i>内容:</label>
+                         <div class="col-sm-10">
+                             <div class="summernote" style="height:400px"></div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+         </div>
+     </div>
+ </form>
+
+ <script src="/js/summernote/summernote.min.js"></script>
+ <script src="/js/summernote/summernote-zh-CN.js"></script>
+
+
+ <script>
+     $(function () {
+         $('#MSGTYPE').selectBind(' /SystemManage/sys_itemsdetail/GetComb?ItemId=4');
+         $('#MSGTYPE').val('<%=Model.MSGTYPE%>')
+         $(".summernote").summernote({
+             lang: "zh-CN"
+         });
+         //$('#summernote').summernote({
+         //    //功能图标改为中文
+         //    lang: 'zh-CN',
+         //    //预设内容
+         //    placeholder: '请在此输入内容...',
+         //    height: 300,
+         //    width: 800,
+         //    //回调函数
+         //    callbacks: {
+         //        //初始化
+         //        onInit: function () {
+         //            //init
+         //        },
+         //        //焦点
+         //        onFocus: function () {
+         //            //focus
+         //        },
+         //        //图片文件上传
+         //        onImageUpload: function (files, editor, $editable) {
+         //            data = new FormData();
+         //            data.append("file", files[0]);
+         //            $.ajax({
+         //                data: data,
+         //                type: "POST",
+         //                url: "",
+         //                cache: false,
+         //                contentType: false,
+         //                processData: false,
+         //                dataType: "json",
+         //                success: function (data) {
+         //                    //[服务器所在文件所在目录位置]一般为"http://119.23.216.181/RoboBlogs/Upload_File/default_show.png"
+         //                    $('#summernote').summernote('insertImage', "[服务器所在文件所在目录位置]");
+         //                },
+         //                error: function () {
+         //                    alert("上传失败");
+         //                }
+         //            });
+         //        }
+         //    }
+
+         //});
+         var content = decodeURIComponent('<%=Model.CONTENT%>');
+         $('.summernote').code(content);
+
+     });
+
+     function initValidator() {
+         $('#dform').bootstrapValidator({
+             message: 'This value is not valid',
+             feedbackIcons: {
+                 valid: 'glyphicon glyphicon-ok',
+                 invalid: 'glyphicon glyphicon-remove',
+                 validating: 'glyphicon glyphicon-refresh'
+             },
+             fields: {
+                 //标题
+                 TITLE: {
+                     message: '标题 验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '标题 不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 标题 长度在1到60之间'
+                         }
+                     }
+                 },
+                 //内容
+                 CONTENT: {
+                     message: '内容 验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '内容 不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 内容 长度在1到60之间'
+                         }
+                     }
+                 },
+                 //类型
+                 MSGTYPE: {
+                     message: '类型 验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '类型 不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 类型 长度在1到60之间'
+                         }
+                     }
+                 },
+
+
+             }
+
+         });
+     }
+
+
+     function Submit() {
+
+         initValidator();
+         $('#dform').data('bootstrapValidator').validate();
+         if (!$('#dform').data('bootstrapValidator').isValid()) {
+             return false;
+         }
+         var sHTML = $('.summernote').code();
+         if (sHTML.length < 1) {
+             return;
+         }
+         var action = $("#dform").attr("action");
+         var params = new FormData($("#dform")[0]);
+         params.append("CONTENT", encodeURIComponent(sHTML))
+         var option = {
+             postUrl: action,
+             message: '确定要保存数据吗？',
+             param: params,
+             successCallBack: function (data) { //添加成功
+                 var index = parent.layer.getFrameIndex(window.name);
+                 parent.tableRefresh();
+                 parent.layer.close(index);
+
+             },
+             errorCallBack: null
+         };
+         bstrap.confirm(option); //弹出提示确认框
+     }
+ </script>

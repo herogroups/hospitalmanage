@@ -1,0 +1,174 @@
+﻿ <link href="/css/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+ <form id="dform" class="form-horizontal">
+     <div class="ibox">
+         <div class="ibox-title">
+             <h5>用户管理 新增</h5>
+
+         </div>
+         <div class="ibox-content">
+             <div class="row">
+             
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="SHOPID"><i class=" text-danger">* </i>部门名称:</label>
+                         <div class="col-sm-8">
+                             <select id='SHOPID' name='SHOPID' required class='form-control'></select>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="ROLEID"><i class=" text-danger">* </i>所属角色 :</label>
+                         <div class="col-sm-8">
+                             <select id='ROLEID' name='ROLEID' required class='form-control'></select>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="ACCOUNT"><i class=" text-danger">* </i>账号 :</label>
+                         <div class="col-sm-8">
+
+                             <input id='ACCOUNT' name='ACCOUNT'  placeholder='账号 ' required  
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="OPNAME"><i class=" text-danger">* </i>姓名 :</label>
+                         <div class="col-sm-8">
+
+                             <input id='OPNAME' name='OPNAME' placeholder='姓名 ' required class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+
+           
+                
+
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="MEMO">描述 :</label>
+                         <div class="col-sm-8">
+
+                             <input id='MEMO' name='MEMO' placeholder='描述 ' class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+
+
+             </div>
+
+         </div>
+     </div>
+ </form>
+
+
+
+
+ <script>
+     $(function () {
+    
+         $('#SHOPID').selectBind('/SystemManage/sys_shop/GetComb');
+         $('#ROLEID').selectBind('/SystemManage/sys_role/GetComb');
+         let data = parent.$('#tb_grid').bootstrapTable('getData');
+       //   $('#ACCOUNT').val(util.autocode(data, 'ACCOUNT', 4));
+     });
+
+     function initValidator() {
+         $('#dform').bootstrapValidator({
+             message: 'This value is not valid',
+             feedbackIcons: {
+                 valid: 'glyphicon glyphicon-ok',
+                 invalid: 'glyphicon glyphicon-remove',
+                 validating: 'glyphicon glyphicon-refresh'
+             },
+             fields: {
+                 //部门名称
+                 SHOPID: {
+                     message: '部门名称 验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '部门名称 不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 部门名称 长度在1到60之间'
+                         }
+                     }
+                 },
+                 //所属角色 
+                 ROLEID: {
+                     message: '所属角色  验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '所属角色  不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 所属角色  长度在1到60之间'
+                         }
+                     }
+                 },
+                 //账号 
+                 ACCOUNT: {
+                     message: '账号  验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '账号  不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 账号  长度在1到60之间'
+                         }
+                     }
+                 },
+                 //姓名 
+                 OPNAME: {
+                     message: '姓名  验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '姓名  不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 姓名  长度在1到60之间'
+                         }
+                     }
+                 },
+
+
+             }
+
+         });
+     }
+
+
+     function Submit() {
+         initValidator();
+         $('#dform').data('bootstrapValidator').validate();
+         if (!$('#dform').data('bootstrapValidator').isValid()) {
+             return false;
+         }
+         var action = $("#dform").attr("action");
+         var params = new FormData($("#dform")[0]);
+         var option = {
+             postUrl: action,
+             message: '确定要保存数据吗？',
+             param: params,
+             successCallBack: function (data) { //添加成功
+                 var index = parent.layer.getFrameIndex(window.name);
+                 parent.tableRefresh();
+                 parent.layer.close(index);
+
+             },
+             errorCallBack: null
+         };
+         bstrap.confirm(option); //弹出提示确认框
+     }
+ </script>

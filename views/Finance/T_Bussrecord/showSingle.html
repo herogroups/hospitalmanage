@@ -1,0 +1,172 @@
+﻿ <form id="dform" class="form-horizontal">
+     <div class="ibox">
+
+         <div class="ibox-content">
+             <div class="row">
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="patientName"> 姓名:</label>
+                         <div class="col-sm-8">
+                             <input id='patientName' name='patientName' class='form-control'
+                                 value="<%=Model.patientName%>">
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="patientSex"> 性别:</label>
+                         <div class="col-sm-8">
+                             <input id='patientSex' name='patientSex' class='form-control'
+                                 value="<%=Model.patientSex%>">
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="patientAddress"> 地址:</label>
+                         <div class="col-sm-8">
+                             <input id='patientAddress' name='patientAddress' class='form-control'
+                                 value="<%=Model.patientAddress%>">
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="patientTelNo"> 电话:</label>
+                         <div class="col-sm-8">
+                             <input id='patientTelNo' name='patientTelNo' class='form-control'
+                                 value="<%=Model.patientTelNo%>">
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="payBankNo"> 银行卡号:</label>
+                         <div class="col-sm-8">
+                             <input id='payBankNo' name='payBankNo' class='form-control'
+                                 value="<%=Model.payBankNo%>"></input>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="payAmount">支付金额 :</label>
+                         <div class="col-sm-8">
+                             <input id='payAmount' name='payAmount' class='form-control'
+                                 value="<%=Model.payAmount%>"></input>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="pospOrderNo">
+                             前置订单号:</label>
+                         <div class="col-sm-8">
+                             <input id='pospOrderNo' name='pospOrderNo' class='form-control'
+                                 value="<%=Model.pospOrderNo%>"></input>
+                         </div>
+                     </div>
+                 </div>
+
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="terminalNo">
+                             银行终端号:</label>
+                         <div class="col-sm-8">
+                             <input id='terminalNo' name='terminalNo' value='<%=Model.terminalNo%>'
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="reference">系统检索号 :</label>
+                         <div class="col-sm-8">
+                             <input id='reference' name='reference' value='<%=Model.reference%>' class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="departmentName"> 挂号科室 :</label>
+                         <div class="col-sm-8">
+                             <input id='departmentName' name='departmentName' value='<%=Model.departmentName%>'
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="doctorName">挂号医生 :</label>
+                         <div class="col-sm-8">
+                             <input id='doctorName' name='doctorName' value='<%=Model.doctorName%>'
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="挂号时间">挂号时间 :</label>
+                         <div class="col-sm-8">
+                             <input id='visitingTime' name='visitingTime' value='<%=Model.visitingTime%>'
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="hisTraceNo">支付方式 :</label>
+                         <div class="col-sm-8">
+                             <input id='hisTraceNo' name='hisTraceNo' value='<%=Model.payCodeName%>'
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="bussName"> 业务名称:</label>
+                         <div class="col-sm-8">
+                             <input id='bussName' name='bussName' value='<%=Model.bussName%>' required
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+
+
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="description">业务结果描述 :</label>
+                         <div class="col-sm-8">
+                             <input id='description' name='description' placeholder='请输入业务结果描述'
+                                 value='<%=Model.description%>' class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </form>
+
+
+
+
+ <script>
+     $(function () {
+
+
+
+
+     });
+
+
+     function submit() {
+
+         var index = parent.layer.getFrameIndex(window.name);
+        // parent.tableRefresh();
+         parent.layer.close(index);
+
+     }
+ </script>

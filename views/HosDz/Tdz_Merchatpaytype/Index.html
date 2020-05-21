@@ -1,0 +1,196 @@
+﻿ 
+<div class="wrapper wrapper-content animated ">
+    <div class="ibox">
+        <div class="ibox-title">
+            <form id="dform" class="form-horizontal">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="MerPayTypeCode">支付类型代码：</label>
+                            <div class="col-sm-8">
+                                <input id="MerPayTypeCode" name="MerPayTypeCode" placeholder="商户支付类型代码"
+                                    class="form-control">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="MerPayTypeName">支付类型名：</label>
+                            <div class="col-sm-8">
+                                <input id="MerPayTypeName" name="MerPayTypeName" placeholder="商户支付类型名"
+                                    class="form-control">
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </form>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <button type="button" class="btn btn-sm btn-primary" id="btn_search"><i
+                                class="fa fa-search"></i> 搜索</button>
+                        <button type="button" class="btn btn-sm btn-info" id="btn_Add"><i
+                                class="fa fa-check"></i>增加</button>
+                        <button class="btn btn-warning " type="button" onclick="remove()"><i
+                                class="fa fa-warning"></i><span class="bold">删除</span></button>
+
+
+                    </div>
+                    <table id="tb_grid"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    $(function () {
+
+
+        $("#btn_Add").click(function () {
+            addIndex();
+        });
+        $("#btn_search").click(function () {
+            $("#tb_grid").bootstrapTable('refresh');
+        });
+        initTable();
+
+    });
+
+
+    function initTable() {
+
+        var options = {
+            gridName: 'tb_grid', //网格名称
+            url: '/HosDz/tdz_merchatpaytype/getAllList', //表格提交地址
+            sidePagination: 'client', //客户端client分页还是服务端server分页
+            param: queryParams, //查询参数
+            uniqueId: 'BookId', //每一行的唯一标识，一般为主键列
+            columns: [
+                {
+                    checkbox: true
+                },
+                {
+                    'halign': 'center', 'align': 'center', field: 'MerPayTypeCode', title: '商户支付类型代码', formatter: function (value, row) {
+                        return "<a onclick='modify(" + row.MerPayTypeId + ")'>" + row.MerPayTypeCode + "</a>"
+                    }
+                },
+                { 'halign': 'center', 'align': 'center', field: 'MerPayTypeName', title: '商户支付类型名' },
+
+                { 'halign': 'center', 'align': 'center', field: 'CreateDate', title: '创建时间', formatter:  function(value, row)   { return bstrap.dateFtt('yyyy-MM-dd hh:mm:ss', new Date(value)) } },
+                { 'halign': 'center', 'align': 'center', field: 'Memo', title: '备注' },
+
+            ], //显示网格列表信息
+            LoadSuccess: function (data) {
+
+            }, //加载成功回调函数
+
+            height: $(window).height() - 60,//table表格高度
+        };
+        bstrap.initGrid(options)
+    }
+    function queryParams(params) {
+        var param = $.param({
+            // 当前页数
+            "offset": this.offset,
+            "pageindex": this.pageNumber,
+            // 每页显示多少条
+            "pageSize": this.pageSize
+        }) + '&' + $('#dform').serialize();
+        return param;
+
+    }
+    function tableRefresh() {
+
+        $("#tb_grid").bootstrapTable('refresh', $("#dform").serialize());
+    }
+
+    function addIndex() {
+        var defaults = {
+            title: ' 商户支付类型 增加 ',
+            width: "1024px",
+            height: "500px",
+            url: " /HosDz/tdz_merchatpaytype/addIndex",
+            shade: 0.3,
+
+            btn: ['确认', '关闭'],
+
+            LoadSuccess: function (layero, index) {
+                var body = layer.getChildFrame('body', index);
+                var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                iframeWin.$("#dform").attr("action", "/HosDz/tdz_merchatpaytype/add");
+            },
+            callBack: function (layero) {
+                var iframeWin = window[layero.find('iframe')[0]['name']];
+                iframeWin.submit();
+
+            }
+        };
+        var index = $.modalOpen(defaults)
+        //  layer.full(index);
+    }
+    function modify(Id) {
+        var defaults = {
+            title: '修改',
+            width: "1024px",
+            height: "500px",
+            url: " /HosDz/tdz_merchatpaytype/updateIndex?Id=" + Id,
+
+            shade: 0.3,
+            btn: ['确认', '关闭'],
+
+            LoadSuccess: function (layero, index) {
+                var body = layer.getChildFrame('body', index);
+                var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                iframeWin.$("#dform").attr("action", "/HosDz/tdz_merchatpaytype/update");
+            },
+            callBack: function (layero) {
+                var iframeWin = window[layero.find('iframe')[0]['name']];
+                iframeWin.submit();
+
+            }
+        };
+        var index = $.modalOpen(defaults)
+        // layer.full(index);
+    }
+
+    function remove() {
+
+        var row = $("#tb_grid").bootstrapTable('getSelections');
+        if (row == null || row.length == 0) {
+
+            toastr.warning("请选择要操作的行");
+
+            return;
+        }
+        var arrays = [];
+        for (var i = 0; i < row.length; i++) {
+            arrays.push(row[i].MerPayTypeId);
+        }
+        var ids = arrays.join(',');
+        var formData = new FormData();
+        formData.append("ids", ids);
+        var option = {
+            postUrl: '/HosDz/tdz_merchatpaytype/remove',
+            message: '确定要删除这' + row.length + '条记录吗？',
+            param: formData,
+            successCallBack: function (data) { //成功
+
+                tableRefresh();
+            },
+            errorCallBack: null
+        };
+        bstrap.confirm(option); //弹出提示确认框
+
+
+
+    }
+
+
+
+</script>

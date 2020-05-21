@@ -1,0 +1,71 @@
+﻿ 
+ <div class="wrapper wrapper-content animated "  >
+
+     <div class="ibox-content">
+         <form id="dform" class="form-horizontal" enctype="multipart/form-data">
+
+             <div class="form-group">
+                 <label class="col-sm-3 control-label" for="DOCMD">发送指令</label>
+                 <div class="col-sm-9">
+                     <select id="DOCMD" name="DOCMD" class="form-control required"></select>
+                     <input type="hidden" id="TERMINALID" name="TERMINALID" />
+                 </div>
+             </div>
+            
+             <div class="hr-line-dashed "></div> 
+             <div class="form-group" id="logdate">
+                
+             </div>
+
+
+         </form>
+     </div>
+ </div>
+ <script>
+     $(function () {
+         let el =  '<label class="col-sm-3 control-label" for="UPLOADLOGTIME">提取日期</label>      <div class="col-sm-9">  <input id="UPLOADLOGTIME" name="UPLOADLOGTIME" placeholder="YYYY-MM-DD"   onclick="laydate({ istime: true, format: \'YYYY-MM-DD hh:mm:ss\' })"    class="laydate-icon form-control layer-date" />                 </div>';
+         let elref =  '<label class="col-sm-3 control-label" for="cmdRef">提取参数</label>      <div class="col-sm-9">  <textarea  class="form-control " id="cmdRef" name="cmdRef" ></textarea></div>';
+         selectBind();
+         $("#DOCMD").change(function () {
+            if ($(this).val() == 2) {
+                $("#logdate").html(elref)
+                 $("#logdate").show();
+            }else    if ($(this).val() == 5) {
+                $("#logdate").html(el)
+                 $("#logdate").show();
+             } else {
+                 $("#logdate").hide();
+             }
+         });
+     });
+
+     function selectBind() {
+         $("#DOCMD").selectBind("/SystemManage/sys_cmd/GetComb")
+     }
+
+     function Submit() {
+
+         if ($("#DOCMD").val() == 5) {
+
+             if ($("#UPLOADLOGTIME").val() == "") {
+
+                 toastr.error("请选择日期");
+                 return;
+             }
+         }
+         var action = $("#dform").attr("action");
+         var formData = new FormData($("#dform")[0]);
+         var option = {
+             postUrl: action,
+             message: '确定要保存数据吗？',
+             param: formData,
+             successCallBack: function (data) { //添加成功
+                 var index = parent.layer.getFrameIndex(window.name);
+                 parent.tableRefresh();
+                 parent.layer.close(index);
+             },
+             errorCallBack: null
+         };
+         bstrap.confirm(option); //弹出提示确认框
+     }
+ </script>

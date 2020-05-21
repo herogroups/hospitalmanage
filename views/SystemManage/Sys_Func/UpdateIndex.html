@@ -1,0 +1,156 @@
+﻿<link href="/css/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+ <form id="dform" class="form-horizontal">
+     <div class="ibox">
+
+         <div class="ibox-content">
+             <div class="row">
+                 <input id='funcId' name='funcId' type='hidden' value='<%=Model.funcId%>' class='form-control'>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="funcCode"> <i class=" text-danger">* </i>
+                             功能代码:</label>
+                         <div class="col-sm-8">
+                             <input id='funcCode' name='funcCode' placeholder='请输入功能代码' value='<%=Model.funcCode%>'
+                                 required class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="funcName"> <i class=" text-danger">* </i>
+                             功能名称:</label>
+                         <div class="col-sm-8">
+                             <input id='funcName' name='funcName' placeholder='请输入功能名称' value='<%=Model.funcName%>'
+                                 required class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label">是否开启:</label>
+                         <div class="col-sm-8">
+                             <div class="radio radio-inline">
+                                 <input type="radio" id="isUse" value="0" name="isUse">
+                                 <label for="isUse">停用</label>
+                             </div>
+                             <div class="radio radio-info radio-inline">
+                                 <input type="radio" id="isUse1" value="1" checked name="isUse">
+                                 <label for="isUse1">启用 </label>
+                             </div>
+
+
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="memo">备注 :</label>
+                         <div class="col-sm-8">
+                             <input id='memo' name='memo' placeholder='请输入备注' value='<%=Model.memo%>'
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+         </div>
+     </div>
+ </form>
+
+
+
+
+ <script>
+     $(function () {
+         if ('<%=Model.isUse%>' == '0') {
+             $("#isUse").attr("checked", true);
+         } else { 
+             $("#isUse1").attr("checked", true);
+         }
+
+     })
+
+     function initValidator() {
+         $('#dform').bootstrapValidator({
+             message: 'This value is not valid',
+             feedbackIcons: {
+                 valid: 'glyphicon glyphicon-ok',
+                 invalid: 'glyphicon glyphicon-remove',
+                 validating: 'glyphicon glyphicon-refresh'
+             },
+             fields: {
+                 //功能代码
+                 funcCode: {
+                     message: '功能代码 验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '功能代码 不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 功能代码 长度在1到60之间'
+                         }
+                     }
+                 },
+                 //终端功能名称
+                 funcName: {
+                     message: '终端功能名称 验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '终端功能名称 不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 终端功能名称 长度在1到60之间'
+                         }
+                     }
+                 },
+                 //序号
+                 sortNo: {
+                     message: '序号 验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '序号 不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 3,
+                             message: ' 序号 长度在1到3之间'
+                         },
+                         regexp: {
+                             regexp: /^[0-9]+$/,
+                             message: '序号只能包含数字'
+                         }
+                     }
+                 },
+             }
+
+         });
+     }
+
+
+     function Submit() {
+         initValidator();
+         $('#dform').data('bootstrapValidator').validate();
+         if (!$('#dform').data('bootstrapValidator').isValid()) {
+             return false;
+         }
+         var action = $("#dform").attr("action");
+         var params = new FormData($("#dform")[0]);
+         var option = {
+             postUrl: action,
+             message: '确定要保存数据吗？',
+             param: params,
+             successCallBack: function (data) { //添加成功
+                 var index = parent.layer.getFrameIndex(window.name);
+                 parent.tableRefresh();
+                 parent.layer.close(index);
+
+             },
+             errorCallBack: null
+         };
+         bstrap.confirm(option); //弹出提示确认框
+     }
+ </script>

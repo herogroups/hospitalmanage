@@ -1,0 +1,142 @@
+﻿ <form id="dform" class="form-horizontal">
+     <div class="ibox">
+         <div class="ibox-title">
+             <h5> 终端指令管理 新增</h5>
+
+         </div>
+         <div class="ibox-content">
+             <div class="row">
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="CmdCode"> <i class=" text-danger">* </i>
+                             下发指令编号:</label>
+                         <div class="col-sm-8">
+
+                             <input id='CmdCode' name='CmdCode' readonly placeholder='请输入下发指令编号' required
+                                 class='form-control'> </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="CmdName"> <i class=" text-danger">* </i>
+                             指令中文名称:</label>
+                         <div class="col-sm-8">
+
+                             <input id='CmdName' name='CmdName' placeholder='请输入指令中文名称' required class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="CmdIndex"> <i class=" text-danger">* </i>
+                             序号:</label>
+                         <div class="col-sm-8">
+
+                             <input id='CmdIndex' name='CmdIndex' placeholder='请输入序号' required class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="MEMO">备注 :</label>
+                         <div class="col-sm-8">
+
+                             <input id='MEMO' name='MEMO' placeholder='请输入备注' class='form-control'> </div>
+                     </div>
+                 </div>
+             </div>
+
+         </div>
+     </div>
+ </form>
+
+
+
+
+ <script>
+     $(function () {
+         let data = parent.$('#tb_grid').bootstrapTable('getData');
+         $('#CmdCode').val(util.autocode(data, 'CmdCode', 2));
+         initValidator();
+     });
+
+     function initValidator() {
+         $('#dform').bootstrapValidator({
+             message: 'This value is not valid',
+             feedbackIcons: {
+                 valid: 'glyphicon glyphicon-ok',
+                 invalid: 'glyphicon glyphicon-remove',
+                 validating: 'glyphicon glyphicon-refresh'
+             },
+             fields: {
+                 //下发指令编号
+                 CmdCode: {
+                     message: '下发指令编号 验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '下发指令编号 不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 下发指令编号 长度在1到60之间'
+                         }
+                     }
+                 },
+                 //指令中文名称
+                 CmdName: {
+                     message: '指令中文名称 验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '指令中文名称 不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 指令中文名称 长度在1到60之间'
+                         }
+                     }
+                 },
+                 //序号
+                 CmdIndex: {
+                     message: '序号 验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '序号 不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 序号 长度在1到60之间'
+                         }
+                     }
+                 },
+             }
+
+         });
+     }
+
+
+     function Submit() {
+        
+         $('#dform').data('bootstrapValidator').validate();
+         if (!$('#dform').data('bootstrapValidator').isValid()) {
+             return false;
+         }
+         var action = $("#dform").attr("action");
+         var params = new FormData($("#dform")[0]);
+         var option = {
+             postUrl: action,
+             message: '确定要保存数据吗？',
+             param: params,
+             successCallBack: function (data) { //添加成功
+                 var index = parent.layer.getFrameIndex(window.name);
+                 parent.tableRefresh();
+                 parent.layer.close(index);
+
+             },
+             errorCallBack: null
+         };
+         bstrap.confirm(option); //弹出提示确认框
+     }
+ </script>

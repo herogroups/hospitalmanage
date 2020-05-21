@@ -1,0 +1,340 @@
+<form id="dform" class="form-horizontal">
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5> 金融交易明细</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ThirdTransUserName">用户姓名 :</label>
+                        <div class="col-sm-8">
+                            <input id='ThirdTransUserName' name='ThirdTransUserName' readonly
+                                value='<%=Model.ThirdTransUserName%>' class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ThirdTransUserSex">性别:</label>
+                        <div class="col-sm-8">
+                            <input id='ThirdTransUserSex' name='ThirdTransUserSex' value='<%=Model.ThirdTransUserSex%>'
+                                readonly class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ThirdTransUserIDNum">身份证号 :</label>
+                        <div class="col-sm-8">
+                            <input id='ThirdTransUserIDNum' name='ThirdTransUserIDNum' readonly
+                                value='<%=Model.ThirdTransUserIDNum%>' class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ThirdTransUserTelNo">用户手机号 :</label>
+                        <div class="col-sm-8">
+                            <input id='ThirdTransUserTelNo' name='ThirdTransUserTelNo' readonly
+                                value='<%=Model.ThirdTransUserTelNo%>' class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ThirdTerminalNo">终端号 :</label>
+                        <div class="col-sm-8">
+                            <input id='ThirdTerminalNo' name='ThirdTerminalNo' readonly
+                                value='<%=Model.ThirdTerminalNo%>' class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="BussType"> 业务类型:</label>
+                        <div class="col-sm-8">
+                            <input id='BussType' name='BussType' value='<%=Model.BussType%>' readonly
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ChannelType"> 交易渠道 :</label>
+                        <div class="col-sm-8">
+                            <input id='ChannelType' name='ChannelType' value='<%=Model.ChannelTypeName%>' readonly
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="BankTransDateTime">支付时间 :</label>
+                        <div class="col-sm-8">
+                            <input id='BankTransDateTime' name='BankTransDateTime' readonly
+                                value='<%=Model.BankTransDateTime%>' class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="TotalAmt">
+                            订单总金额:</label>
+                        <div class="col-sm-8">
+                            <input type='number' step='0.01' id='TotalAmt' name='TotalAmt' readonly
+                                value='<%=Model.TotalAmt%>' placeholder='请输入订单总金额' readonly class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="PayAmount">
+                            实际支付金额:</label>
+                        <div class="col-sm-8">
+                            <input type='number' step='0.01' id='PayAmount' name='PayAmount' readonly
+                                value='<%=Model.PayAmount%>' readonly class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ReverseRejectAmt">
+                            退货总金额:</label>
+                        <div class="col-sm-8">
+                            <input type='number' step='0.01' id='ReverseRejectAmt' name='ReverseRejectAmt' readonly
+                                value='<%=Model.ReverseRejectAmt%>' class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="PospOrderNo">
+                            前置订单号:</label>
+                        <div class="col-sm-8">
+                            <input id='PospOrderNo' name='PospOrderNo' value='<%=Model.PospOrderNo%>' readonly
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="MerchantOrderNo">商户订单号 :</label>
+                        <div class="col-sm-8">
+                            <input id='MerchantOrderNo' name='MerchantOrderNo' readonly
+                                value='<%=Model.MerchantOrderNo%>' class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="BankPayOrderNo">银行系统订单号 :</label>
+                        <div class="col-sm-8">
+                            <input id='BankPayOrderNo' name='BankPayOrderNo' value='<%=Model.BankPayOrderNo%>' readonly
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="QRPayOrderNo">支付订单号 :</label>
+                        <div class="col-sm-8">
+                            <input id='QRPayOrderNo' name='QRPayOrderNo' value='<%=Model.QRPayOrderNo%>' readonly
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="BankMerchantNo">
+                            银行商户号:</label>
+                        <div class="col-sm-8">
+                            <input id='BankMerchantNo' name='BankMerchantNo' value='<%=Model.BankMerchantNo%>' readonly
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="BankTerminalNo">
+                            银行终端号:</label>
+                        <div class="col-sm-8">
+                            <input id='BankTerminalNo' name='BankTerminalNo' value='<%=Model.BankTerminalNo%>' readonly
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="BankTellerNo">柜员号 :</label>
+                        <div class="col-sm-8">
+                            <input id='BankTellerNo' name='BankTellerNo' value='<%=Model.BankTellerNo%>' readonly
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="BankTransBatchNo">批次号 :</label>
+                        <div class="col-sm-8">
+                            <input id='BankTransBatchNo' name='BankTransBatchNo' value='<%=Model.BankTransBatchNo%>'
+                                readonly class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="BankTraceNo">交易流水 :</label>
+                        <div class="col-sm-8">
+                            <input id='BankTraceNo' name='BankTraceNo' value='<%=Model.BankTraceNo%>' readonly
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="PayCode">支付方式 :</label>
+                        <div class="col-sm-8">
+                            <input id='PayCode' name='PayCode' value='<%=Model.payCodeName%>' readonly
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="BankTransCardNum">卡号/二维码:</label>
+                        <div class="col-sm-8">
+                            <input id='BankTransCardNum' name='BankTransCardNum' value='<%=Model.BankTransCardNum%>'
+                                readonly class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="CustId">用户id :</label>
+                        <div class="col-sm-8">
+                            <input id='CustId' name='CustId' placeholder='请输入用户id' value='<%=Model.CustId%>' readonly
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ThirdTransWindowNo">窗口号 :</label>
+                        <div class="col-sm-8">
+                            <input id='ThirdTransWindowNo' name='ThirdTransWindowNo' readonly
+                                value='<%=Model.ThirdTransWindowNo%>' class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ThirdTransOperatorNo">操作员号 :</label>
+                        <div class="col-sm-8">
+                            <input id='ThirdTransOperatorNo' name='ThirdTransOperatorNo' readonly
+                                value='<%=Model.ThirdTransOperatorNo%>' class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ThirdTransBussNo">第三方订单号 :</label>
+                        <div class="col-sm-8">
+                            <input id='ThirdTransBussNo' name='ThirdTransBussNo' value='<%=Model.ThirdTransBussNo%>'
+                                readonly class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ThirdTransUserNo">第三方用户号 :</label>
+                        <div class="col-sm-8">
+                            <input id='ThirdTransUserNo' name='ThirdTransUserNo' value='<%=Model.ThirdTransUserNo%>'
+                                readonly class='form-control'>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="PayResult"> 支付结果
+                            :</label>
+                        <div class="col-sm-8">
+                            <input id='PayResult' name='PayResult' value='<%=Model.PayResultName%>' readonly
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="PayDescription">支付描述 :</label>
+                        <div class="col-sm-8">
+                            <input id='PayDescription' name='PayDescription' value='<%=Model.PayDescription%>' readonly
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="BankSystemRefNo">银行系统参考号 :</label>
+                        <div class="col-sm-8">
+                            <input id='BankSystemRefNo' name='BankSystemRefNo' value='<%=Model.BankSystemRefNo%>'
+                                readonly class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="BankPayReverseFlag">  
+                            交易冲正:</label>
+                        <div class="col-sm-8">
+                            <input id='BankPayReverseFlag' name='BankPayReverseFlag'
+                                value='<%=Model.BankPayReverseFlagName%>' readonly class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="OldSystemRefNo">原交易检索号:</label>
+                        <div class="col-sm-8">
+                            <input id='OldSystemRefNo' name='OldSystemRefNo' value='<%=Model.OldSystemRefNo%>' readonly
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="Memo">备注 :</label>
+                        <div class="col-sm-8">
+                            <input id='Memo' name='Memo' placeholder='请输入备注' value='<%=Model.Memo%>' readonly
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+
+
+<script>
+    $(function () {
+
+
+    });
+
+
+
+</script>

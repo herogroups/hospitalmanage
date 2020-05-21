@@ -1,0 +1,500 @@
+<div class="wrapper wrapper-content">
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-content navy-bg">
+                    <h1 class="no-margins" id="num1">386,200</h1>
+                    <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i>
+                    </div>
+                    <small>总计浏览量</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="ibox float-e-margins  ">
+
+                <div class="ibox-content yellow-bg">
+                    <h1 class="no-margins" id="num2">80,800</h1>
+                    <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>新订单</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-content red-bg ">
+
+                    <div class="row">
+                        <div class="col-md-6 .blue-bg">
+                            <h1 class="no-margins" id="num3">&yen; 406,420</h1>
+                            <div class="font-bold text-navy">44% <i class="fa fa-level-up"></i> <small>增长较快</small>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-content no-padding blue-bg">
+                    <div class="flot-chart m-t-lg" style="height: 55px;">
+                        <div class="flot-chart-content" id="flot-chart1"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content ">
+                    <div>
+                        <span class="pull-right text-right">
+                            <small>在过去的一个月销售的平均值：<strong>山东</strong></small>
+                            <br />
+                            所有销售： 162,862
+                        </span>
+                        <h3 class="font-bold no-margins">
+                            半年业务收入统计图
+                        </h3>
+                        <small>张掖市第二人民医院</small>
+                    </div>
+
+                    <div class="m-t-sm">
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div>
+                                    <canvas id="lineChart" height="54"></canvas>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <ul class="stat-list m-t-lg">
+                                    <li>
+                                        <h2 class="no-margins">2,346</h2>
+                                        <small>总订单</small>
+                                        <div class="progress progress-mini">
+                                            <div class="progress-bar" style="width: 48%;"></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <h2 class="no-margins ">4,422</h2>
+                                        <small>最近一个月订单</small>
+                                        <div class="progress progress-mini">
+                                            <div class="progress-bar" style="width: 60%;"></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="m-t-md">
+                        <small class="pull-right">
+                            <i class="fa fa-clock-o"> </i>
+                            2015.02.30更新
+                        </small>
+                        <small>
+                            <strong>说明：</strong> 本期数据来源银行对账单。
+                        </small>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>用户行为统计</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="echarts" id="echarts-pie-chart"></div>
+                        </div>
+
+
+                    </div>
+                </div>
+                
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <small class="stats-label">访问页面 / 浏览量</small>
+                            <button type="button" class="btn btn-sm btn-primary" id="send"><i
+                                class="fa fa-search"></i> 发送</button>
+                                <input type="text" id="content" />
+                                <input type="button" value="关闭" id="close" />
+                        </div>
+
+                        <div class="col-xs-4">
+                            <small class="stats-label">% 新访客</small>
+                            <h4>150.23%</h4>
+                        </div>
+                        <div class="col-xs-4">
+                            <small class="stats-label">最后一周</small>
+                            <h4>124.990</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>对账汇总</h5>
+                    <div class="ibox-tools">
+
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>数据来源</th>
+                                    <th>总笔数</th>
+                                    <th>总金额</th>
+                                    <th>支付总笔数</th>
+                                    <th>支付总金额</th>
+                                    <th>退费总笔数</th>
+                                    <th>退费总金额</th>
+                                    <th>净支付总笔数</th>
+                                    <th>净支付总金额</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>米莫说｜MiMO Show</td>
+                                    <td><span class="pie">0.52/1.561</span>
+                                    </td>
+                                    <td>20%</td>
+                                    <td>20%</td>
+
+                                    <td>20%</td>
+                                    <td>20%</td>
+                                    <td>20%</td>
+                                    <td>2014.11.11</td>
+                                    <td><a href="table_basic.html#"><i class="fa fa-check text-navy"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>商家与购物用户的交互试衣应用</td>
+                                    <td><span class="pie">6,9</span>
+                                    </td>
+                                    <td>20%</td>
+                                    <td>20%</td>
+
+                                    <td>20%</td>
+                                    <td>20%</td>
+                                    <td>20%</td>
+
+                                    <td>2014.11.11</td>
+                                    <td><a href="table_basic.html#"><i class="fa fa-check text-navy"></i></a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<style>
+    .echarts {
+        width: 300px;
+        height: 300px;
+    }
+</style>
+<script type="text/javascript" src="/js/chartJs/echarts.min.js"></script>
+
+<script type="text/javascript" src="/js/countUp/countUp.js"></script>
+<script>
+let   scaleData = [{
+        'name': '工程建设',
+        'value': 10
+    },
+    {
+        'name': '产权交易',
+        'value': 20
+    },
+    {
+        'name': '土地交易',
+        'value': 20
+    },
+    {
+        'name': '其他交易',
+        'value': 27
+    },
+    {
+        'name': '政府采购',
+        'value': 23
+    }
+];
+var rich = {
+    white: {
+        color: '#ddd',
+        align: 'center',
+        padding: [5, 0]
+    }
+};
+var placeHolderStyle = {
+    normal: {
+        label: {
+            show: false
+        },
+        labelLine: {
+            show: false
+        },
+        color: 'rgba(0, 0, 0, 0)',
+        borderColor: 'rgba(0, 0, 0, 0)',
+        borderWidth: 0
+    }
+};
+var data = [];
+for (var i = 0; i < scaleData.length; i++) {
+    data.push({
+        value: scaleData[i].value,
+        name: scaleData[i].name,
+        itemStyle: {
+            normal: {
+                borderWidth: 5,
+                shadowBlur: 30,
+                borderColor: new echarts.graphic.LinearGradient(0, 0, 1, 1, [{
+                    offset: 0,
+                    color: '#7777eb'
+                }, {
+                    offset: 1,
+                    color: '#70ffac'
+                }]),
+                shadowColor: 'rgba(142, 152, 241, 0.6)'
+            }
+        }
+    }, {
+        value: 4,
+        name: '',
+        itemStyle: placeHolderStyle
+    });
+}
+var seriesObj = [{
+    name: '',
+    type: 'pie',
+    clockWise: false,
+    radius: [35, 45],
+    hoverAnimation: false,
+    itemStyle: {
+        normal: {
+            label: {
+                show: true,
+                position: 'outside',
+                color: '#ddd',
+                formatter: function(params) {
+                    var percent = 0;
+                    var total = 0;
+                    for (var i = 0; i < scaleData.length; i++) {
+                        total += scaleData[i].value;
+                    }
+                    percent = ((params.value / total) * 100).toFixed(0);
+                    if(params.name !== '') {
+                        return params.name + '\n{white|' + '占比' + percent + '%}';
+                    }else {
+                        return '';
+                    }
+                },
+                rich: rich
+            },
+            labelLine: {
+                show: false
+            }
+        }
+    },
+    data: data
+}];
+option = {
+    backgroundColor: '#04243E',
+    tooltip: {
+        show: false
+    },
+    legend: {
+        show: false
+    },
+    toolbox: {
+        show: false
+    },
+    series: seriesObj
+}
+
+
+    var options = {
+        useEasing: true, 	 	// 使用缓和
+        useGrouping: true,	// 使用分组(是否显示千位分隔符,一般为 true)
+        separator: ',',		// 分隔器(千位分隔符,默认为',')
+        decimal: '.',			// 十进制(小数点符号,默认为 '.')
+        prefix: '',			// 字首(数字的前缀,根据需要可设为 $,¥,￥ 等)
+        suffix: ''			// 后缀(数字的后缀 ,根据需要可设为 元,个,美元 等) 
+    };
+    $(function () {
+        // CountUp(参数一, 参数二, 参数三, 参数四, 参数五, 参数六)
+        // 参数一: 数字所在容器
+        // 参数二: 数字开始增长前的默认值(起始值),一般从 0 开始增长
+        // 参数三: 数字增长后的最终值,该值一般通过异步请求获取
+        // 参数四: 数字小数点后保留的位数
+        // 参数五: 数字增长特效的时间,此处为3秒
+        // 参数六: 其他配置项
+        // 注: 参数六也可不加,其配置项则为默认值
+
+        new CountUp("num1", 0, 1380, 0, 3, options).start();
+        new CountUp("num2", 0, 1380, 2, 3, options).start();
+        new CountUp("num3", 0, 1380, 4, 3, options).start();
+        var pie = echarts.init(document.getElementById('echarts-pie-chart'));
+pie.setOption(option);
+        // var option = {
+        //     title: {
+        //         text: "某站点用户访问来源",
+        //         subtext: "纯属虚构",
+        //         x: "center"
+        //     },
+        //     grid: { x: 0, y: 5, x2: 0, y2: 0 },
+        //   //  backgroundColor: '#001848',
+        //     color: ['#52bbff', '#4ef2f2', '#f4536a', '#e6923e', '#357aae', '#45bcf2'],
+        //     series: [{
+        //         type: 'pie',
+        //         radius: ['19%', '25%'],
+        //         itemStyle: {
+        //             normal: {
+        //                 label: {
+        //                     show: true,
+        //                     textStyle: { color: '#3c4858', fontSize: "18" },
+        //                     formatter: function (val) {
+        //                         return '{a|' + val.name + '}{b| ' + val.value + '%}'
+        //                     },
+        //                     rich: {
+        //                         a: { color: '#fff', fontSize: 15 },
+        //                         b: { color: '#ff9900', fontSize: 15 }
+        //                     }
+        //                 },
+        //                 labelLine: {
+        //                     show: true,
+        //                     lineStyle: { color: '#45bcf2' }
+        //                 }
+        //             },
+        //         },
+        //     }],
+        // };
+        // var pie = echarts.init(document.getElementById('echarts-pie-chart'));
+        // var pie1Data = [
+        //     { value: 20, name: '数学' },
+        //     { value: 20, name: '英语' },
+        //     { value: 15, name: '语文' },
+        //     { value: 15, name: '物理' },
+        //     { value: 15, name: '化学' },
+        //     { value: 30, name: '生物' }
+        // ]
+        // makePie();
+        // function makePie() {
+        //     option.series[0].data = pie1Data
+        //     pie.setOption(option);
+        // }
+
+        // var l = echarts.init(document.getElementById("echarts-pie-chart"),),
+        //     u = {
+        //         title: {
+        //             text: "某站点用户访问来源",
+        //             subtext: "纯属虚构",
+        //             x: "center"
+        //         },
+        //         tooltip: {
+        //             trigger: "item",
+        //             formatter: "{a} <br/>{b} : {c} ({d}%)"
+        //         },
+        //         legend: {
+        //             orient: "vertical",
+        //             x: "left",
+        //             data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"]
+        //         },
+        //         calculable: !0,
+        //         series: [{
+        //             name: "访问来源",
+        //             type: "pie",
+        //             radius: "55%",
+        //             center: ["50%", "60%"],
+        //             data: [{
+        //                 value: 335,
+        //                 name: "直接访问"
+        //             },
+        //             {
+        //                 value: 310,
+        //                 name: "邮件营销"
+        //             },
+        //             {
+        //                 value: 234,
+        //                 name: "联盟广告"
+        //             },
+        //             {
+        //                 value: 135,
+        //                 name: "视频广告"
+        //             },
+        //             {
+        //                 value: 1548,
+        //                 name: "搜索引擎"
+        //             }]
+        //         }]
+        //     };
+        // l.setOption(u);
+        //  //   $(window).resize(l.resize);
+
+        
+    });
+
+    var CreateWebSocket = (function () {
+        return function (urlValue) {
+            if(window.WebSocket) return new WebSocket(urlValue);
+            if(window.MozWebSocket) return new MozWebSocket(urlValue);
+            return false;
+        }
+    })();
+    /* 实例化 WebSocket 连接对象, 地址为 ws 协议 */
+    var webSocket = CreateWebSocket("ws://localhost:4000");
+    /* 接收到服务端的消息时 */
+    webSocket.onmessage = function (msg) {
+        console.log("服务端说:" + msg.data);
+    };
+    /* 关闭时 */
+    webSocket.onclose = function () {
+        console.log("关闭连接");
+    };
+    /* 发送消息 */
+    document.getElementById("send").onclick = function () {
+        var str = document.getElementById("content").value;
+        webSocket.send(str);
+    }
+    /* 关闭消息 */
+    document.getElementById("close").addEventListener("click", function () {
+        webSocket.close();
+    });
+</script>

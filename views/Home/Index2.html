@@ -1,0 +1,110 @@
+<div class="wrapper wrapper-content animated ">
+    <div class="wrapper wrapper-content">
+        <div class="row">
+
+            <% 
+                Model.forEach(function(item){
+                let result =item.Result;
+                let classname = '';
+                let resultCh ='';
+                switch (result) {
+                    case 0:
+                    classname='label-warning '
+                    resultCh = '未对账'
+                    break;
+                    case 1:
+                    classname='label-success '
+                    resultCh = '账平'
+                    break;
+                    case 2:
+                    classname='label-info '
+                    resultCh = '不平'
+                    break;
+                    case 3:
+                    classname='label-danger '
+                    resultCh = '对账失败'
+                    break;
+                  }
+                  var reg4 = /(\d{4})(\d{2})(\d{2})/
+                  var workdata= item.WorkDate.toString().replace(reg4,'$1-$2-$3')
+           
+ 
+                %>
+
+
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label <%=classname%> pull-right"><%=resultCh%></span>
+                        <h4><i class="fa fa-calendar  pull-left"></i><label >
+                                <%=workdata %></label> </h4>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h2 class="no-margins"> <%=item.BankTotalAmout %> </h2>
+                            </div>
+                            <div class="col-sm-6">
+                                <h2 class="pull-right"><%=item.BankTotalCount %> </h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6"><small>总金额</small></div>
+                            <div class="col-sm-6"> <small class="pull-right">总笔数</small></div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="row">
+                            <div class="col-sm-6"><a onclick="toDzDetail('<%=workdata %>','<%=item.RecordId%>')">对账明细</a></div>
+                            <div class="col-sm-6"> <a onclick="reCheck('<%=item.TaskRecordId %>')"
+                                    class="pull-right">重新对账</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+    </div>
+    <script>
+        function reCheck(taskRecordId) {
+            var params = new FormData();
+            params.append("Status", 0)
+            params.append("TaskRecordId", taskRecordId);
+
+            var option = {
+                postUrl: "/HosDz/tdz_taskpool/reCheck",
+                message: '确定要重新对账吗？',
+                param: params,
+                successCallBack: function (data) { //添加成功
+                    var index = layer.getFrameIndex(window.name);
+                    layer.close(index);
+                    layer.alert("重新对账发送完成")
+
+                },
+                errorCallBack: null
+            };
+            bstrap.confirm(option); //弹出提示确认框
+        }
+        function toDzDetail(workDate,RecordId) {
+  
+            var defaults = {
+            title: ' 对账明细 ',
+            width: "1024px",
+            height: "500px",
+            url: "/Hosdz/Tdz_Detail/curDetail?RecordId="+RecordId+"&workDate="+workDate,
+            shade: 0.3, 
+
+            LoadSuccess: function (layero, index) {
+                var body = layer.getChildFrame('body', index);
+                var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                
+            },
+            callBack: function (layero) {
+             
+
+            }
+        };
+        var index = $.modalOpen(defaults)
+        layer.full(index);
+               
+        }
+    </script>

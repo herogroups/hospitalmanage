@@ -1,0 +1,121 @@
+﻿ <form id="dform" class="form-horizontal">
+     <div class="ibox">
+         <div class="ibox-title">
+             <h5>  <%=titleName%> 修改</h5>
+         </div>
+         <div class="ibox-content">
+             <div class="row">
+                 <input id='SOFTID' name='SOFTID' placeholder='<%=titleName%>ID ' type='hidden' value='<%=Model.SOFTID%>'
+                     class='form-control'>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="SOFTCODE"> <i class=" text-danger">* </i>
+                             <%=titleName%>编号:</label>
+                         <div class="col-sm-8">
+                                <input type="hidden" name="FILEPACKAGETYPE" value="<%=FILEPACKAGETYPE%>">
+                             <input id='SOFTCODE' name='SOFTCODE' readonly placeholder='<%=titleName%>编号'
+                                 value='<%=Model.SOFTCODE%>' required class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="SOFTNAME"> <i class=" text-danger">* </i> <%=titleName%>名称
+                             :</label>
+                         <div class="col-sm-8">
+                             <input id='SOFTNAME' name='SOFTNAME' placeholder='<%=titleName%>名称 ' value='<%=Model.SOFTNAME%>'
+                                 required class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="MEMO">备注 :</label>
+                         <div class="col-sm-8">
+                             <input id='MEMO' name='MEMO' placeholder='备注 ' value='<%=Model.MEMO%>'
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+         </div>
+     </div>
+ </form>
+
+
+
+
+ <script>
+     $(function () {
+
+     });
+
+     function initValidator() {
+         $('#dform').bootstrapValidator({
+             message: 'This value is not valid',
+             feedbackIcons: {
+                 valid: 'glyphicon glyphicon-ok',
+                 invalid: 'glyphicon glyphicon-remove',
+                 validating: 'glyphicon glyphicon-refresh'
+             },
+             fields: {
+                 //<%=titleName%>编号
+                 SOFTCODE: {
+                     message: '<%=titleName%>编号 验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '<%=titleName%>编号 不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' <%=titleName%>编号 长度在1到60之间'
+                         }
+                     }
+                 },
+                 //<%=titleName%>名称 
+                 SOFTNAME: {
+                     message: '<%=titleName%>名称  验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '<%=titleName%>名称  不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' <%=titleName%>名称  长度在1到60之间'
+                         }
+                     }
+                 },
+         
+             }
+
+         });
+     }
+
+
+     function Submit() {
+         initValidator();
+         $('#dform').data('bootstrapValidator').validate();
+         if (!$('#dform').data('bootstrapValidator').isValid()) {
+             return false;
+         }
+         var action = $("#dform").attr("action");
+         var params = new FormData($("#dform")[0]);
+         var option = {
+             postUrl: action,
+             message: '确定要保存数据吗？',
+             param: params,
+             successCallBack: function (data) { //添加成功
+                 var index = parent.layer.getFrameIndex(window.name);
+                 parent.tableRefresh();
+                 parent.layer.close(index);
+
+             },
+             errorCallBack: null
+         };
+         bstrap.confirm(option); //弹出提示确认框
+     }
+ </script>

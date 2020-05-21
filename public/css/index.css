@@ -1,0 +1,378 @@
+/**********************************通用样式--begin************************************************/
+body {
+    color: #000;
+    font-family: '微软雅黑';
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+li,
+ul {
+    list-style: none;
+}
+
+/*紫色背景按钮 自定义按钮颜色可以从这里获取 https://blog.koalite.com/bbg/  -begin*/
+.btn-purple {
+    color: #ffffff;
+    background-color: #611BBD;
+    border-color: #130269;
+}
+
+.btn-rounded {
+    border-radius: 50px;
+}
+
+.btn-purple:hover,
+.btn-purple:focus,
+.btn-purple:active,
+.btn-purple.active,
+.open .dropdown-toggle.btn-purple {
+    color: #ffffff;
+    background-color: #49247A;
+    border-color: #130269;
+}
+
+.btn-purple:active,
+.btn-purple.active,
+.open .dropdown-toggle.btn-purple {
+    background-image: none;
+}
+
+.btn-purple.disabled,
+.btn-purple[disabled],
+fieldset[disabled] .btn-purple,
+.btn-purple.disabled:hover,
+.btn-purple[disabled]:hover,
+fieldset[disabled] .btn-purple:hover,
+.btn-purple.disabled:focus,
+.btn-purple[disabled]:focus,
+fieldset[disabled] .btn-purple:focus,
+.btn-purple.disabled:active,
+.btn-purple[disabled]:active,
+fieldset[disabled] .btn-purple:active,
+.btn-purple.disabled.active,
+.btn-purple[disabled].active,
+fieldset[disabled] .btn-purple.active {
+    background-color: #611BBD;
+    border-color: #130269;
+}
+
+.btn-purple .badge {
+    color: #611BBD;
+    background-color: #ffffff;
+}
+
+/*紫色背景按钮 -end*/
+/*navbar 导航条*/
+.navbar-lk {
+    border: 1px solid #e0e0e0;
+    background: rgba(255,255,255,0.7);
+}
+
+
+
+.section-header h2 {
+    font-size: 28px;
+    color: #272727;
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 20px;
+    margin: 0 0 20px;
+}
+
+.section-header h2:before {
+    content: "";
+    position: absolute;
+    width: 140px;
+    bottom: 0;
+    left: 50%;
+    margin-left: -70px;
+    height: 1px;
+    background: #ebebeb;
+}
+
+.section-header h2:after {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    bottom: -11px;
+    left: 50%;
+    margin-left: -12px;
+    border: 5px solid #fff;
+    border-radius: 20px;
+    background: #45aed6;
+}
+
+/**********************************通用样式--end************************************************/
+
+
+/**********************************头部--begin************************************************/
+#lk_header .top-bar {
+    height: 40px;
+    line-height: 39px;
+    border-bottom: 1px solid #e0e0e0;
+
+}
+
+#lk_header .top-bar .container .row>div+div {
+    border-left: 1px solid #e0e0e0;
+}
+
+#lk_header .top-bar .container .row .top-bar-1 a {
+    position: relative;
+}
+
+#lk_header .top-bar .container .row .top-bar-1 a img {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 888;
+    display: none;
+}
+
+#lk_header .top-bar .container .row .top-bar-1 a:hover img {
+
+    display: block;
+}
+
+#lk_header .navbar-lk .navbar-nav>li>a {
+    height: 70px;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+}
+
+#lk_header .navbar-lk .navbar-nav>li>a:hover {
+    border-bottom: 2px solid purple;
+}
+
+.row-margin-top {
+    margin-top: 20px;
+    background-color: purple;
+}
+
+/**********************************头部--end************************************************/
+
+
+
+
+/**********************************轮播图--begin************************************************/
+#lk_Carousel {
+    background-color: #fff;
+}
+
+/**********************************轮播图--end************************************************/
+
+
+
+
+/**********************************关于我们--begin************************************************/
+#lk_aboutus {
+    border-bottom: 1px solid #ccc;
+}
+
+#lk_aboutus .container .row>div>p {
+
+    word-spacing: 3px;
+    /* （字母或中文字的左右间距） */
+    line-height: 32px;
+    /*（两行之间的间距）*/
+    text-indent: 2em;
+}
+
+/**********************************关于我们--end************************************************/
+
+
+
+
+
+
+
+
+/**********************************产品中心--begin************************************************/
+#lk_product {
+    border-bottom: 1px solid #ccc;
+}
+
+#lk_product .container .card>img {
+    width: 120px;
+    margin: 100px auto;
+
+}
+
+/**********************************产品中心--end************************************************/
+
+
+
+
+
+
+
+/**********************************新闻资讯--begin************************************************/
+#lk_news {
+    background-color: #ccc;
+}
+
+/**********************************新闻资讯--end************************************************/
+
+
+
+#product {
+    background: url(/images/123.jpg) no-repeat center center;
+    width: 100%;
+    height: 420px;
+    background-color: #130269;
+    background-size: cover;
+}
+
+
+/**********************************服务支持--begin************************************************/
+#lk_service {
+    background-color: #f0f0f0;
+    height: 620px;
+    padding: 20px;
+}
+
+/**********************************服务支持--end************************************************/
+
+
+
+
+
+
+
+
+
+/**********************************联系我们--begin************************************************/
+#lk_link {
+    background-color: red;
+}
+
+/**********************************联系我们--end************************************************/
+
+
+
+
+
+
+
+
+/**********************************底部--begin************************************************/
+#lk_footer {
+    background-color: #000;
+    color: #fff;
+    height: 240px;
+}
+
+#lk_footer .container {
+    background-color: #000;
+    color: #fff;
+}
+
+/**********************************底部部--end************************************************/
+/*解决方案 begin*/
+#scheme .i-menu-left {
+    background-color: rgb(236, 236, 236);
+}
+
+#scheme .nav-pills a {
+    /* background-color: violet; */
+    font-size: 16px;
+    border-bottom: 1px dashed #999;
+    padding: 3px 0px;
+    margin: 10px;
+    color: #333;
+
+}
+
+
+
+#scheme .nav-pills a.active {
+
+    background-color: transparent;
+    color: #3c1ed4;
+
+}
+
+#scheme .tab-content {
+
+    /* background-color: thistle; */
+    align-items: flex-start;
+
+}
+
+.cont_title {
+    color: #3c1ed4;
+    padding: 30px 0px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #999;
+}
+
+.cont_sch h2 {
+    font-size: 20px;
+    color: #333;
+    line-height: 36px;
+}
+
+.cont_sch p {
+    font-size: 16px;
+    color: #555;
+    line-height: 30px;
+    margin-bottom: 16px;
+}
+
+/*解决方案 end*/
+
+
+/*************************
+********Service CSS*******
+**************************/
+
+.service-icon {
+    border-radius: 4px;
+    color: rgb(37, 124, 124);
+    display: inline-block;
+    font-size: 36px;
+    height: 90px;
+    line-height: 90px;
+    width: 90px;
+    background-color: #45aed6;
+    /* -webkit-transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease;*/
+} 
+
+.our-services .col-sm-4:hover .service-icon {
+    background-color: #333;
+}
+
+.our-services .col-sm-4 {
+    border-right: 1px solid #f2f2f2;
+    border-bottom: 1px solid #f2f2f2;
+    padding-bottom: 50px;
+}
+
+.our-services .col-sm-4:nth-child(4),
+.our-services .col-sm-4:nth-child(5),
+.our-services .col-sm-4:nth-child(6) {
+    border-bottom: 0;
+    padding-top: 60px;
+}
+
+.our-services .col-sm-4:nth-child(3),
+.our-services .col-sm-4:nth-child(6) {
+    border-right: 0;
+}
+
+.service-info h3 {
+    margin-top: 35px;
+}

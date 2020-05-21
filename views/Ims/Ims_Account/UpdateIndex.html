@@ -1,0 +1,248 @@
+﻿ <form id="dform" class="form-horizontal">
+     <div class="ibox">
+         <div class="ibox-title">
+             <h5> 公共号与Hos 平台绑定 修改</h5>
+         </div>
+         <div class="ibox-content">
+             <div class="row">
+                 <input id='accountId' name='accountId' placeholder='' type='hidden' value='<%=Model.accountId%>'>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="openid"> <i class=" text-danger">* </i>
+                             微信OpenId:</label>
+                         <div class="col-sm-8">
+                             <input id='openid' name='openid' placeholder='请输入微信OpenId' value='<%=Model.openid%>'
+                                 required class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="hosCardNo"> <i class=" text-danger">* </i>
+                             就诊卡号:</label>
+                         <div class="col-sm-8">
+                             <input id='hosCardNo' name='hosCardNo' placeholder='请输入就诊卡号' value='<%=Model.hosCardNo%>'
+                                 required class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="nickname">昵称 :</label>
+                         <div class="col-sm-8">
+                             <input id='nickname' name='nickname' placeholder='请输入昵称' value='<%=Model.nickname%>'
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="sex">性别 :</label>
+                         <div class="col-sm-8">
+                             <input id='sex' name='sex' placeholder='请输入性别' value='<%=Model.sex%>' class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="province">省份 :</label>
+                         <div class="col-sm-8">
+                             <input id='province' name='province' placeholder='请输入省份' value='<%=Model.province%>'
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="city">城市 :</label>
+                         <div class="col-sm-8">
+                             <input id='city' name='city' placeholder='请输入城市' value='<%=Model.city%>'
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="country">国家 :</label>
+                         <div class="col-sm-8">
+                             <input id='country' name='country' placeholder='请输入国家' value='<%=Model.country%>'
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="headimgurl">图片Url :</label>
+                         <div class="col-sm-8">
+                             <input id='headimgurl' name='headimgurl' placeholder='请输入图片Url'
+                                 value='<%=Model.headimgurl%>' class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="name">姓名 :</label>
+                         <div class="col-sm-8">
+                             <input id='name' name='name' placeholder='请输入姓名' value='<%=Model.name%>'
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="phone">电话号码 :</label>
+                         <div class="col-sm-8">
+                             <input id='phone' name='phone' placeholder='请输入电话号码' value='<%=Model.phone%>'
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="certNo">证件号码 :</label>
+                         <div class="col-sm-8">
+                             <input id='certNo' name='certNo' placeholder='请输入证件号码' value='<%=Model.certNo%>'
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="hosCardType">证件号 :</label>
+                         <div class="col-sm-8">
+                             <input id='hosCardType' name='hosCardType' placeholder='请输入证件号'
+                                 value='<%=Model.hosCardType%>' class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="hosCardFrom">卡来源 :</label>
+                         <div class="col-sm-8">
+                             <input id='hosCardFrom' name='hosCardFrom' placeholder='请输入卡来源'
+                                 value='<%=Model.hosCardFrom%>' class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="certType">证件类型 :</label>
+                         <div class="col-sm-8">
+                             <input id='certType' name='certType' placeholder='请输入证件类型' value='<%=Model.certType%>'
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="closed">是否关闭 :</label>
+                         <div class="col-sm-8">
+                             <input id='closed' name='closed' placeholder='请输入是否关闭' value='<%=Model.closed%>'
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="createDate"> <i class=" text-danger">* </i>
+                             创建时间:</label>
+                         <div class="col-sm-8">
+                             <input id='createDate' name='createDate' placeholder='请输入创建时间'
+                                 value='<%=Model.createDate%>' required class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+         </div>
+     </div>
+ </form>
+
+
+
+
+ <script>
+     $(function () {
+
+     });
+
+     function initValidator() {
+         $('#dform').bootstrapValidator({
+             message: 'This value is not valid',
+             feedbackIcons: {
+                 valid: 'glyphicon glyphicon-ok',
+                 invalid: 'glyphicon glyphicon-remove',
+                 validating: 'glyphicon glyphicon-refresh'
+             },
+             fields: {
+                 //微信OpenId
+                 openid: {
+                     message: '微信OpenId 验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '微信OpenId 不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 微信OpenId 长度在1到60之间'
+                         }
+                     }
+                 },
+                 //就诊卡号
+                 hosCardNo: {
+                     message: '就诊卡号 验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '就诊卡号 不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 就诊卡号 长度在1到60之间'
+                         }
+                     }
+                 },
+                 //创建时间
+                 createDate: {
+                     message: '创建时间 验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '创建时间 不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 创建时间 长度在1到60之间'
+                         }
+                     }
+                 },
+             }
+
+         });
+     }
+
+
+     function submit() {
+         initValidator();
+         $('#dform').data('bootstrapValidator').validate();
+         if (!$('#dform').data('bootstrapValidator').isValid()) {
+             return false;
+         }
+         var action = $("#dform").attr("action");
+         var params = new FormData($("#dform")[0]);
+         var option = {
+             postUrl: action,
+             message: '确定要保存数据吗？',
+             param: params,
+             successCallBack: function (data) { //添加成功
+                 var index = parent.layer.getFrameIndex(window.name);
+                 parent.tableRefresh();
+                 parent.layer.close(index);
+
+             },
+             errorCallBack: null
+         };
+         bstrap.confirm(option); //弹出提示确认框
+     }
+ </script>

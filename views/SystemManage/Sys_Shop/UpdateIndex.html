@@ -1,0 +1,132 @@
+﻿ <form id="dform" class="form-horizontal">
+     <div class="ibox">
+         <div class="ibox-title">
+             <h5>部门管理 修改</h5>
+         </div>
+         <div class="ibox-content">
+             <div class="row">
+                 <input id='SHOPID' name='SHOPID' placeholder='部门ID ' type='hidden' value='<%=Model.SHOPID%>'>
+                 <input id='PARENTID' name='PARENTID' type="hidden" value="0" value='<%=Model.PARENTID%>'>
+                 <input id='LEVEL' name='LEVEL' type="hidden" value="0" value='<%=Model.LEVEL%>'>
+                
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="SHOPCODE"><i class=" text-danger">* </i>部门编号
+                             :</label>
+                         <div class="col-sm-8">
+                             <input id='SHOPCODE' name='SHOPCODE' readonly placeholder='请输入部门编号 '
+                                 value='<%=Model.SHOPCODE%>' required class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="SHOPNAME"><i class=" text-danger">* </i>部门名称
+                             :</label>
+                         <div class="col-sm-8">
+                             <input id='SHOPNAME' name='SHOPNAME' placeholder='请输入部门名称 ' value='<%=Model.SHOPNAME%>'
+                                 required class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+                 <!-- <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="PARENTID"><i class=" text-danger">* </i>父级部门编号
+                            :</label>
+                        <div class="col-sm-8">
+
+                            <input id='PARENTID' name='PARENTID' placeholder='请输入父级部门编号 ' value='<%=Model.PARENTID%>' required class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="LEVEL"><i class=" text-danger">* </i>部门层级
+                            :</label>
+                        <div class="col-sm-8">
+
+                            <input id='LEVEL' name='LEVEL' placeholder='请输入部门层级 ' required class='form-control' value='<%=Model.LEVEL%>'>
+                        </div>
+                    </div>
+                </div> -->
+                 <input id='CLOSED' name='CLOSED' placeholder='删除标记 ' type='hidden' value='<%=Model.CLOSED%>'
+                     class='form-control'>
+             </div>
+
+         </div>
+     </div>
+ </form>
+
+
+
+
+ <script>
+    
+
+     function initValidator() {
+         $('#dform').bootstrapValidator({
+             message: 'This value is not valid',
+             feedbackIcons: {
+                 valid: 'glyphicon glyphicon-ok',
+                 invalid: 'glyphicon glyphicon-remove',
+                 validating: 'glyphicon glyphicon-refresh'
+             },
+             fields: {
+                 //部门编号 
+                 SHOPCODE: {
+                     message: '部门编号  验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '部门编号  不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 部门编号  长度在1到60之间'
+                         }
+                     }
+                 },
+                 //部门名称 
+                 SHOPNAME: {
+                     message: '部门名称  验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '部门名称  不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 部门名称  长度在1到60之间'
+                         }
+                     }
+                 },
+
+             }
+
+         });
+     }
+
+
+     function Submit() {
+         initValidator();
+         $('#dform').data('bootstrapValidator').validate();
+         if (!$('#dform').data('bootstrapValidator').isValid()) {
+             return false;
+         }
+         var action = $("#dform").attr("action");
+         var params = new FormData($("#dform")[0]);
+         var option = {
+             postUrl: action,
+             message: '确定要保存数据吗？',
+             param: params,
+             successCallBack: function (data) { //添加成功
+                 var index = parent.layer.getFrameIndex(window.name);
+                 parent.tableRefresh();
+                 parent.layer.close(index);
+
+             },
+             errorCallBack: null
+         };
+         bstrap.confirm(option); //弹出提示确认框
+     }
+ </script>

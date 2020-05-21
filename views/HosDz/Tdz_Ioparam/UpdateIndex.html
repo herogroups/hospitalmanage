@@ -1,0 +1,141 @@
+﻿<form id="dform" class="form-horizontal">
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5> 商户对外接口配置 修改</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                    <input id="IoModel" name="IoModel" type="hidden" value="<%=IoModel%>">
+                <input id='IoParamId' name='IoParamId' placeholder='Id' type='hidden' value='<%=Model.IoParamId%>'>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="Name"> <i class=" text-danger">* </i> 名称:</label>
+                        <div class="col-sm-8">
+                            <input id='Name' name='Name' placeholder='请输入名称' value='<%=Model.Name%>' required
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="Ip">Ip地址 :</label>
+                        <div class="col-sm-8">
+                            <input id='Ip' name='Ip' placeholder='请输入Ip地址' value='<%=Model.Ip%>' class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="Port">端口 :</label>
+                        <div class="col-sm-8">
+                            <input id='Port' name='Port' placeholder='请输入端口' value='<%=Model.Port%>'
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="UserName">用户名 :</label>
+                        <div class="col-sm-8">
+                            <input id='UserName' name='UserName' placeholder='请输入用户名' value='<%=Model.UserName%>'
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="Password">密码 :</label>
+                        <div class="col-sm-8">
+                            <input id='Password' name='Password' placeholder='请输入密码' value='<%=Model.Password%>'
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="Route">路由 :</label>
+                        <div class="col-sm-8">
+                            <input id='Route' name='Route' placeholder='请输入路由' value='<%=Model.Route%>'
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="SavePath">文件存储路径 :</label>
+                        <div class="col-sm-8">
+                            <input id='SavePath' name='SavePath' placeholder='请输入文件存储路径' value='<%=Model.SavePath%>'
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                 
+                
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+
+
+<script>
+    $(function () {
+
+    });
+
+    function initValidator() {
+        $('#dform').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                //名称
+                Name: {
+                    message: '名称 验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '名称 不能为空'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 60,
+                            message: ' 名称 长度在1到60之间'
+                        }
+                    }
+                },
+              
+            }
+
+        });
+    }
+
+
+    function submit() {
+        initValidator();
+        $('#dform').data('bootstrapValidator').validate();
+        if (!$('#dform').data('bootstrapValidator').isValid()) {
+            return false;
+        }
+        var action = $("#dform").attr("action");
+        var params = new FormData($("#dform")[0]);
+        var option = {
+            postUrl: action,
+            message: '确定要保存数据吗？',
+            param: params,
+            successCallBack: function (data) { //添加成功
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.tableRefresh();
+                parent.layer.close(index);
+
+            },
+            errorCallBack: null
+        };
+        bstrap.confirm(option); //弹出提示确认框
+    }
+
+</script>

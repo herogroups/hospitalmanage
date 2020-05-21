@@ -1,0 +1,127 @@
+﻿<link href="/js/bootstrapInputFile/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+<script src="/js/bootstrapInputFile/js/fileinput.min.js" type="text/javascript"></script>
+<script src="/js/bootstrapInputFile/js/locales/zh.js" type="text/javascript"></script>
+<script src="/js/fileInput.js" type="text/javascript"></script>
+<form id="dform" class="form-horizontal">
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5> 新增<%=subTypeName%></h5>
+
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <input id='subTypeId' name="subTypeId" type="hidden" value="<%=subTypeId%>">
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="title"> <i class=" text-danger">* </i> 标题:</label>
+                        <div class="col-sm-8">
+
+                            <input id='title' name='title' placeholder='请输入标题' required class='form-control'> </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="MEMO">上传图片 :</label>
+                        <div class="col-sm-8"> <input id='imgUrl' name='imgUrl' type='hidden'>
+                            <input type="file" name="filename" id="filename" class="file-loading form-control"
+                                data-show-preview="false" />
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="linkUrl">  <i class=" text-danger">* </i> 链接地址 :</label>
+                        <div class="col-sm-8"> <input id='linkUrl' name='linkUrl' placeholder='请输入链接地址' required class='form-control'>
+                      
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+
+
+<script>
+    $(function () {
+        initValidator();
+        var oFileInput = new FileInput();
+        oFileInput.Init("filename", '/Hos/hos_article/upload', true, new Array(), new Array(), function (item) {
+            $('#imgUrl').val(item.aftername)
+
+        });
+    });
+
+    function initValidator() {
+        $('#dform').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                //标题
+                title: {
+                    message: '标题 验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '标题 不能为空'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 60,
+                            message: ' 标题 长度在1到60之间'
+                        }
+                    }
+                },
+
+            } , fields: {
+                //标题
+                title: {
+                    message: '链接地址验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '链接地址不能为空'
+                        },
+                         
+                    }
+                },
+
+            }
+
+        });
+    }
+
+
+    function Submit() {
+
+        $('#dform').data('bootstrapValidator').validate();
+        if (!$('#dform').data('bootstrapValidator').isValid()) {
+            return false;
+        }
+
+        var action = $("#dform").attr("action");
+        var params = new FormData($("#dform")[0]);
+        params.append("contents", '')
+        var option = {
+            postUrl: action,
+            message: '确定要保存数据吗？',
+            param: params,
+            successCallBack: function (data) { //添加成功
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.tableRefresh();
+                parent.layer.close(index);
+
+            },
+            errorCallBack: null
+        };
+        bstrap.confirm(option); //弹出提示确认框
+    }
+</script>

@@ -1,0 +1,328 @@
+﻿<form id="dform" class="form-horizontal">
+    <div class="ibox">
+        
+        <div class="ibox-content">
+            <div class="row">
+             
+                    <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="WindowNo">操作窗口号 :</label>
+                                <div class="col-sm-8">
+                                       <span class="clabel"> <%=Model.WindowNo%></span>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="OperatorNo">操作员号 :</label>
+                                <div class="col-sm-8">
+                                       <span class="clabel"> <%=Model.OperatorNo%></span>
+                                
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="AutoRecDateTime">对账时间 :</label>
+                                <div class="col-sm-8">
+                                       <span class="clabel"> <%=Model.AutoRecDateTime%></span>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="AutoRecResult">对账结果  :</label>
+                                <div class="col-sm-8">
+                                       <span class="clabel"> <%-Model.AutoRecResult%></span>
+                               
+                                </div>
+                            </div>
+                        </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="MerPayTypeId">支付方式 :</label>
+                        <div class="col-sm-8">
+                                <span class="clabel"><%=Model.MerPayTypeName%></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="MerchantTypeId">商户类型 :</label>
+                        <div class="col-sm-8">
+                               <span class="clabel"><%=Model.MerchantTypeName%></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="WorkDate">交易日期 :</label>
+                        <div class="col-sm-8">                            
+                               <span class="clabel"> <%=Model.WorkDate%></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="BussType">业务名称 :</label>
+                        <div class="col-sm-8">
+                                <span class="clabel"> <%=Model.BussType%></span>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="PospOrderNo">前置订单号 :</label>
+                        <div class="col-sm-8">
+                                <span class="clabel"> <%=Model.PospOrderNo%></span>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="MerchantNo">商户号 :</label>
+                        <div class="col-sm-8">
+                                <span class="clabel"> <%=Model.MerchantNo%></span>
+                          
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="TerminalNo">终端号 :</label>
+                        <div class="col-sm-8">
+                                <span class="clabel">  <%=Model.TerminalNo%></span>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="TransTime">交易时间 :</label>
+                        <div class="col-sm-8">
+                               <span class="clabel"> <%=Model.TransTime%></span>
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            <div class="hr-line-dashed"></div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label text-justify" for="BankCardNum">银行卡号 :</label>
+                        <div class="col-sm-8">
+                                <span class="clabel"><%=Model.BankCardNum%></span>
+                         
+                         
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label"  >银行参考号 :</label>
+                        <div class="col-sm-8">
+                               <span class="clabel"> <%=Model.BankRefNo%></span>
+                         
+                          
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label"  >银行订单号 :</label>
+                        <div class="col-sm-8">
+                               <span class="clabel"> <%=Model.BankOrderNo%></span>
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label"  > <i class=" text-danger">* </i>
+                            银行流水号:</label>
+                        <div class="col-sm-8">
+                               <span class="clabel"> <%=Model.BankTrace%></span>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label"  >银行金额 :</label>
+                        <div class="col-sm-8">
+                               <span class="clabel"> <%=Model.BankAmount%></span>
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="row">
+                <div class="hr-line-dashed"></div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label"  >第三方金额 :</label>
+                        <div class="col-sm-8">
+                               <span class="clabel"> <%=Model.ThirdAmount%></span>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4  control-label "  >用户号 :</label>
+                        <div class="col-sm-8">
+                               <span class="clabel"> <%=Model.ThirdUserNo%></span>
+                          
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ThirdUserID">用户Id:</label>
+                        <div class="col-sm-8">
+                               <span class="clabel"> <%=Model.ThirdUserID%></span>
+                         
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ThirdUserName">用户名 :</label>
+                        <div class="col-sm-8">
+                               <span class="clabel"> <%=Model.ThirdUserName%></span>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ThirdUserTelNo">户电话号码 :</label>
+                        <div class="col-sm-8">
+                               <span class="clabel"> <%=Model.ThirdUserTelNo%></span>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ThirdUserSex">用户性别  :</label>
+                        <div class="col-sm-8">
+                               <span class="clabel"> <%-Model.ThirdUserSex%></span>
+                             
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ThirdUserIDNum">身份证号 :</label>
+                        <div class="col-sm-8">
+                                <span class="clabel"> <%=Model.ThirdUserIDNum%></span>
+                         
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="ThirdRefNo">参考号 :</label>
+                            <div class="col-sm-8">
+                                   <span class="clabel"> <%=Model.ThirdRefNo%></span>
+                                
+                            </div>
+                        </div>
+                    </div>
+              
+                 
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<style>
+.clabel {
+  float: left;
+  width: 160px;
+  padding-top: 5px;
+  text-align: left;
+}
+</style>
+
+
+<script>
+    $(function () {
+
+      
+    });
+
+    function initValidator() {
+        $('#dform').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                //银行流水号
+                BankTrace: {
+                    message: '银行流水号 验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '银行流水号 不能为空'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 60,
+                            message: ' 银行流水号 长度在1到60之间'
+                        }
+                    }
+                },
+                //状态  0  正常  1停用
+                DelMark: {
+                    message: '状态  0  正常  1停用 验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '状态  0  正常  1停用 不能为空'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 60,
+                            message: ' 状态  0  正常  1停用 长度在1到60之间'
+                        }
+                    }
+                },
+            }
+
+        });
+    }
+
+
+    function submit() {
+        initValidator();
+        $('#dform').data('bootstrapValidator').validate();
+        if (!$('#dform').data('bootstrapValidator').isValid()) {
+            return false;
+        }
+        var action = $("#dform").attr("action");
+        var params = new FormData($("#dform")[0]);
+        var option = {
+            postUrl: action,
+            message: '确定要保存数据吗？',
+            param: params,
+            successCallBack: function (data) { //添加成功
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.tableRefresh();
+                parent.layer.close(index);
+
+            },
+            errorCallBack: null
+        };
+        bstrap.confirm(option); //弹出提示确认框
+    }
+
+</script>

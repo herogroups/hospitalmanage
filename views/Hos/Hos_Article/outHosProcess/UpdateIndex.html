@@ -1,0 +1,119 @@
+﻿<link href="/css/summernote/summernote.css" rel="stylesheet">
+<link href="/css/summernote/summernote-bs3.css" rel="stylesheet">
+
+
+<form id="dform" class="form-horizontal">
+    <div class="ibox">
+    
+        <div class="ibox-content">
+            <div class="row">
+                <input id='articleId' name='articleId' type='hidden' value='<%=Model.articleId%>'>
+                <input id='imgUrl' name='imgUrl' type='hidden'>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="title"> <i class=" text-danger">* </i> 标题:</label>
+                        <div class="col-sm-8">
+                            <input id='title' name='title' placeholder='请输入标题' value='<%=Model.title%>' required
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="contents"> <i class=" text-danger">* </i>
+                            内容:</label>
+                        <div class="col-sm-10">
+                            <div class="summernote" style="height:600px"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
+
+<script src="/js/summernote/summernote.min.js"></script>
+<script src="/js/summernote/summernote-zh-CN.js"></script>
+
+
+
+<script>
+    $(function () {
+        $('#btn_save').click(function() {
+            Submit();
+        })
+        $(".summernote").summernote({
+            lang: "zh-CN",
+            height: 300,
+        }).code(decodeURIComponent('<%=Model.contents%>'));
+
+        initValidator();
+    });
+
+    function initValidator() {
+        $('#dform').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                //标题
+                title: {
+                    message: '标题 验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '标题 不能为空'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 60,
+                            message: ' 标题 长度在1到60之间'
+                        }
+                    }
+                },
+
+
+
+
+            }
+
+        });
+    }
+
+
+    function Submit() {
+
+        $('#dform').data('bootstrapValidator').validate();
+        if (!$('#dform').data('bootstrapValidator').isValid()) {
+            return false;
+        }
+        var sHTML = $('.summernote').code();
+        if (sHTML.length < 1) {
+            return;
+        }
+
+
+        var action = '/Hos/hos_article/Update';
+        var params = new FormData($("#dform")[0]);
+        params.append("contents", encodeURIComponent(sHTML))
+        var option = {
+            postUrl: action,
+            message: '确定要保存数据吗？',
+            param: params,
+            successCallBack: function (data) { //添加成功
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.tableRefresh();
+                parent.layer.close(index);
+            },
+            errorCallBack: null
+        };
+        bstrap.confirm(option); //弹出提示确认框
+    }
+
+</script>

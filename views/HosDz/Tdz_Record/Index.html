@@ -1,0 +1,331 @@
+﻿ 
+<div class="wrapper wrapper-content animated ">
+    <div class="ibox">
+        <div class="ibox-title">
+            <form id="dform" class="form-horizontal">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="MerchantTypeId">商户类别：</label>
+                            <div class="col-sm-8">
+                                <select id='MerchantTypeId' name='MerchantTypeId' class='form-control'></select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="MerchantSpec">特征码：</label>
+                            <div class="col-sm-8">
+                                <input id="MerchantSpec" name="MerchantSpec" placeholder="对账商户特征码" class="form-control">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="AnalysisFlag">解析标志 ：</label>
+                            <div class="col-sm-8">
+
+                                <select id="AnalysisFlag" name="AnalysisFlag" class="form-control">
+                                    <option value="-1">全部</option>
+                                    <option value="0">未解析</option>
+                                    <option value="1">已解析</option>
+
+                                </select>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="FtpToThirdFlag">推送标志：</label>
+                            <div class="col-sm-8">
+
+                                <select id="FtpToThirdFlag" name="FtpToThirdFlag" class="form-control">
+                                    <option value="-1">全部</option>
+                                    <option value="0">未推送</option>
+                                    <option value="1">已推送</option>
+                                    <option value="2">无需推送</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">范围选择：</label>
+                            <div class="input-daterange input-group" id="datepicker">
+                                <input type="text" class="input-sm form-control" id="Start" name="Start" value=" " />
+                                <span class="input-group-addon">到</span>
+                                <input type="text" class="input-sm form-control" id="End" name="End" value=" " />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <button type="button" class="btn btn-sm btn-primary" id="btn_search"><i
+                                class="fa fa-search"></i> 搜索</button>
+                    </div>
+                    <table id="tb_grid"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    $(function () {
+        $(".input-daterange").datepicker({
+            keyboardNavigation: !1,
+            forceParse: !1,
+            autoclose: !0
+        });
+        $('#Start').val('<%=workDate%>'); //前一天
+        $('#End').val('<%=workDate%>'); //前一天
+        $("#btn_search").click(function () {
+            $("#tb_grid").bootstrapTable('refresh');
+        });
+        $('#MerchantTypeId').selectBind('/HosDz/tdz_merchanttype/getComb', { mark: 1 });
+        initTable();
+
+    });
+
+
+    function initTable() {
+
+        var options = {
+            gridName: 'tb_grid', //网格名称
+            url: '/HosDz/tdz_record/getAllList', //表格提交地址
+            sidePagination: 'client', //客户端client分页还是服务端server分页
+            param: queryParams, //查询参数
+            uniqueId: 'BookId', //每一行的唯一标识，一般为主键列
+            showFooter: true,
+            columns: [
+                [
+                    {
+                        "title": "对账结果统计表",
+                        "halign": "center",
+                        "align": "center",
+                        "colspan": 22
+                    }
+                ],
+                [
+                    {
+                        field: 'MerchantTypeName',
+                        title: "商户类别名称",
+                        valign: "middle",
+                        align: "center",
+                        colspan: 1, rowspan: 2
+                        , footerFormatter: function (value) {
+                            return '总计:';
+                        }
+                    },
+                    {
+                        field: 'WorkDate',
+                        title: "对账日期",
+                        valign: "middle",
+                        align: "center",
+                        colspan: 1,
+                        rowspan: 2,
+
+                    }, {
+                        'halign': 'center', 'align': 'center', valign: "middle", field: 'AnalysisFlag', title: '解析标志', colspan: 1,
+                        rowspan: 2, formatter: function (value, row) {
+                            if (value == 0) return '未解析'
+                            if (value == 1) return '已解析'
+
+                        }
+                    },
+                    {
+                        'halign': 'center', 'align': 'center', valign: "middle", field: 'Result', title: '对账结果', colspan: 1,
+                        rowspan: 2, formatter: function (value, row) {
+                            if (value == 0) return '<span class="text-warning">未对账<span>'
+                            if (value == 1) return '<span class="text-success">账平<span>'
+                            if (value == 2) return '<span class="text-info">不平<span>'
+                            if (value == 3) return '<span class="text-danger">对账失败<span>'
+
+                        }
+                    },
+                    {
+                        'halign': 'center', 'align': 'center', valign: "middle", field: 'FtpToThirdFlag', title: '推送标志  ', colspan: 1,
+                        rowspan: 2, formatter: function (value, row) {
+                            if (value == 0) return '未推送'
+                            if (value == 1) return '已推送'
+                            if (value == 2) return '无需推送'
+                        }
+                    },
+                    {
+                        'halign': 'center', 'align': 'center', valign: "middle", field: 'ExcuteCount', title: '对账次数', colspan: 1,
+                        rowspan: 2,
+
+                    }, {
+                        title: "银行",
+                        valign: "middle",
+                        align: "center",
+                        colspan: 8,
+                        rowspan: 1
+                    }, {
+                        title: "第三方",
+                        valign: "middle",
+                        align: "center",
+                        colspan: 8,
+                        rowspan: 1
+                    }
+
+                ], [
+
+                    {
+                        'halign': 'center', 'align': 'center', valign: "middle", field: 'BankTotalCount', title: '总笔数', footerFormatter: function(value){
+                          return  bstrap.footerFat(value,'BankTotalCount')
+                        }
+                    },
+                    {
+                        'halign': 'center', 'align': 'center', valign: "middle", field: 'BankTotalAmout', title: '总金额',  footerFormatter: function(value){
+                          return bstrap.footerFat(value,'BankTotalAmout',2)
+                        }
+                    },
+                    { 'halign': 'center', 'align': 'center', valign: "middle", field: 'BankTotalPayCount', title: '支付</br>总笔数' },
+                    { 'halign': 'center', 'align': 'center', valign: "middle", field: 'BankTotalPayAmount', title: '支付</br>总金额' },
+                    { 'halign': 'center', 'align': 'center', valign: "middle", field: 'BankTotalRejectCount', title: '退费</br>总笔数' },
+                    { 'halign': 'center', 'align': 'center', valign: "middle", field: 'BankTotalRejectAmount', title: '退费</br>总金额' },
+                    { 'halign': 'center', 'align': 'center', valign: "middle", field: 'BankTotalRealCount', title: '净支付</br>总笔数' },
+                    { 'halign': 'center', 'align': 'center', valign: "middle", field: 'BankTotalRealAmount', title: '净支付</br>总金额' },
+
+                    { 'halign': 'center', 'align': 'center', valign: "middle", field: 'ThirdTotalCount', title: '总笔数' , footerFormatter: function(value){
+                          return  bstrap.footerFat(value,'ThirdTotalCount')
+                        }
+                    },
+                    { 'halign': 'center', 'align': 'center', valign: "middle", field: 'ThirdTotalAmount', title: '总金额' , footerFormatter: function(value){
+                          return bstrap.footerFat(value,'ThirdTotalAmount',2)
+                        }
+                    },
+                    { 'halign': 'center', 'align': 'center', valign: "middle", field: 'ThirdTotalPayCount', title: '支付</br>总笔数' },
+                    { 'halign': 'center', 'align': 'center', valign: "middle", field: 'ThirdTotalPayAmount', title: '支付</br>总金额' },
+                    { 'halign': 'center', 'align': 'center', valign: "middle", field: 'ThirdTotalRejectCount', title: '退费</br>总笔数' },
+                    { 'halign': 'center', 'align': 'center', valign: "middle", field: 'ThirdTotalRejectAmount', title: '退费</br>总金额' },
+                    { 'halign': 'center', 'align': 'center', valign: "middle", field: 'ThirdTotalRealCount', title: '净支付</br>总笔数' },
+                    { 'halign': 'center', 'align': 'center', valign: "middle", field: 'ThirdTotalRealAmount', title: '净支付</br>总金额' },
+
+
+                ]], //显示网格列表信息
+            LoadSuccess: function (data) {
+
+            }, //加载成功回调函数
+
+            height: $(window).height() - 60,//table表格高度
+        };
+        bstrap.initGrid(options)
+    }
+    function queryParams(params) {
+        var param = $.param({
+            // 当前页数
+            "offset": this.offset,
+            "pageindex": this.pageNumber,
+            // 每页显示多少条
+            "pageSize": this.pageSize
+        }) + '&' + $('#dform').serialize();
+        return param;
+
+    }
+    function tableRefresh() {
+
+        $("#tb_grid").bootstrapTable('refresh', $("#dform").serialize());
+    }
+
+    function addIndex() {
+        var defaults = {
+            title: ' 对账记录表 增加 ',
+            width: "1024px",
+            height: "500px",
+            url: " /HosDz/tdz_record/addIndex",
+            shade: 0.3,
+
+            btn: ['确认', '关闭'],
+
+            LoadSuccess: function (layero, index) {
+                var body = layer.getChildFrame('body', index);
+                var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                iframeWin.$("#dform").attr("action", "/HosDz/tdz_record/add");
+            },
+            callBack: function (layero) {
+                var iframeWin = window[layero.find('iframe')[0]['name']];
+                iframeWin.submit();
+
+            }
+        };
+        var index = $.modalOpen(defaults)
+        //  layer.full(index);
+    }
+    function modify(Id) {
+        var defaults = {
+            title: '修改',
+            width: "1024px",
+            height: "500px",
+            url: " /HosDz/tdz_record/updateIndex?Id=" + Id,
+
+            shade: 0.3,
+            btn: ['确认', '关闭'],
+
+            LoadSuccess: function (layero, index) {
+                var body = layer.getChildFrame('body', index);
+                var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                iframeWin.$("#dform").attr("action", "/HosDz/tdz_record/update");
+            },
+            callBack: function (layero) {
+                var iframeWin = window[layero.find('iframe')[0]['name']];
+                iframeWin.submit();
+
+            }
+        };
+        var index = $.modalOpen(defaults)
+        // layer.full(index);
+    }
+
+    function remove() {
+
+        var row = $("#tb_grid").bootstrapTable('getSelections');
+        if (row == null || row.length == 0) {
+
+            toastr.warning("请选择要操作的行");
+
+            return;
+        }
+        var arrays = [];
+        for (var i = 0; i < row.length; i++) {
+            arrays.push(row[i].RecordId);
+        }
+        var ids = arrays.join(',');
+        var formData = new FormData();
+        formData.append("ids", ids);
+        var option = {
+            postUrl: '/HosDz/tdz_record/remove',
+            message: '确定要删除这' + row.length + '条记录吗？',
+            param: formData,
+            successCallBack: function (data) { //成功
+
+                tableRefresh();
+            },
+            errorCallBack: null
+        };
+        bstrap.confirm(option); //弹出提示确认框
+
+
+
+    }
+
+
+
+</script>

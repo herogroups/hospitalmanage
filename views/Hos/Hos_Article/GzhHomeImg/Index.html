@@ -1,0 +1,225 @@
+﻿ 
+<div class="wrapper wrapper-content animated ">
+    <div class="ibox">
+        <div class="ibox-title">
+            <form id="dform" class="form-horizontal">
+                <div class="row">
+
+
+                    <input id='subTypeId' name='subTypeId' type="hidden" value="<%=subTypeId%>">
+
+
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="title">标题：</label>
+                            <div class="col-sm-8">
+                                <input id="title" name="title" placeholder="标题" class="form-control">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <button type="button" class="btn btn-sm btn-primary" id="btn_search"><i
+                                class="fa fa-search"></i> 搜索</button>
+                        <button type="button" class="btn btn-sm btn-info" id="btn_Add"><i
+                                class="fa fa-check"></i>增加</button>
+                        <button class="btn btn-warning " type="button" onclick="Remove()"><i
+                                class="fa fa-warning"></i><span class="bold">删除</span></button>
+
+
+                    </div>
+                    <table id="tb_grid"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+
+
+        $("#btn_Add").click(function () {
+            AddIndex();
+        });
+        $("#btn_search").click(function () {
+            $("#tb_grid").bootstrapTable('refresh');
+        });
+
+        initTable();
+
+    });
+
+
+    function initTable() {
+
+        var options = {
+            gridName: 'tb_grid', //网格名称
+            url: '/Hos/hos_article/GetAllList', //表格提交地址
+            sidePagination: 'client', //客户端client分页还是服务端server分页
+            param: queryParams, //查询参数
+            uniqueId: 'BookId', //每一行的唯一标识，一般为主键列
+            columns: [{
+                    checkbox: true
+                }, {
+                    'halign': 'center',
+                    'align': 'center',
+                    field: 'title',
+                    title: '标题',
+                    formatter: function (value, row) {
+                        return "<a onclick='modify(" + row.articleId + ")'>" + row.title + "</a>"
+                    }
+                },
+                {
+                    'halign': 'center',
+                    'align': 'center',
+                    field: 'title',
+                    title: '图像',
+                    formatter: function (value, row) {
+
+                        return "<img src='/" + row.imgUrl + "' style='width:100px'/>"
+                    }
+                },
+                {
+                    'halign': 'center',
+                    'align': 'center',
+                    field: 'linkUrl',
+                    title: '图像链接地址',
+                    formatter: function (value, row) {
+                      return "<a title='"+value+"' href='"+value+"'>"+ $.fn.wordlimit(value,30)+"</a>";
+                       
+                    }
+                },
+
+                {
+                    'halign': 'center',
+                    'align': 'center',
+                    field: 'author',
+                    title: '创建人'
+                },
+                {
+                    'halign': 'center',
+                    'align': 'center',
+                    field: 'createDate',
+                    title: '创建时间',
+                    formatter: function (value, row) {
+                        return bstrap.dateFtt('yyyy-MM-dd hh:mm:ss', new Date(value))
+                    }
+                },
+
+            ], //显示网格列表信息
+            LoadSuccess: function (data) {
+
+            }, //加载成功回调函数
+
+            height: $(window).height() - 60, //table表格高度
+        };
+        bstrap.initGrid(options)
+    }
+
+    function queryParams(params) {
+        var param = $.param({
+            // 当前页数
+            "offset": this.offset,
+            "pageindex": this.pageNumber,
+            // 每页显示多少条
+            "pageSize": this.pageSize
+        }) + '&' + $('#dform').serialize();
+        return param;
+
+    }
+
+    function tableRefresh() {
+
+        $("#tb_grid").bootstrapTable('refresh', $("#dform").serialize());
+    }
+
+    function AddIndex() {
+        var defaults = {
+            title: '  增加 ',
+            width: "824px",
+            height: "500px",
+            url: " /Hos/hos_article/AddIndex?subTypeCode=<%-subTypeCode%>&subTypeId=<%-subTypeId%>&subTypeName=<%-subTypeName%>",
+            shade: 0.3,
+            btn: ['确认', '关闭'],
+            LoadSuccess: function (layero, index) {
+                var body = layer.getChildFrame('body', index);
+                var iframeWin = window[layero.find('iframe')[0][
+                    'name'
+                ]]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                iframeWin.$("#dform").attr("action", "/Hos/hos_article/Add");
+            },
+            callBack: function (layero) {
+                var iframeWin = window[layero.find('iframe')[0]['name']];
+                iframeWin.Submit();
+
+            }
+        };
+        var index = $.modalOpen(defaults)
+        // layer.full(index);
+    }
+
+    function modify(Id) {
+        var defaults = {
+            title: '修改',
+            width: "824px",
+            height: "500px",
+            url: " /Hos/hos_article/UpdateIndex?Id=" + Id +
+                "&subTypeCode=<%-subTypeCode%>&subTypeId=<%-subTypeId%>&subTypeName=<%-subTypeName%>",
+
+            shade: 0.3,
+            btn: ['确认', '关闭'],
+
+            LoadSuccess: function (layero, index) {
+                var body = layer.getChildFrame('body', index);
+                var iframeWin = window[layero.find('iframe')[0][
+                    'name'
+                ]]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                iframeWin.$("#dform").attr("action", "/Hos/hos_article/Update");
+            },
+            callBack: function (layero) {
+                var iframeWin = window[layero.find('iframe')[0]['name']];
+                iframeWin.Submit();
+
+            }
+        };
+        var index = $.modalOpen(defaults)
+        // layer.full(index);
+    }
+
+    function Remove() {
+
+        var row = $("#tb_grid").bootstrapTable('getSelections');
+        if (row == null || row.length == 0) {
+
+            toastr.warning("请选择要操作的行");
+
+            return;
+        }
+        var arrays = [];
+        for (var i = 0; i < row.length; i++) {
+            arrays.push(row[i].articleId);
+        }
+        var ids = arrays.join(',');
+        var formData = new FormData();
+        formData.append("ids", ids);
+        var option = {
+            postUrl: '/Hos/hos_article/Remove',
+            message: '确定要删除这' + row.length + '条记录吗？',
+            param: formData,
+            successCallBack: function (data) { //成功
+
+                tableRefresh();
+            },
+            errorCallBack: null
+        };
+        bstrap.confirm(option); //弹出提示确认框
+
+
+
+    }
+</script>

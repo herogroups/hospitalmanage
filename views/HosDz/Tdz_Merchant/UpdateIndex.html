@@ -1,0 +1,287 @@
+﻿<link href="/css/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+<form id="dform" class="form-horizontal">
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5> 对账商户详情表 修改</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <input id='MerchantInfoId' name='MerchantInfoId' type='hidden' value='<%=Model.MerchantInfoId%>'>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="MerchantNo"> <i class=" text-danger">* </i>
+                            商户号:</label>
+                        <div class="col-sm-8">
+                            <input id='MerchantNo' name='MerchantNo' placeholder='请输入商户号' value='<%=Model.MerchantNo%>'
+                                required class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="MerchantName">商户名 :</label>
+                        <div class="col-sm-8">
+
+                            <input id='MerchantName' name='MerchantName' placeholder='请输入商户名' class='form-control'
+                                value='<%=Model.MerchantName%>'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="MerchantTypeId">商户类别:</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <select id='MerchantTypeId' name='MerchantTypeId' class='form-control'></select> <span
+                                    class="input-group-btn"> <button type="button" id="btnMerchantTypeId"
+                                        class="btn btn-primary"><i class="fa fa-plus"></i>
+                                    </button> </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="PullTypeId"> <i class=" text-danger">* </i>
+                            拉取方式:</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <select id='PullTypeId' name='PullTypeId' class='form-control'></select> <span
+                                    class="input-group-btn"> <button type="button" id='btnPullTypeId'
+                                        class="btn btn-primary"><i class="fa fa-plus"></i>
+                                    </button> </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="PushTypeId"> <i class=" text-danger">* </i>
+                            推送方式:</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <select id='PushTypeId' name='PushTypeId' class='form-control'></select> <span
+                                    class="input-group-btn"> <button type="button" id='btnPushTypeId'
+                                        class="btn btn-primary"><i class="fa fa-plus"></i>
+                                    </button> </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="MerPayTypeId">支付类型 :</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <select id='MerPayTypeId' name='MerPayTypeId' class='form-control'></select> <span
+                                    class="input-group-btn"> <button type="button" id='btnMerPayTypeId'
+                                        class="btn btn-primary"><i class="fa fa-plus"></i>
+                                    </button> </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="IParamId"> <i class=" text-danger">* </i>
+                            拉取参数配置:</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <select id='IParamId' name='IParamId' class='form-control'></select> <span
+                                    class="input-group-btn"> <button type="button" id="btnIParamId"
+                                        class="btn btn-primary"><i class="fa fa-plus"></i>
+                                    </button> </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="OParamId"> <i class=" text-danger">* </i>
+                            推送参数配置:</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <select id='OParamId' name='OParamId' class='form-control'></select> <span
+                                    class="input-group-btn"> <button type="button" id="btnOParamId"
+                                        class="btn btn-primary"><i class="fa fa-plus"></i>
+                                    </button> </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="PospMerchantFlag">前置商户标志:</label>
+                        <div class="col-sm-8">
+                            <div class="radio radio-info radio-inline">
+                                <input type="radio" id="PospMerchantFlag" value="1" checked name="PospMerchantFlag">
+                                <label for="PospMerchantFlag">是 </label>
+                            </div>
+                            <div class="radio radio-inline">
+                                <input type="radio" id="PospMerchantFlag1" value="0" name="PospMerchantFlag">
+                                <label for="PospMerchantFlag1">不是</label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="UseDate">启用日期 :</label>
+                        <div class="col-sm-8">
+                                <div class="input-group date">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" class="form-control" id='UseDate' name='UseDate' value="">
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="Days">对账机制 :</label>
+                        <div class="col-sm-8">
+                            <input id='Days' name='Days' placeholder='请输入对账机制  T+Days' value='<%=Model.Days%>'
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+
+
+<script>
+    $(function () {
+        $("#UseDate").datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: !1,
+            forceParse: !1,
+            calendarWeeks: !0,
+            autoclose: !0
+        });
+        let mydata = new Date('<%-Model.UseDate%>');
+        console.log(mydata)
+        $("#UseDate").val(bstrap.dateFtt('yyyy-MM-dd',mydata ));
+        $('#MerchantTypeId').selectBind('/HosDz/tdz_merchanttype/getComb');
+        $('#MerchantTypeId').val('<%=Model.MerchantTypeId%>');
+        $('#PullTypeId').selectBind('/HosDz/tdz_filepulltype/getComb');
+        $('#PullTypeId').val('<%=Model.PullTypeId%>');
+        $('#PushTypeId').selectBind('/HosDz/tdz_filepushtype/getComb');
+        $('#PushTypeId').val('<%=Model.PushTypeId%>');
+        $('#IParamId').selectBind('/HosDz/tdz_ioparam/getComb',{IoModel:0});
+        $('#OParamId').selectBind('/HosDz/tdz_ioparam/getComb',{IoModel:1});
+        $('#IParamId').val('<%=Model.IParamId%>');
+ 
+        $('#OParamId').val('<%=Model.OParamId%>');
+        $('#MerPayTypeId').selectBind('/HosDz/tdz_merchatpaytype/getComb');
+        $('#MerPayTypeId').val('<%=Model.MerPayTypeId%>');
+        $('#btnMerchantTypeId').click(function ()  { openWindo('Tdz_Merchanttype', 'MerchantTypeId') });
+        $('#btnMerchantTypeId').click(function ()  { openWindo('Tdz_Merchanttype', 'MerchantTypeId') }); 
+        $('#btnPullTypeId').click(function ()  { openWindo('Tdz_Filepulltype', 'PullTypeId') });
+        $('#btnPushTypeId').click(function ()  { openWindo('Tdz_Filepushtype', 'PushTypeId') });
+        $('#btnIParamId').click(function ()  { openWindo('Tdz_Ioparam', 'IParamId', '0') });
+        $('#btnOParamId').click(function ()  { openWindo('Tdz_Ioparam', 'OParamId', '1') });
+        $('#btnMerPayTypeId').click(function ()  { openWindo('Tdz_Merchatpaytype', 'MerPayTypeId') });
+
+        if ('<%=Model.PospMerchantFlag%>' == '1') {
+            $("#PospMerchantFlag").checked = true;
+        } else {
+            $("#PospMerchantFlag1").checked = true;
+        }
+    
+        initValidator();
+    });
+    function openWindo(tableName, obj, param = "") {
+
+
+        addWindow('新增', `../${tableName}/AddIndex`, `/HosDz/${tableName}/add?IoModel=${param}`, function () {
+            $('#' + obj).selectBind(`/HosDz/${tableName}/getComb?IoModel=${param}`);
+        })
+    }
+    function addWindow(title, url, submitUrl, refreshFn) {
+        var defaults = {
+            title: title,
+            width: "1024px",
+            height: "500px",
+            url: url,
+            shade: 0.3,
+
+            btn: ['确认', '关闭'],
+
+            LoadSuccess: function (layero, index) {
+                var body = layer.getChildFrame('body', index);
+                var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                iframeWin.$("#dform").attr("action", submitUrl);
+                iframeWin.refreshFn = refreshFn;
+            },
+            callBack: function (layero) {
+                var iframeWin = window[layero.find('iframe')[0]['name']];
+
+                iframeWin.submit();
+                //  refreshFun();
+            }
+        };
+        var index = $.modalOpen(defaults)
+
+    }
+    function initValidator() {
+        $('#dform').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                //商户号
+                MerchantNo: {
+                    message: '商户号 验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '商户号 不能为空'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 60,
+                            message: ' 商户号 长度在1到60之间'
+                        }
+                    }
+                },
+
+            }
+
+        });
+    }
+
+
+    function submit() {
+        initValidator();
+        $('#dform').data('bootstrapValidator').validate();
+        if (!$('#dform').data('bootstrapValidator').isValid()) {
+            return false;
+        }
+        var action = $("#dform").attr("action");
+        var params = new FormData($("#dform")[0]);
+        var option = {
+            postUrl: action,
+            message: '确定要保存数据吗？',
+            param: params,
+            successCallBack: function (data) { //添加成功
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.tableRefresh();
+                parent.layer.close(index);
+
+            },
+            errorCallBack: null
+        };
+        bstrap.confirm(option); //弹出提示确认框
+    }
+
+</script>

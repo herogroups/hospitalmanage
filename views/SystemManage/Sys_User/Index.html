@@ -1,0 +1,314 @@
+﻿ <div class="wrapper wrapper-content animated ">
+     <div class="ibox">
+         <div class="ibox-title">
+             <form id="dform" class="form-horizontal">
+                 <div class="row">
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="SHOPID">部门名称：</label>
+                             <div class="col-sm-8">
+                                 <select id='SHOPID' name='SHOPID' class='form-control'></select>
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="ROLEID">所属角色 ：</label>
+                             <div class="col-sm-8">
+                                 <select id='ROLEID' name='ROLEID' class='form-control'></select>
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="ACCOUNT">账号 ：</label>
+                             <div class="col-sm-8">
+                                 <input id="ACCOUNT" name="ACCOUNT" placeholder="账号 " class="form-control">
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-4">
+                         <div class="form-group">
+                             <label class="col-sm-4 control-label" for="OPNAME">姓名 ：</label>
+                             <div class="col-sm-8">
+                                 <input id="OPNAME" name="OPNAME" placeholder="姓名 " class="form-control">
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </form>
+             <div class="ibox-content">
+                 <div class="row">
+                     <div class="col-sm-5">
+                         <button type="button" class="btn btn-sm btn-primary" id="btn_search"><i
+                                 class="fa fa-search"></i>搜索</button>
+                         <button type="button" class="btn btn-sm btn-info" id="btn_Add"><i
+                                 class="fa fa-check"></i>增加</button>
+                         <button class="btn btn-sm btn-warning  " type="button" onclick="Remove()"><i
+                                 class="fa fa-warning"></i><span class="bold">删除</span></button>
+
+                     </div>
+                     <table id="tb_grid"></table>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
+ <script>
+     $(function () {
+
+         $("#btn_Importxml").click(function () {
+             Import();
+         });
+         $("#btn_Add").click(function () {
+             AddIndex();
+         });
+         $("#btn_search").click(function () {
+             $("#tb_grid").bootstrapTable('refresh');
+         });
+         $('#SHOPID').selectBind('/SystemManage/sys_shop/GetComb', {
+             mark: 1
+         });
+         $('#ROLEID').selectBind('/SystemManage/sys_role/GetComb', {
+             mark: 1
+         });
+         initTable();
+
+     });
+
+
+     function initTable() {
+
+         var options = {
+             gridName: 'tb_grid', //网格名称
+             url: '/SystemManage/sys_user/GetAllList', //表格提交地址
+             sidePagination: 'client', //客户端client分页还是服务端server分页
+             param: queryParams, //查询参数
+             uniqueId: 'BookId', //每一行的唯一标识，一般为主键列
+             columns: [{
+                     checkbox: true
+                 }, {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'ACCOUNT',
+                     title: '账号 ',
+                     formatter: function (value, row) {
+                         return "<a onclick='modify(" + row.OPID + ")'>" + row.ACCOUNT + "</a>"
+                     }
+                 }, {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'OPNAME',
+                     title: '姓名 '
+                 }, {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'SHOPNAME',
+                     title: '部门名称'
+                 }, {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'ROLENAME',
+                     title: '所属角色 '
+                 }, {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'LOGONCOUNT',
+                     title: '登录次数 '
+                 }, {
+
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'LASTLOGINTIME',
+                     title: '最后登录时间 '
+                 }, {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'LASTLOGINIP',
+                     title: '最后登录IP '
+                 }, {
+                     'halign': 'center',
+                     'align': 'center',
+                     field: 'CREATETIME',
+                     title: '创建时间 ',
+                     formatter: function (value, row) {
+                         return bstrap.dateFtt('yyyy-MM-dd hh:mm:ss', new Date(value))
+                     }
+                 }, {
+                     'halign': 'center',
+                     'align': 'center',
+                     title: '重置密码',
+                     formatter: function (value, row) {
+                         return "<a  class='btn btn-sm btn-success' onclick='ResetPassword(" + row.OPID +
+                             ")'>重置密码</a>"
+                     }
+                 }
+
+             ], //显示网格列表信息
+             LoadSuccess: function (data) {
+
+             }, //加载成功回调函数
+
+             height: $(window).height() - 60, //table表格高度
+         };
+         bstrap.initGrid(options)
+     }
+
+     function queryParams(params) {
+         var param = $.param({
+             // 当前页数
+             "offset": this.offset,
+             "pageindex": this.pageNumber,
+             // 每页显示多少条
+             "pageSize": this.pageSize
+         }) + '&' + $('#dform').serialize();
+         return param;
+
+     }
+
+     function tableRefresh() {
+
+         $("#tb_grid").bootstrapTable('refresh', $("#dform").serialize());
+     }
+
+     function show(Id) {
+
+         var defaults = {
+             title: '',
+             width: "1024px",
+             height: "500px",
+             url: " /SystemManage/sys_user/Index?Id=" + Id,
+             shade: 0.3,
+             LoadSuccess: function (layero, index) {
+                 var body = layer.getChildFrame('body', index);
+                 var iframeWin = window[layero.find('iframe')[0][
+                     'name'
+                 ]]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+
+             }
+
+         };
+         var index = $.modalOpen(defaults)
+         //  layer.full(index);
+     }
+
+     function AddIndex() {
+         var defaults = {
+             title: ' 用户管理 增加 ',
+             width: "1024px",
+             height: "500px",
+             url: " /SystemManage/sys_user/AddIndex",
+             shade: 0.3,
+
+             btn: ['确认', '关闭'],
+
+             LoadSuccess: function (layero, index) {
+                 var body = layer.getChildFrame('body', index);
+                 var iframeWin = window[layero.find('iframe')[0][
+                     'name'
+                 ]]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                 iframeWin.$("#dform").attr("action", "/SystemManage/sys_user/Add");
+             },
+             callBack: function (layero) {
+                 var iframeWin = window[layero.find('iframe')[0]['name']];
+                 iframeWin.Submit();
+
+             }
+         };
+         var index = $.modalOpen(defaults)
+         //  layer.full(index);
+     }
+
+     function modify(Id) {
+         var defaults = {
+             title: '修改',
+             width: "1024px",
+             height: "500px",
+             url: " /SystemManage/sys_user/UpdateIndex?Id=" + Id,
+
+             shade: 0.3,
+             btn: ['确认', '关闭'],
+
+             LoadSuccess: function (layero, index) {
+                 var body = layer.getChildFrame('body', index);
+                 var iframeWin = window[layero.find('iframe')[0][
+                     'name'
+                 ]]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                 iframeWin.$("#dform").attr("action", "/SystemManage/sys_user/Update");
+             },
+             callBack: function (layero) {
+                 var iframeWin = window[layero.find('iframe')[0]['name']];
+                 iframeWin.Submit();
+
+             }
+         };
+         var index = $.modalOpen(defaults)
+         // layer.full(index);
+     }
+
+     function Remove() {
+
+         var row = $("#tb_grid").bootstrapTable('getSelections');
+         if (row == null || row.length == 0) {
+
+             toastr.warning("请选择要操作的行");
+
+             return;
+         }
+         var arrays = [];
+         for (var i = 0; i < row.length; i++) {
+             arrays.push(row[i].OPID);
+         }
+         var ids = arrays.join(',');
+         var formData = new FormData();
+         formData.append("ids", ids);
+         var option = {
+             postUrl: '/SystemManage/sys_user/Remove',
+             message: '确定要删除这' + row.length + '条记录吗？',
+             param: formData,
+             successCallBack: function (data) { //成功
+
+                 tableRefresh();
+             },
+             errorCallBack: null
+         };
+         bstrap.confirm(option); //弹出提示确认框
+     }
+
+     function ResetPassword(id) {
+         console.log('重置密码', id);
+         // var row = $("#tb_grid").bootstrapTable('getSelections');
+         // if (row == null || row.length == 0) {
+         //     toastr.warning("请选择要操作的行");
+         //     return;
+         // }
+         // if (row.length > 1) {
+         //     toastr.warning("请选择一行进行修改");
+         //     return;
+         // }
+
+         var defaults = {
+             title: '重置密码',
+             width: "800px",
+             height: "500px",
+             url: "/SystemManage/sys_user/ResetPassword?Id=" + id,
+             shade: 0.3,
+             btn: ['确认', '关闭'],
+
+             LoadSuccess: function (layero, index) {
+                 var body = layer.getChildFrame('body', index);
+                 var iframeWin = window[layero.find('iframe')[0][
+                 'name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();  
+             },
+             callBack: function (layero) {
+                 var iframeWin = window[layero.find('iframe')[0]['name']];
+                 iframeWin.Submit();
+
+             }
+         };
+         var index = $.modalOpen(defaults);
+
+     }
+ </script>

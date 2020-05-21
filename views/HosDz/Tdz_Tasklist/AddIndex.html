@@ -1,0 +1,119 @@
+﻿<form id="dform" class="form-horizontal">
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5> 定时任务列表 新增</h5>
+
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="MerchantTypeId">商户类别 :</label>
+                        <div class="col-sm-8">
+
+                            <select id='MerchantTypeId' name='MerchantTypeId' class='form-control'></select> </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="TaskTypeId">任务类别 :</label>
+                        <div class="col-sm-8">
+
+                            <select id='TaskTypeId' name='TaskTypeId' class='form-control'></select> </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="TaskName">任务名称 :</label>
+                        <div class="col-sm-8">
+
+                            <input id='TaskName' name='TaskName' placeholder='请输入任务名称' class='form-control'> </div>
+                    </div>
+                </div>
+             
+              
+                 
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ExcuteTime">执行时间 :</label>
+                        <div class="col-sm-8">
+                                <div class="input-group clockpicker" data-autoclose="true">
+                                        <input type="text" id='ExcuteTime' name='ExcuteTime' placeholder='请输入执行时间'  class="form-control" value="09:30">
+                                        <span class="input-group-addon">
+                                                <span class="fa fa-clock-o"></span>
+                                        </span>
+                                    </div>
+                            
+                    </div>
+                </div>
+                
+               
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+
+
+<script>
+    $(function () {
+        $('#MerchantTypeId').selectBind('/HosDz/tdz_merchanttype/getComb');
+        $('#TaskTypeId').selectBind('/HosDz/tdz_tasktype/getComb');
+        $(".clockpicker").clockpicker()
+    });
+
+    function initValidator() {
+        $('#dform').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                //任务状态 0  启动  1 停用
+                TaskName: {
+                    message: '任务名称验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '任务名称不能为空'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 60,
+                            message: ' 任务名称 长度在1到60之间'
+                        }
+                    }
+                },
+            }
+
+        });
+    }
+
+
+    function submit() {
+        initValidator();
+        $('#dform').data('bootstrapValidator').validate();
+        if (!$('#dform').data('bootstrapValidator').isValid()) {
+            return false;
+        }
+        var action = $("#dform").attr("action");
+        var params = new FormData($("#dform")[0]);
+        var option = {
+            postUrl: action,
+            message: '确定要保存数据吗？',
+            param: params,
+            successCallBack: function (data) { //添加成功
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.tableRefresh();
+                parent.layer.close(index);
+
+            },
+            errorCallBack: null
+        };
+        bstrap.confirm(option); //弹出提示确认框
+    }
+
+</script>

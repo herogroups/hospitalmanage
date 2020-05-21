@@ -1,0 +1,185 @@
+﻿ <link href="/css/jsTree/style.min.css" rel="stylesheet" />
+ <script src="/js/jsTree/jstree.min.js"></script>
+ <link href="/css/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+ <form id="dform" class="form-horizontal">
+     <div class="row">
+         <div class="col-md-6">
+             <div class="ibox">
+
+                 <div class="ibox-content">
+                     <div class="row">
+                         <input type="hidden" id="ROLETYPE" value="<%=Model.ROLETYPE%>" name="ROLETYPE">
+                         <input id='ROLEID' name='ROLEID' placeholder='角色ID ' type='hidden' value='<%=Model.ROLEID%>'
+                             class='form-control'>
+                         <div class="col-md-12">
+                             <div class="form-group">
+                                 <label class="col-sm-4 control-label" for="ROLECODE"><i class=" text-danger">* </i>角色编号
+                                     :</label>
+                                 <div class="col-sm-8">
+                                     <input id='ROLECODE' name='ROLECODE' readonly placeholder='角色编号 '
+                                         value='<%=Model.ROLECODE%>' required class='form-control'>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-md-12">
+                             <div class="form-group">
+                                 <label class="col-sm-4 control-label" for="ROLENAME"><i class=" text-danger">* </i>角色名称
+                                     :</label>
+                                 <div class="col-sm-8">
+                                     <input id='ROLENAME' name='ROLENAME' placeholder='角色名称 '
+                                         value='<%=Model.ROLENAME%>' required class='form-control'>
+                                 </div>
+                             </div>
+                         </div>
+
+                         <div class="col-md-12">
+                             <div class="form-group">
+                                 <label class="col-sm-4 control-label" for="MEMO">描述 :</label>
+                                 <div class="col-sm-8">
+                                     <input id='MEMO' name='MEMO' placeholder='描述 ' value='<%=Model.MEMO%>'
+                                         class='form-control'>
+                                 </div>
+                             </div>
+                         </div>
+
+                     </div>
+
+                 </div>
+             </div>
+         </div>
+         <div class="col-md-6">
+             <div class="ibox">
+                 <div class="ibox-content">
+                     <div id="sysMenuTree" style="overflow: auto">
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+
+ </form>
+
+
+
+ <script>
+     $(function () {
+
+         loadRights(createRoleTree);
+     });
+
+     function initValidator() {
+         $('#dform').bootstrapValidator({
+             message: 'This value is not valid',
+             feedbackIcons: {
+                 valid: 'glyphicon glyphicon-ok',
+                 invalid: 'glyphicon glyphicon-remove',
+                 validating: 'glyphicon glyphicon-refresh'
+             },
+             fields: {
+                 //角色编号 
+                 ROLECODE: {
+                     message: '角色编号  验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '角色编号  不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 角色编号  长度在1到60之间'
+                         }
+                     }
+                 },
+                 //角色名称 
+                 ROLENAME: {
+                     message: '角色名称  验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '角色名称  不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 60,
+                             message: ' 角色名称  长度在1到60之间'
+                         }
+                     }
+                 },
+             }
+
+         });
+     }
+
+     function createRoleTree(datas) {
+
+
+         let date = new Date();
+         $("#sysMenuTree").jstree({
+             'plugins': ["wholerow", "checkbox"],
+             "core": {
+                 "check_callback": true,
+                 'data': {
+                     "url": "/SystemManage/sys_roleauthorize/GetCurrentUserAllModel?r=" + date
+                         .toLocaleTimeString()
+
+                 }
+             },
+         }).on('loaded.jstree', function (e, data) {
+             $.each(datas, function (index, item) {
+                 if (item.PARENTID != 0) {
+
+                     $("#sysMenuTree").jstree('check_node', item.MODULEID);
+                 }
+             });
+
+         });
+     }
+
+     function loadRights(fun) {
+         let roleid = '<%=Model.ROLEID%>';
+         $.post(
+             "/SystemManage/sys_Role/GetRoleRights?r= " + Math.random(), {
+                 "RoleId": roleid
+             },
+             function (data) {
+                 console.log(data)
+                 fun(data);
+
+             }
+         );
+     }
+
+     function Submit() {
+         initValidator();
+         $('#dform').data('bootstrapValidator').validate();
+         if (!$('#dform').data('bootstrapValidator').isValid()) {
+             return false;
+         }
+         var tree = $('#sysMenuTree').jstree(true);
+         var checkeds = new Array;
+         for (var i in tree._model.data) {
+             if (tree.is_undetermined(i) || tree.is_checked(i)) {
+                 var did = tree._model.data[i].id
+                 if (did != "#") {
+                     checkeds.push(did);
+                 }
+
+             }
+         }
+         var action = $("#dform").attr("action");
+         var params = new FormData($("#dform")[0]);
+         params.append('rightIds', checkeds);
+         var option = {
+             postUrl: action,
+             message: '确定要保存数据吗？',
+             param: params,
+             successCallBack: function (data) { //添加成功
+                 var index = parent.layer.getFrameIndex(window.name);
+                 parent.tableRefresh();
+                 parent.layer.close(index);
+
+             },
+             errorCallBack: null
+         };
+         bstrap.confirm(option); //弹出提示确认框
+     }
+ </script>

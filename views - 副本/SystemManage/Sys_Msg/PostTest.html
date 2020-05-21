@@ -1,0 +1,138 @@
+﻿ <script src="/js/layer/laydate/laydate.js"></script>
+ <link href="/js/layer/laydate/skins/default/laydate.css" rel="stylesheet" />
+ <link href="/css/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+  
+ <form id="dform" class="form-horizontal">
+     <div class="ibox">      
+         <div class="ibox-content">
+             <div class="row">
+               
+            
+                 <div class="col-md-12">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="txtAddress""><i class=" text-danger">* </i>地址 :</label>
+                         <div class="col-sm-8"> 
+                   
+                             <input type='text' id='txtAddress' name='txtAddress' placeholder='请输入地址 ' required value="/RemoteSensing/Trans"
+                                 class='form-control'>
+                         </div>
+                     </div>
+                 </div>
+
+               
+              
+        
+
+                 <div class="col-md-12">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="MEMO">内容 :</label>
+                         <div class="col-sm-8">
+                                    <textarea id='MEMO' name='MEMO' style="width:600px;height:300px" placeholder='内容 ' class='form-control'></textarea>
+                         </div>
+                     </div>
+                 </div>
+				      <div class="col-md-12">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="txtAddress""><i class=" text-danger"> </i> </label>
+                         <div class="col-sm-8"> 
+                            <button type="button" class="btn btn-w-m btn-defult" onclick="test()" >测试</button>
+                               <button type="button" class="btn btn-w-m btn-primary" onclick="Submit()" >提交</button>
+                         </div>
+                     </div>
+                 </div>
+				    <div class="col-md-12">
+                     <div class="form-group">
+                         <label class="col-sm-4 control-label" for="txtResult">结果 :</label>
+                         <div class="col-sm-8">
+                                    <textarea id='txtResult' name='txtResult' style="width:600px;height:200px" placeholder='结果 ' class='form-control'></textarea>
+                         </div>
+                     </div>
+                 </div>
+                </div>
+         </div>
+     </div>
+ </form>
+
+
+
+ <script>
+     $(function () {
+  
+
+      
+         initValidator();
+
+ 
+
+     });
+
+     function initValidator() {
+         $('#dform').bootstrapValidator({
+             message: 'This value is not valid',
+             feedbackIcons: {
+                 valid: 'glyphicon glyphicon-ok',
+                 invalid: 'glyphicon glyphicon-remove',
+                 validating: 'glyphicon glyphicon-refresh'
+             },
+             fields: {
+                 
+                 busCode: {
+                     message: '地址验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '地址验证不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 2000,
+                             message: '长度在1到2000之间'
+                         }
+                     }
+                 },
+
+             }
+
+         });
+     }
+
+
+     function Submit() {
+         initValidator();
+         $('#dform').data('bootstrapValidator').validate();
+         if (!$('#dform').data('bootstrapValidator').isValid()) {
+             return false;
+         } 
+         var action = $("#txtAddress").val();
+         var params = new FormData();
+         params.append("data",$("#MEMO").val())
+         var option = {
+             postUrl: action,
+             message: '确定要保存数据吗？',
+             contentType:true,
+             param: params,
+             callback: function (data) { //添加成功
+                console.log(data);
+                 var index = layer.getFrameIndex(window.name);
+                 layer.close(index);
+				 $("#txtResult").val(	JSON.stringify( data));
+                 console.log('3434343434');
+             },
+             errorCallBack: function(err)
+			 {
+                console.log(err);
+				$("#txtResult").val(JSON.stringify( err));
+			 }
+         };
+         bstrap.post(option); //弹出提示确认框
+     }
+     function test() {
+         let data={aa:'333333333333'}
+      $.post("http://localhost:51190/api/CallAlisdk",data,function(data){
+          console.log(data)
+      })
+        
+        
+     }
+    
+ </script>

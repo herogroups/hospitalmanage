@@ -1,0 +1,437 @@
+﻿<link href="/js/layer/laydate/skins/default/laydate.css" rel="stylesheet" />
+<link href="/css/iCheck/custom.css" rel="stylesheet" />
+<script src="/js/iCheck/icheck.min.js"></script>
+<script src="/js/layer/laydate/laydate.js"></script>
+<link href="/css/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+<div class="ibox">
+    <div class="ibox-title">
+        <form id="dform" class="form-horizontal">
+            <div class="row">
+                <div class="col-sm-4 ">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="PospOrderNo">前置订单号</label>
+                        <div class="col-sm-8">
+                            <input id="PospOrderNo" name="PospOrderNo" class="form-control" placeholder="订单号">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ThirdTransUserNo">用户号</label>
+                        <div class="col-sm-8">
+                            <input id="ThirdTransUserNo" name="ThirdTransUserNo" class="form-control"
+                                placeholder="请输入就诊卡号或住院号">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-4 ">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ThirdTransUserName">姓名</label>
+                        <div class="col-sm-8">
+                            <input id="ThirdTransUserName" name="ThirdTransUserName" class="form-control"
+                                placeholder="请输入姓名">
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="BankTransCardNum">银行卡号</label>
+                        <div class="col-sm-8">
+                            <input id="BankTransCardNum" name="BankTransCardNum" class="form-control"
+                                placeholder="请输入银行卡号">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 ">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="TotalAmt">交易金额</label>
+                        <div class="col-sm-8">
+                            <input id="TotalAmt" name="TotalAmt" class="form-control" placeholder="请输入交易金额">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="BankCode">收单机构</label>
+                        <div class="col-sm-8">
+                            <select id="BankCode" name="BankCode" class="form-control">
+
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="StartDate">起始时间</label>
+                        <div class="col-sm-8">
+                            <input id="StartDate" name="StartDate" class="laydate-icon form-control ">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 ">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="EndDate">结束时间</label>
+                        <div class="col-sm-8">
+                            <input id="EndDate" name="EndDate" class="laydate-icon form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="PayResult">支付结果</label>
+                        <div class="col-sm-8">
+                            <select id="PayResult" name="PayResult" class="form-control">
+
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="BankPayOrderNo">银行订单号</label>
+                        <div class="col-sm-8">
+                            <input id="BankPayOrderNo" name="BankPayOrderNo" class="form-control"
+                                placeholder="请输入银行订单号">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+
+
+                    <label class="col-sm-1 control-label" for="PayCode"> 支付方式</label>
+                    <div class="col-sm-11">
+                        <%payCodeList.forEach((item)=>{%>
+                        <div class="checkbox checkbox-inline checkbox-info">
+                            <input name="PayCode" type="checkbox" id="inlineCheckbox<%=item.payCodeId%>" checked
+                                value="<%=item.payCode%>">
+                            <label for="inlineCheckbox<%=item.payCodeId%>"> <%=item.payCodeName%> </label>
+                        </div>
+                        <%})%>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-sm btn-primary" id="btn_search">搜索</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="ibox-content">
+        <table id="tb_grid"></table>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        var start = {
+            elem: "#StartDate",
+            format: "YYYY-MM-DD",
+            max: laydate.now(),
+            istime: false,
+            istoday: false,
+            choose: function (datas) {
+                end.min = datas;
+                end.start = datas
+            }
+        };
+        var end = {
+            elem: "#EndDate",
+            format: "YYYY-MM-DD",
+            max: laydate.now(),
+            istime: false,
+            istoday: false,
+            choose: function (datas) {
+                start.max = datas
+            }
+        };
+        laydate(start);
+        laydate(end);
+        $('#StartDate').val(laydate.now(-1, 'YYYY-MM-DD'));
+        $('#EndDate').val(laydate.now(0, 'YYYY-MM-DD'));
+        $("#btn_search").click(function () {
+            $("#tb_grid").bootstrapTable('refresh');
+            $("#tb_grid").bootstrapTable('selectPage', 1);
+        });
+        $('#BankCode').selectBind('/Finance/banktransrecord/getBankCodeComb', {
+            mark: 1
+        });
+        $('#PayResult').selectBind('/Finance/banktransrecord/getPayResultComb', {
+            mark: 1
+        });
+        $("#PayResult option[value=0]").attr("selected", "selected");
+
+        initTable();
+
+    });
+
+    function initTable() {
+        let amount = 0;
+        var options = {
+
+            gridName: 'tb_grid', //网格名称
+            url: '/Finance/banktransrecord/getAllList', //表格提交地址
+            sidePagination: 'server', //客户端client分页还是服务端server分页
+            exportDataType: "all",
+            showExport: true,
+            showFooter: false,
+            param: queryParams, //查询参数
+            uniqueId: 'BankTransID', //每一行的唯一标识，一般为主键列
+            columns: [{
+                    "halign": "center",
+                    "align": "center",
+                    field: "ThirdTransOperatorNo",
+                    title: "操作员"
+                },
+                {
+                    "halign": "center",
+                    "align": "center",
+                    field: "ThirdTransUserName",
+                    title: "姓名"
+                },
+
+                {
+                    "halign": "center",
+                    "align": "center",
+                    field: "ThirdTransUserNo",
+                    title: "用户号",
+                    formatter: function (value, row) {
+                        if (value == null) return "";
+                        if (value.length > 8) {
+                            return '<a title="' + value + '">' + value.substring(0, 4) + '*****' + value
+                                .substring(value.length - 4, value.length) + '</a>'
+                        } else {
+                            return '<a title="' + value + '">' + value + '</a>'
+                        }
+                    }
+                },
+
+
+                {
+                    "halign": "center",
+                    "align": "center",
+                    field: "BankTransCardNum",
+                    title: "银行卡号",
+                    formatter: function (value, row) {
+                        if (value == null) return "";
+                        if (value.length > 8) {
+                            return '<a title="' + value + '">' + value.substring(0, 4) + '***' + value
+                                .substring(value.length - 4, value.length) + '</a>'
+                        } else {
+                            return '<a title="' + value + '">' + value + '</a>'
+                        }
+                    },
+                    // footerFormatter: function (value) {
+
+                    //     return '总计:';
+                    // }
+                },
+                // {
+                //     "halign": "center", "align": "center", field: "BankSystemRefNo", title: "参考号", formatter: function (value, row) {
+                //         if (value == null) return "";
+                //         if (value.length > 8) {
+                //             return '<a title="' + value + '">' + value.substring(0, 4) + '***' + value.substring(value.length - 4, value.length) + '</a>'
+                //         } else {
+                //             return '<a title="' + value + '">' + value + '</a>'
+                //         }
+                //     }
+                // },
+                {
+                    "halign": "center",
+                    "align": "center",
+                    field: "BankTransDateTime",
+                    title: "交易时间",
+                    formatter: function (value, row) {
+                        return bstrap.dateFtt('yyyy-MM-dd hh:mm:ss', new Date(value))
+                    }
+                },
+
+                // {
+                //     "halign": "center", "align": "center", field: "BankTerminalNo", title: "终端号", formatter: function (value, row) {
+                //         if (value == null) return "";
+                //         if (value.length > 8) {
+                //             return '<a title="' + value + '">' + value.substring(0, 4) + '*****' + value.substring(value.length - 4, value.length) + '</a>'
+                //         } else {
+                //             return '<a title="' + value + '">' + value + '</a>'
+                //         }
+                //     }
+                // },
+                {
+                    "halign": "center",
+                    "align": "center",
+                    field: "PospOrderNo",
+                    title: "前置单号",
+                    formatter: function (value, row) {
+                        if (value == null) return "";
+                        if (value.length > 8) {
+                            return '<a title="' + value + '">' + value.substring(0, 4) + '*****' + value
+                                .substring(value.length - 4, value.length) + '</a>'
+                        } else {
+                            return '<a title="' + value + '">' + value + '</a>'
+                        }
+                    }
+                },
+
+                {
+                    "halign": "center",
+                    "align": "right",
+                    field: "TotalAmt",
+                    title: "支付金额",
+                    formatter: function (index, row) {
+                        return index.toFixed(2);
+                    },
+                    // footerFormatter: function (value) {
+                    //     // var dRentAmt = 0;
+
+                    //     // for (var i in value) {
+
+                    //     //     dRentAmt += Number(value[i].TotalAmt);
+                    //     // }
+                    //     console.log('this.total_amt44444444444', amount);
+                    //     return amount; //this.total_amt.toFixed(2);
+                    // }
+
+                },
+                {
+                    "halign": "center",
+                    "align": "center",
+                    field: "payCodeName",
+                    title: "支付方式"
+                },
+                {
+                    "halign": "center",
+                    "align": "center",
+                    field: "PayDescription",
+                    title: "支付结果"
+                },
+
+                {
+                    "halign": "center",
+                    "align": "center",
+                    field: "BankPayReverseFlag",
+                    title: "冲正",
+                    formatter: function (index, row) {
+
+                        if (index == "0")
+                            return "";
+                        if (index == "1") {
+                            return "<spsn class='text-info'>退款，结果未知</span>"
+                        }
+                        if (index == "2") {
+                            return "<spsn class='text-success'>退款成功</span>"
+                        }
+                        if (index == "3") {
+                            return "<spsn class='text-danger'>退款失败</span>"
+                        }
+                        if (index == "11") {
+                            return "<spsn class='text-info'>退货，结果未知</span>"
+                        }
+                        if (index == "12") {
+                            return "<spsn class='text-success'>退货成功</span>"
+                        }
+                        if (index == "13") {
+                            return "<spsn class='text-danger'>退货失败</span>"
+                        }
+                        if (index == "21") {
+                            return "<spsn class='text-info'>冲正，结果未知</span>"
+                        }
+                        if (index == "22") {
+                            return "<spsn class='text-success'>冲正成功</span>"
+                        }
+                        if (index == "23") {
+                            return "<spsn class='text-danger'>冲正失败</span>"
+                        }
+                        if (index == "31") {
+                            return "<spsn class='text-info'>撤销，结果未知</span>"
+                        }
+                        if (index == "32") {
+                            return "<spsn class='text-success'>撤销成功</span>"
+                        }
+                        if (index == "33") {
+                            return "<spsn class='text-danger'>撤销失败</span>"
+                        }
+
+                    }
+                },
+                {
+                    "halign": "center",
+                    "align": "center",
+                    field: "BankSystemRefNo",
+                    title: "操作",
+                    formatter: function (value, row) {
+                        return '<a onclick="show(' + row.BankTransID + ',this)">查看明细</a>';
+
+                    }
+                },
+
+            ], //显示网格列表信息
+            LoadSuccess: function (data) {
+
+               let amount = data.total_amt;
+             
+
+                if (data.rows.length >=0) {
+                var _page_list = $('.pagination-detail');
+                _page_list.append('    总计: <span style="color:red">' + (Math.floor(amount * 100) / 100) + '</span>元 。')
+                }
+            }, //加载成功回调函数
+            onPostBody: function (data) {
+
+
+
+            }, //加载成功回调函数
+            tHeight: document.documentElement.clientHeight - 280,
+
+        };
+        bstrap.initGrid(options)
+    }
+
+    function queryParams(params) {
+        var param = $.param({
+            // 当前页数
+            "offset": this.offset,
+            "pageindex": this.pageNumber,
+            // 每页显示多少条
+            "pageSize": this.pageSize
+        }) + '&' + $('#dform').serialize();
+        return param;
+
+    }
+
+
+    function show(Id) {
+
+        var defaults = {
+            title: '',
+            width: "1024px",
+            height: "500px",
+            url: "/Finance/banktransrecord/showSingle?Id=" + Id,
+            shade: 0.3,
+            LoadSuccess: function (layero, index) {
+                var body = layer.getChildFrame('body', index);
+                var iframeWin = window[layero.find('iframe')[0][
+                    'name'
+                ]]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+
+            }
+
+        };
+        var index = $.modalOpen(defaults)
+        //  layer.full(index);
+    }
+</script>

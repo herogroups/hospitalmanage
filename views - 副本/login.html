@@ -1,0 +1,323 @@
+ <style type="text/css">
+     * {
+         padding: 0px;
+         margin: 0px;
+        
+     }
+     .cur{
+         width: 80px;
+         height: 60px;
+         border:1px solid red;
+     }
+ 
+     body {
+         background-position: center center;
+         background-color: #20558b;
+         background: url('/Images/login/bg_login.png') no-repeat center center;
+         /* background-image: url('/Images/login/bg_login.png');*/
+     }
+
+
+
+     .login_inner {
+         position: absolute;
+         top: 50%;
+         margin-top: -150px;
+         /*左右居中*/
+         left: 0;
+         right: 0;
+         margin-left: auto;
+         margin-right: auto;
+         width: 500px;
+         height: 486px;
+     }
+ </style>
+ <link rel="shortcut icon" href="/Images/Icon/landi.ico">
+
+
+ <script>
+     $(function () {
+
+         initValidator();
+         $("#qlogin").click(function () {
+             qlogin();
+         });
+         $("#login").click(function () {
+             login();
+         });
+         $("#login_cancel").click(function () {
+             window.close();
+         });
+         $('#p_login').keydown(function (e) {
+             if (e.keyCode == 13) {
+                 $('#p_password').focus();
+             }
+         });
+         $('#p_password').keydown(function (e) {
+             if (e.keyCode == 13) {
+                 $('#txtCode').focus();
+             }
+         });
+         $('#q_password').keydown(function (e) {
+             if (e.keyCode == 13) {
+                 $("#qlogin").click();
+             }
+         });
+
+         $('#tcode').keydown(function (e) {
+             if (e.keyCode == 13) {
+                 login();
+             }
+         });
+
+         $("#p_password").val("");
+         $('#p_login').focus();
+     });
+
+     function initValidator() {
+         $('#dform').bootstrapValidator({
+             message: 'This value is not valid',
+             feedbackIcons: {
+                 valid: 'glyphicon glyphicon-ok',
+                 invalid: 'glyphicon glyphicon-remove',
+                 validating: 'glyphicon glyphicon-refresh'
+             },
+             fields: {
+                 //产品组合
+                 p_login: {
+                     message: '用户编号验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '用户编号不能为空'
+                         },
+                         stringLength: {
+                             min: 0,
+                             max: 11,
+                             message: '用户编号长度在1到11之间'
+                         }
+                     }
+                 },
+                 p_password: {
+                     message: '用户密码验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '用户密码不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 16,
+                             message: '用户密码长度在1到6之间'
+                         }
+                     }
+                 },
+                 tCode: {
+                     message: '请商户验证失败',
+                     validators: {
+                         notEmpty: {
+                             message: '商户编号不能为空'
+                         },
+                         stringLength: {
+                             min: 1,
+                             max: 11,
+                             message: '请商户验证失败'
+                         }
+                     }
+                 }
+
+             }
+         });
+     }
+
+     function login() {
+
+         var p_account = $("#p_login").val();
+         var p_password = $("#p_password").val();
+         var tenantcode = $("#tcode").val();
+
+         $('#dform').data('bootstrapValidator').validate();
+         if (!$('#dform').data('bootstrapValidator').isValid()) {
+             return false;
+         }
+         var loadingindex = null;
+
+         $.ajax({
+             type: "POST",
+             url: "/Login/LoginUser",
+             data: {
+                 account: p_account,
+                 password: $.trim(p_password),
+                 tenantcode: tenantcode
+             },
+             dataType: "json",
+             success: function (data) {
+                 console.log(data);
+                 if (data.Success) {
+                     location.href = "/Home/MainIndex";
+                 } else {
+                     toastr.warning(data.Msg);
+                 }
+
+             },
+
+             error: function (data) {
+                 toastr.warning(data.Msg);
+                 $("#login").html("登    录")
+             },
+             beforeSend: function () {
+                 $("#login").html("正在登录中...")
+                 loadingindex = layer.load();
+             },
+             complete: function () {
+                 $("#login").html("登    录")
+                 layer.close(loadingindex);
+             }
+         });
+
+     }
+
+     function qlogin() {
+         var p_account = $("#tenantcode").val();
+         var p_password = $("#q_password").val();
+
+         var loadingindex = null;
+
+         $.ajax({
+             type: "POST",
+             url: "/Login/LoginTenant",
+             data: {
+                 tenantcode: p_account,
+                 password: $.trim(p_password),
+
+             },
+             dataType: "json",
+             success: function (data) {
+
+                 if (data.Success) {
+                     location.href = "/Home/MainIndex";
+                 } else {
+                     toastr.warning(data.Msg);
+                 }
+
+             },
+
+             error: function (data) {
+                 toastr.warning(data.Msg);
+                 $("#qlogin").html("登    录")
+             },
+             beforeSend: function () {
+                 $("#qlogin").html("正在登录中...")
+                 loadingindex = layer.load();
+             },
+             complete: function () {
+                 $("#qlogin").html("登    录")
+                 layer.close(loadingindex);
+             }
+         });
+     }
+ </script>
+
+
+ 
+
+ <div class="login_inner">
+
+     <div>
+         <div class="col-sm-12">
+             <div class="tabs-container">
+                 <!-- <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">快速登录</a>
+                    </li>
+                    <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">普通登录</a>
+                    </li>
+                </ul> -->
+                 <div class="tab-content">
+                     <div id="tab-1" class="tab-pane active">
+                         <div class="panel-body">
+                             <form id="qform" class="form-horizontal">
+                                 <div class="form-group formh" style="margin-top: 40px">
+                                     <label class="col-sm-3 control-label" for="tenantcode">
+                                         <h3>帐号：</h3>
+                                     </label>
+                                     <div class="col-sm-8">
+                                         <input type="text" id="tenantcode" name="tenantcode" required
+                                             placeholder="请输入账号" class="form-control htext">
+                                     </div>
+                                 </div>
+                                 <div class="form-group formh">
+                                     <label class="col-sm-3 control-label" for="q_password">
+                                         <h3>密码：</h3>
+                                     </label>
+
+                                     <div class="col-sm-8">
+                                         <input type="password" id="q_password" name="q_password" placeholder="请输入密码"
+                                             class="form-control htext" required autocomplete='off'>
+                                     </div>
+                                 </div>
+
+                                 <div class="form-group" style="margin-top: 40px">
+                                     <div class="col-sm-offset-3 col-sm-8">
+                                         <button type="button" id="qlogin_cancel" class="btn   btn-warning  ">取
+                                             消</button>
+                                         <button type="button" id="qlogin" class="btn btn-primary  col-sm-offset-3">登
+                                             录</button>
+
+                                     </div>
+                                 </div>
+                             </form>
+                         </div>
+                     </div>
+                     <!-- <div id="tab-2" class="tab-pane">
+                        <div class="panel-body">
+                            <form id="dform" class="form-horizontal">
+                                <div class="form-group formh" style="margin-top: 10px">
+                                    <label class="col-sm-3 control-label " for="tcode">
+                                        <h3>商户编码：</h3>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="tcode" name="tcode" placeholder="请输入商户编码" class="form-control htext">
+                                    </div>
+
+                                </div>
+                                <div class="form-group formh">
+                                    <label class="col-sm-3 control-label" for="p_login">
+                                        <h3>用户编号：</h3>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="p_login" name="p_login" required placeholder="请输入用户编号..." class="form-control htext">
+                                    </div>
+                                </div>
+                                <div class="form-group formh">
+                                    <label class="col-sm-3 control-label" for="p_password"  >
+                                        <h3>密码：</h3>
+                                    </label>
+
+                                    <div class="col-sm-8">
+                                        <input type="password" id="p_password" name="p_password" placeholder="请输入密码" class="form-control htext" required autocomplete='off'>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-top: 0px">
+                                    <div class="col-sm-offset-3 col-sm-12">
+                                        <button type="button" id="login_cancel" class="btn btn-sm btn-warning   ">
+                                            注    册
+                                            </button>
+                                                <button type="button" id="login" class="btn btn-primary  col-sm-offset-3">登    录</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ibox-content text-center p-md">
+
+                          <p class="text-muted text-center"> <a href="#"><small>忘记密码了？</small></a> | <a href="/register/index">注册一个新账号</a>
+                      
+                    </div>
+                </div> -->
+
+                 </div>
+             </div>
+
+         </div>
+     </div>

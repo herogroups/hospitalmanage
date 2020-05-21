@@ -1,0 +1,168 @@
+﻿<form id="dform" class="form-horizontal">
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5> 终端设备硬件状态 修改</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <input id='LOGID' name='LOGID' placeholder='' type='hidden' value='<%=Model.LOGID%>'
+                    class='form-control'>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="TERMINALCODE">设备编号 :</label>
+                        <div class="col-sm-8">
+                            <input id='TERMINALCODE' name='TERMINALCODE' readonly placeholder='设备编号 '
+                                value='<%=Model.TERMINALCODE%>' class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ESAMSTATE">密码键盘状态 :</label>
+                        <div class="col-sm-8">
+                            <input id='ESAMSTATE' name='ESAMSTATE' placeholder='密码键盘状态 ' value='<%=Model.ESAMSTATE%>'
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="ESAMDESC">密码键盘错误描述 :</label>
+                        <div class="col-sm-8">
+                            <input id='ESAMDESC' name='ESAMDESC' placeholder='密码键盘错误描述 ' value='<%=Model.ESAMDESC%>'
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="CARDREADERSTATE">读卡器状态 :</label>
+                        <div class="col-sm-8">
+                            <input id='CARDREADERSTATE' name='CARDREADERSTATE' placeholder='读卡器状态 '
+                                value='<%=Model.CARDREADERSTATE%>' class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="CARDREADERDESC">读卡器错误描述 :</label>
+                        <div class="col-sm-8">
+                            <input id='CARDREADERDESC' name='CARDREADERDESC' placeholder='读卡器错误描述 '
+                                value='<%=Model.CARDREADERDESC%>' class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="RECEIPTPRINTERSTATE">凭条打印机状态 :</label>
+                        <div class="col-sm-8">
+                            <input id='RECEIPTPRINTERSTATE' name='RECEIPTPRINTERSTATE' placeholder='凭条打印机状态 '
+                                value='<%=Model.RECEIPTPRINTERSTATE%>' class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="RECEIPTPRINTERDESC">凭条设备故障描述 :</label>
+                        <div class="col-sm-8">
+                            <input id='RECEIPTPRINTERDESC' name='RECEIPTPRINTERDESC' placeholder='凭条设备故障描述 '
+                                value='<%=Model.RECEIPTPRINTERDESC%>' class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="INVOICEPRINTERSTATE">票据打印机状态 :</label>
+                        <div class="col-sm-8">
+                            <input id='INVOICEPRINTERSTATE' name='INVOICEPRINTERSTATE' placeholder='票据打印机状态 '
+                                value='<%=Model.INVOICEPRINTERSTATE%>' class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="INVOICEPRINTERDESC">发票打印机故障描述 :</label>
+                        <div class="col-sm-8">
+                            <input id='INVOICEPRINTERDESC' name='INVOICEPRINTERDESC' placeholder='发票打印机故障描述 '
+                                value='<%=Model.INVOICEPRINTERDESC%>' class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="REVICETIME">接收到客户端消息 :</label>
+                        <div class="col-sm-8">
+                            <input id='REVICETIME' name='REVICETIME' placeholder='接收到客户端消息 '
+                                value='<%=Model.REVICETIME%>' class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="MAILISSEND">故障邮件是否发送 :</label>
+                        <div class="col-sm-8">
+                            <input id='MAILISSEND' name='MAILISSEND' placeholder='故障邮件是否发送 '
+                                value='<%=Model.MAILISSEND%>' class='form-control'>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="MSGISSEND">是否发送短信 :</label>
+                        <div class="col-sm-8">
+                            <input id='MSGISSEND' name='MSGISSEND' placeholder='是否发送短信 ' value='<%=Model.MSGISSEND%>'
+                                class='form-control'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+
+
+<script>
+    $(function () {
+
+    });
+
+    function initValidator() {
+        $('#dform').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {}
+
+        });
+    }
+
+
+    function Submit() {
+        initValidator();
+        $('#dform').data('bootstrapValidator').validate();
+        if (!$('#dform').data('bootstrapValidator').isValid()) {
+            return false;
+        }
+        var action = $("#dform").attr("action");
+        var params = new FormData($("#dform")[0]);
+        var option = {
+            postUrl: action,
+            message: '确定要保存数据吗？',
+            param: params,
+            successCallBack: function (data) { //添加成功
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.tableRefresh();
+                parent.layer.close(index);
+
+            },
+            errorCallBack: null
+        };
+        bstrap.confirm(option); //弹出提示确认框
+    }
+</script>

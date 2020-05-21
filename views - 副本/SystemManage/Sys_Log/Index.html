@@ -1,0 +1,306 @@
+﻿
+<div class="wrapper wrapper-content animated ">
+    <div class="ibox">
+        <div class="ibox-title">
+            <form id="dform" class="form-horizontal">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="account">账号：</label>
+                            <div class="col-sm-8">
+                                <input id="account" name="account" placeholder="账号" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="nickName">名字：</label>
+                            <div class="col-sm-8">
+                                <input id="nickName" name="nickName" placeholder="名字" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="iPAddress">远程IP：</label>
+                            <div class="col-sm-8">
+                                <input id="iPAddress" name="iPAddress" placeholder="远程IP" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="memo">描述：</label>
+                            <div class="col-sm-8">
+                                <input id="memo" name="memo" placeholder="描述" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 ">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="StartDate">起始时间：</label>
+                            <div class="col-sm-8">
+                                <input id="StartDate" name="StartDate" class="laydate-icon form-control layer-date">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 ">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="EndDate">结束时间：</label>
+                            <div class="col-sm-8">
+                                <input id="EndDate" name="EndDate" class="laydate-icon form-control layer-date">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-sm btn-primary" id="btn_search"><i
+                                class="fa fa-search"></i>搜索</button>
+                    </div>
+                </div>
+            </form>
+            <div class="ibox-content">
+                <div class="row">
+
+                    <table id="tb_grid"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        bstrap.initDate('#StartDate','#EndDate')
+        $("#btn_Importxml").click(function () {
+            Import();
+        });
+
+        $("#btn_search").click(function () {
+            $("#tb_grid").bootstrapTable('refresh');
+        });
+      
+        initTable();
+       // createExportLog();
+    });
+
+
+    function initTable() {
+
+        var options = {
+            gridName: 'tb_grid', //网格名称
+            url: '/SystemManage/sys_log/GetAllList', //表格提交地址
+            sidePagination: 'client', //客户端client分页还是服务端server分页
+            param: queryParams, //查询参数
+            uniqueId: 'BookId', //每一行的唯一标识，一般为主键列
+            columns: [
+
+                {
+                    'halign': 'center',
+                    'align': 'center',
+                    field: 'account',
+                    title: '账号',
+
+                },
+                {
+                    'halign': 'center',
+                    'align': 'center',
+                    field: 'nickName',
+                    title: '姓名'
+                },
+
+                {
+                    'halign': 'center',
+                    'align': 'center',
+                    field: 'iPAddress',
+                    title: '远程IP'
+                },
+                {
+                    'halign': 'center',
+                    'align': 'center',
+                    field: 'funName',
+                    title: '功能', formatter: function (key, row) {
+                        let value = '';
+ 
+                        switch (key) {
+                            case '0':
+                                value = "<span class='text-success'>查询</span>";
+                                break;
+                            case '1':
+                                value = "<span class='text-info'>新增</span>";
+                                break;
+                            case '2':
+                                value = "<span class='text-warning'>修改</span>";
+                                break;
+                            case '3':
+                                value = "<span class='text-danger'>删除</span>";
+                                break;
+                            case '4':
+                                value = "<span class='text-danger'>导出数据</span>";
+                                break;
+                            case '5':
+                                value = "<span class='text-danger'>发送命令</span>";
+                                break;
+                            default:
+                                value = "<span class='text-muted'>其他</span>";
+                                break;
+                        }
+                        return value;
+                    }
+                },
+
+
+                {
+                    'halign': 'center',
+                    'align': 'center',
+                    field: 'memo',
+                    title: '描述'  },
+                {
+                    'halign': 'center',
+                    'align': 'center',
+                    field: 'result',
+                    title: '结果', formatter: function (key, row) {
+                        return (key=='0')?"<span class='text-info'>成功</span>":"<span class='text-danger'>失败</span>"
+                    }},
+              
+                {
+                    'halign': 'center',
+                    'align': 'center',
+                    field: 'creatorTime',
+                    title: '创建时间',
+                    formatter: function (value, row) { return bstrap.dateFtt('yyyy-MM-dd hh:mm:ss', new Date(value)) }
+                }
+            ], //显示网格列表信息
+            LoadSuccess: function (data) {
+
+            }, //加载成功回调函数
+
+            height: $(window).height() - 60, //table表格高度
+        };
+        bstrap.initGrid(options)
+    }
+
+    function queryParams(params) {
+        var param = $.param({
+            // 当前页数
+            "offset": this.offset,
+            "pageindex": this.pageNumber,
+            // 每页显示多少条
+            "pageSize": this.pageSize
+        }) + '&' + $('#dform').serialize();
+        return param;
+
+    }
+
+    function tableRefresh() {
+
+        $("#tb_grid").bootstrapTable('refresh', $("#dform").serialize());
+    }
+
+    function show(Id) {
+
+        var defaults = {
+            title: '',
+            width: "1024px",
+            height: "500px",
+            url: " /SystemManage/sys_log/Index?Id=" + Id,
+            shade: 0.3,
+            LoadSuccess: function (layero, index) {
+                var body = layer.getChildFrame('body', index);
+                var iframeWin = window[layero.find('iframe')[0][
+                    'name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+
+            }
+
+        };
+        var index = $.modalOpen(defaults)
+        //  layer.full(index);
+    }
+
+    function AddIndex() {
+        var defaults = {
+            title: ' 系统日志 增加 ',
+            width: "1024px",
+            height: "500px",
+            url: " /SystemManage/sys_log/AddIndex",
+            shade: 0.3,
+
+            btn: ['确认', '关闭'],
+
+            LoadSuccess: function (layero, index) {
+                var body = layer.getChildFrame('body', index);
+                var iframeWin = window[layero.find('iframe')[0][
+                    'name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                iframeWin.$("#dform").attr("action", "/SystemManage/sys_log/Add");
+            },
+            callBack: function (layero) {
+                var iframeWin = window[layero.find('iframe')[0]['name']];
+                iframeWin.Submit();
+
+            }
+        };
+        var index = $.modalOpen(defaults)
+        //  layer.full(index);
+    }
+
+    function modify(Id) {
+        var defaults = {
+            title: '修改',
+            width: "1024px",
+            height: "500px",
+            url: " /SystemManage/sys_log/UpdateIndex?Id=" + Id,
+
+            shade: 0.3,
+            btn: ['确认', '关闭'],
+
+            LoadSuccess: function (layero, index) {
+                var body = layer.getChildFrame('body', index);
+                var iframeWin = window[layero.find('iframe')[0][
+                    'name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                iframeWin.$("#dform").attr("action", "/SystemManage/sys_log/Update");
+            },
+            callBack: function (layero) {
+                var iframeWin = window[layero.find('iframe')[0]['name']];
+                iframeWin.Submit();
+
+            }
+        };
+        var index = $.modalOpen(defaults)
+        // layer.full(index);
+    }
+
+    function Remove() {
+
+        var row = $("#tb_grid").bootstrapTable('getSelections');
+        if (row == null || row.length == 0) {
+
+            toastr.warning("请选择要操作的行");
+
+            return;
+        }
+        var arrays = [];
+        for (var i = 0; i < row.length; i++) {
+            arrays.push(row[i].LogId);
+        }
+        var ids = arrays.join(',');
+        var formData = new FormData();
+        formData.append("ids", ids);
+        var option = {
+            postUrl: '/SystemManage/sys_log/Remove',
+            message: '确定要删除这' + row.length + '条记录吗？',
+            param: formData,
+            successCallBack: function (data) { //成功
+
+                tableRefresh();
+            },
+            errorCallBack: null
+        };
+        bstrap.confirm(option); //弹出提示确认框
+
+
+
+    }
+</script>
